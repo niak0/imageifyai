@@ -26,42 +26,30 @@ class _TextToImageContent extends StatefulWidget {
 }
 
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  bool _isExpanded = false;
-  final double _minHeight = 200.0;
-  double _maxHeight = 150.0;
-  final GlobalKey _chatInputKey = GlobalKey();
+  double _currentHeight = 200;
+  static const double _minHeight = 200;
+  static const double _maxHeight = 600;
+  static const double _bottomBarHeight = 80; // BottomNavigationBar yüksekliği
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _updateMaxHeight();
+  double get _expandRatio => (_currentHeight - _minHeight) / (_maxHeight - _minHeight);
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    setState(() {
+      _currentHeight = (_currentHeight - details.delta.dy).clamp(_minHeight, _maxHeight);
     });
   }
 
-  void _updateMaxHeight() {
-    final RenderBox? renderBox = _chatInputKey.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      setState(() {
-        _maxHeight = renderBox.size.height;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _handleDragEnd(DragEndDetails details) {
+    final shouldExpand = _expandRatio > 0.5;
+    setState(() {
+      _currentHeight = shouldExpand ? _maxHeight : _minHeight;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<TextToImageViewModel>();
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return GradientScaffold(
       appBar: AppBar(
@@ -89,47 +77,116 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
       body: Stack(
         children: [
           // Mesajlar Listesi
-          Padding(
-            padding: EdgeInsets.only(bottom: _minHeight + 80),
-            child: ListView.builder(
-              reverse: true,
-              padding: const EdgeInsets.all(16),
-              itemCount: viewModel.messages.length,
-              itemBuilder: (context, index) {
-                final message = viewModel.messages[index];
-                return ChatMessageItem(message: message);
-              },
+          ListView.builder(
+            reverse: true,
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 16,
+              bottom: _minHeight, // BottomBar ve Input için padding
             ),
+            itemCount: viewModel.messages.length,
+            itemBuilder: (context, index) {
+              final message = viewModel.messages[index];
+              return ChatMessageItem(message: message);
+            },
           ),
 
           // Chat Input
-          ChatInput(
-            key: _chatInputKey,
-            onSend: viewModel.sendMessage,
-            onSurpriseMe: viewModel.generateSurprisePrompt,
-            onAddImage: () {
-              // Görsel ekleme işlevi
-            },
-            height: _minHeight + (_maxHeight - _minHeight) * _controller.value,
-            isExpanded: _isExpanded,
-            onDragUpdate: (details) {
-              setState(() {
-                final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
-                _controller.value = newValue.clamp(0.0, 1.0);
-                _isExpanded = _controller.value > 0.5;
-              });
-            },
-            onDragEnd: (details) {
-              if (_controller.value > 0.5) {
-                _controller.animateTo(1.0);
-                setState(() => _isExpanded = true);
-              } else {
-                _controller.animateTo(0.0);
-                setState(() => _isExpanded = false);
-              }
-            },
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: GestureDetector(
+              onVerticalDragUpdate: _handleDragUpdate,
+              onVerticalDragEnd: _handleDragEnd,
+              child: Container(
+                height: _currentHeight,
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  // Overflow'u engellemek için
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: ChatInput(
+                    expandRatio: _expandRatio,
+                    onSend: viewModel.sendMessage,
+                    onSurpriseMe: viewModel.generateSurprisePrompt,
+                    onAddImage: () {
+                      // Görsel ekleme işlevi
+                    },
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        height: _bottomBarHeight + bottomPadding,
+        padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomPadding),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          border: Border(
+            top: BorderSide(
+              color: AppColors.outline.withOpacity(0.1),
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  // İleri butonu işlevi
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.surface,
+                  foregroundColor: AppColors.primary,
+                  elevation: 8,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: const BorderSide(color: AppColors.primary),
+                  ),
+                ),
+                child: const Text(
+                  'İleri',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Oluştur butonu işlevi
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  elevation: 8,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Oluştur',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
