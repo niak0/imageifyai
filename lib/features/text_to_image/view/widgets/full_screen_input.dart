@@ -100,6 +100,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                       controller: _controller,
                       autofocus: true,
                       maxLines: null,
+                      enabled: true,
                       style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 16,
