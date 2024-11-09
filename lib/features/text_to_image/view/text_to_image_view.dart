@@ -38,7 +38,6 @@ class _TextToImageContent extends StatelessWidget {
               children: [
                 const PromptInput(),
                 const SizedBox(height: 16),
-                const StyleSelector(),
                 const StylesSection(),
                 const SizedBox(height: 16),
                 const SizeSelector(),

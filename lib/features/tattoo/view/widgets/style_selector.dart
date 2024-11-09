@@ -35,7 +35,7 @@ class StyleSelector extends StatelessWidget {
                         width: 2,
                       ),
                       image: DecorationImage(
-                        image: AssetImage(style.imagePath),
+                        image: NetworkImage(style.imagePath),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -56,4 +56,4 @@ class StyleSelector extends StatelessWidget {
       ),
     );
   }
-} 
+}

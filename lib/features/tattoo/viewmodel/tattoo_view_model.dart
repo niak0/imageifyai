@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/features/tattoo/model/tattoo_example.dart';
 import '../model/tattoo_style.dart';
 
 class TattooViewModel extends ChangeNotifier {
@@ -14,7 +15,25 @@ class TattooViewModel extends ChangeNotifier {
   TattooStyle get selectedStyle => _selectedStyle;
   bool get isLoading => _isLoading;
   String? get error => _error;
-
+  // Örnek dövmeler ve ilgili promptları
+  final List<TattooExample> examples = [
+    TattooExample(
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      prompt: 'Minimal tarzda geometrik kurt dövmesi',
+    ),
+    TattooExample(
+      imageUrl: 'https://picsum.photos/id/238/200/300',
+      prompt: 'Japon tarzı ejderha ve kiraz çiçekleri',
+    ),
+    TattooExample(
+      imageUrl: 'https://picsum.photos/id/239/200/300',
+      prompt: 'Deniz dalgaları içinde yüzen balina',
+    ),
+    TattooExample(
+      imageUrl: 'https://picsum.photos/id/240/200/300',
+      prompt: 'Tribal tarzda aslan portresi',
+    ),
+  ];
   // Örnek dövme görselleri
   final List<String> exampleImages = [
     'https://picsum.photos/id/237/200/300',

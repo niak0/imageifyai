@@ -67,7 +67,7 @@ class _StyleCard extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Image.network(
-                "style.imageUrl",
+                'https://picsum.photos/120/120?random=${style.index}',
                 fit: BoxFit.cover,
               ),
               Positioned(
@@ -87,7 +87,7 @@ class _StyleCard extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "style.title",
+                    style.prompt,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
