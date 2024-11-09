@@ -28,7 +28,7 @@ class _TextToImageContent extends StatefulWidget {
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isExpanded = false;
-  double _minHeight = 150.0;
+  final double _minHeight = 200.0;
   double _maxHeight = 150.0;
   final GlobalKey _chatInputKey = GlobalKey();
 

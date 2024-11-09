@@ -134,12 +134,49 @@ class _ChatInputState extends State<ChatInput> {
                       ),
                     ),
                     // Genişletilmiş içerik - Opacity ile kontrol
+
                     AnimatedOpacity(
                       duration: const Duration(milliseconds: 200),
                       opacity: expandRatio,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Negatif Prompt',
+                                  style: TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: AppColors.primary.withOpacity(0.3),
+                                    ),
+                                  ),
+                                  child: const TextField(
+                                    maxLines: 2,
+                                    style: TextStyle(color: AppColors.textPrimary),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'İstemediğiniz özellikleri belirtin...',
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           // Stiller
                           Padding(
                             padding: const EdgeInsets.all(16),
@@ -193,43 +230,6 @@ class _ChatInputState extends State<ChatInput> {
                                     _buildAspectRatioOption('16:9', false),
                                     _buildAspectRatioOption('9:16', false),
                                   ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Negatif Prompt
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Negatif Prompt',
-                                  style: TextStyle(
-                                    color: AppColors.textPrimary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Container(
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: AppColors.primary.withOpacity(0.3),
-                                    ),
-                                  ),
-                                  child: const TextField(
-                                    maxLines: 2,
-                                    style: TextStyle(color: AppColors.textPrimary),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'İstemediğiniz özellikleri belirtin...',
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),
