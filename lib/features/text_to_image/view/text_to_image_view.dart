@@ -28,8 +28,8 @@ class _TextToImageContent extends StatefulWidget {
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isExpanded = false;
-  double _minHeight = 230.0;
-  double _maxHeight = 230.0;
+  double _minHeight = 150.0;
+  double _maxHeight = 150.0;
   final GlobalKey _chatInputKey = GlobalKey();
 
   @override
@@ -62,6 +62,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<TextToImageViewModel>();
+    final bottomPadding = MediaQuery.of(context).padding.bottom + 80; // Alt butonlar için ekstra padding
 
     return GradientScaffold(
       appBar: AppBar(
@@ -90,7 +91,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
         children: [
           // Mesajlar Listesi
           Padding(
-            padding: EdgeInsets.only(bottom: _minHeight),
+            padding: EdgeInsets.only(bottom: _minHeight + bottomPadding),
             child: ListView.builder(
               reverse: true,
               padding: const EdgeInsets.all(16),
@@ -106,7 +107,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
           Positioned(
             left: 0,
             right: 0,
-            bottom: 0,
+            bottom: bottomPadding,
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
                 setState(() {
@@ -174,65 +175,62 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
                   ],
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: SafeArea(
-                top: false,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            // İleri butonu işlevi
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.surface,
-                            foregroundColor: AppColors.primary,
-                            elevation: 8,
-                            shadowColor: AppColors.primary.withOpacity(0.3),
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: const BorderSide(color: AppColors.primary),
-                            ),
+              padding: EdgeInsets.fromLTRB(16, 12, 16, MediaQuery.of(context).padding.bottom + 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // İleri butonu işlevi
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.surface,
+                          foregroundColor: AppColors.primary,
+                          elevation: 8,
+                          shadowColor: AppColors.primary.withOpacity(0.3),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: const BorderSide(color: AppColors.primary),
                           ),
-                          icon: const Icon(Icons.arrow_forward),
-                          label: const Text(
-                            'İleri',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
+                        ),
+                        icon: const Icon(Icons.arrow_forward),
+                        label: const Text(
+                          'İleri',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            // Oluştur butonu işlevi
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: Colors.white,
-                            elevation: 8,
-                            shadowColor: AppColors.primary.withOpacity(0.3),
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // Oluştur butonu işlevi
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          shadowColor: AppColors.primary.withOpacity(0.3),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          icon: const Icon(Icons.create),
-                          label: const Text(
-                            'Oluştur',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
+                        ),
+                        icon: const Icon(Icons.create),
+                        label: const Text(
+                          'Oluştur',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
