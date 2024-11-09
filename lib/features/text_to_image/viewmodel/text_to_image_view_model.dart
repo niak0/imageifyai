@@ -1,86 +1,124 @@
 import '../../../core/base/base_view_model.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
-import '../model/image_options.dart';
+import '../model/chat_message.dart';
 
 class TextToImageViewModel extends BaseViewModel {
   final ApiService _apiService = ApiService();
   final CacheService _cacheService = CacheService();
 
-  String _prompt = '';
-  Styles? _selectedStyle;
-  ImageSize _selectedSize = ImageSize.medium;
-  ImageQuality _selectedQuality = ImageQuality.high;
-  AIModel _selectedModel = AIModel.stableDiffusion;
+  final List<ChatMessage> _messages = [];
+  List<ChatMessage> get messages => List.unmodifiable(_messages);
 
-  // Getters
-  String get prompt => _prompt;
-  Styles? get selectedStyle => _selectedStyle;
-  ImageSize get selectedSize => _selectedSize;
-  ImageQuality get selectedQuality => _selectedQuality;
-  AIModel get selectedModel => _selectedModel;
+  // Örnek sürpriz promptlar
+  final List<String> _surprisePrompts = [
+    'Neon ışıklarıyla aydınlatılmış cyberpunk şehir manzarası',
+    'Mistik bir ormanın derinliklerinde dans eden periler',
+    'Steampunk tarzında mekanik bir ejderha',
+    'Uzay boşluğunda süzülen renkli baloncuklar içinde kelebekler',
+    'Antik bir tapınağın içinde meditasyon yapan robot keşişler',
+    'Kristal dağların arasında uçan fosforlu balinalar',
+    'Retro-fütüristik bir uzay istasyonunda günbatımı',
+    'Yağmurlu bir gecede neon tabelalar altında yürüyen samuray',
+  ];
 
-  bool get canGenerate => _prompt.trim().length >= 10 && _selectedStyle != null && !isLoading;
-
-  void setPrompt(String value) {
-    _prompt = value;
+  void initialize() {
+    // Başlangıç mesajını ekle
+    _messages.add(
+      ChatMessage.bot(
+        message: 'Merhaba! 👋 Ben AI Asistanınızım. Oluşturmak istediğiniz görsel hakkında bana bilgi verebilir misiniz?',
+      ),
+    );
     notifyListeners();
   }
 
-  void selectStyle(Styles style) {
-    _selectedStyle = style;
-    notifyListeners();
-  }
+  Future<void> sendMessage(String message) async {
+    if (message.trim().isEmpty) return;
 
-  void setSize(ImageSize size) {
-    _selectedSize = size;
+    // Kullanıcı mesajını ekle
+    _messages.add(ChatMessage.user(message));
     notifyListeners();
-  }
 
-  void setQuality(ImageQuality quality) {
-    _selectedQuality = quality;
-    notifyListeners();
-  }
-
-  void setModel(AIModel model) {
-    _selectedModel = model;
-    notifyListeners();
-  }
-
-  Future<void> generateImage() async {
     await handleAsync(() async {
       try {
-        final cachedImage = _cacheService.getCachedImage(_prompt);
+        // Loading mesajını ekle
+        final loadingMessage = ChatMessage.loading();
+        _messages.add(loadingMessage);
+        notifyListeners();
+
+        // Cache'den kontrol et
+        final cachedImage = _cacheService.getCachedImage(message);
         if (cachedImage != null) {
-          return cachedImage;
+          _messages.remove(loadingMessage);
+          _messages.add(ChatMessage.bot(
+            message: 'İşte sizin için oluşturduğum görsel:',
+            imageUrl: cachedImage,
+          ));
+          return;
         }
 
+        // API isteği
         final response = await _apiService.post(
           '/generate-image',
-          body: {
-            'prompt': _prompt,
-            'style': _selectedStyle?.prompt,
-            'size': '${_selectedSize.width}x${_selectedSize.height}',
-            'steps': _selectedQuality.steps,
-            'model': _selectedModel.title,
-          },
+          body: {'prompt': message},
         );
 
-        await _cacheService.cacheImage(_prompt, response);
-        return response;
+        // Loading mesajını kaldır
+        _messages.remove(loadingMessage);
+
+        // Yanıtı ekle
+        _messages.add(ChatMessage.bot(
+          message: 'İşte sizin için oluşturduğum görsel:',
+          imageUrl: response['image_url'],
+        ));
+
+        // Cache'e kaydet
+        await _cacheService.cacheImage(message, response['image_url']);
       } catch (e) {
-        throw Exception('Görsel oluşturulurken bir hata oluştu: $e');
+        _messages.add(ChatMessage.error(
+          'Görsel oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.',
+        ));
+        rethrow;
       }
     });
   }
 
-  void reset() {
-    _prompt = '';
-    _selectedStyle = null;
-    _selectedSize = ImageSize.medium;
-    _selectedQuality = ImageQuality.high;
-    _selectedModel = AIModel.stableDiffusion;
-    setError(null);
+  void generateSurprisePrompt() {
+    final random = _surprisePrompts[DateTime.now().millisecond % _surprisePrompts.length];
+    sendMessage(random);
+  }
+
+  void clearMessages() {
+    _messages.clear();
+    initialize(); // Başlangıç mesajını tekrar ekle
     notifyListeners();
+  }
+
+  // Görseli indirme
+  Future<void> downloadImage(String imageUrl) async {
+    await handleAsync(() async {
+      try {
+        // await _cacheService.downloadImage(imageUrl);
+      } catch (e) {
+        throw Exception('Görsel indirilirken bir hata oluştu: $e');
+      }
+    });
+  }
+
+  // Görseli paylaşma
+  Future<void> shareImage(String imageUrl) async {
+    await handleAsync(() async {
+      try {
+        // TODO: Paylaşım işlemi
+      } catch (e) {
+        throw Exception('Görsel paylaşılırken bir hata oluştu: $e');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _messages.clear();
+    super.dispose();
   }
 }

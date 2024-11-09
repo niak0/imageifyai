@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/features/text_to_image/view/widgets/quality_selector.dart';
-import 'package:imageifyai/features/text_to_image/view/widgets/size_selector.dart';
-import 'package:imageifyai/features/text_to_image/view/widgets/style_selector.dart';
-import 'package:imageifyai/features/text_to_image/view/widgets/styles_section.dart';
+import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
-import '../viewmodel/text_to_image_view_model.dart';
-import 'widgets/prompt_input.dart';
-import '../../../core/components/buttons/app_button.dart';
+import 'widgets/chat_input.dart';
+import 'widgets/chat_message_item.dart';
 
 class TextToImageView extends StatelessWidget {
   const TextToImageView({super.key});
@@ -16,46 +13,59 @@ class TextToImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TextToImageViewModel(),
-      child: _TextToImageContent(),
+      child: const _TextToImageContent(),
     );
   }
 }
 
 class _TextToImageContent extends StatelessWidget {
+  const _TextToImageContent();
+
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<TextToImageViewModel>();
+
     return GradientScaffold(
       appBar: AppBar(
-        title: const Text('Görsel Oluştur'),
-        centerTitle: true,
-      ),
-      body: Consumer<TextToImageViewModel>(
-        builder: (context, viewModel, child) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const PromptInput(),
-                const SizedBox(height: 16),
-                const StylesSection(),
-                const SizedBox(height: 16),
-                const SizeSelector(),
-                const SizedBox(height: 16),
-                const QualitySelector(),
-                const Spacer(),
-                AppButton(
-                  text: 'Görsel Oluştur',
-                  onPressed: viewModel.canGenerate ? viewModel.generateImage : null,
-                  type: AppButtonType.primary,
-                  size: AppButtonSize.large,
-                  isFullWidth: true,
-                  isLoading: viewModel.isLoading,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Sanat Oluşturucu'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(colors: AppColors.primaryGradient),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                'PRO',
+                style: TextStyle(
+                  color: AppColors.onPrimary,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
             ),
-          );
-        },
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(16),
+              itemCount: viewModel.messages.length,
+              itemBuilder: (context, index) {
+                final message = viewModel.messages[index];
+                return ChatMessageItem(message: message);
+              },
+            ),
+          ),
+          ChatInput(
+            onSend: viewModel.sendMessage,
+            onSurpriseMe: viewModel.generateSurprisePrompt,
+          ),
+        ],
       ),
     );
   }
