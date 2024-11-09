@@ -18,8 +18,33 @@ class TextToImageView extends StatelessWidget {
   }
 }
 
-class _TextToImageContent extends StatelessWidget {
+class _TextToImageContent extends StatefulWidget {
   const _TextToImageContent();
+
+  @override
+  State<_TextToImageContent> createState() => _TextToImageContentState();
+}
+
+class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _isExpanded = false;
+  static const double _minHeight = 230.0;
+  static const double _maxHeight = 600.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +77,7 @@ class _TextToImageContent extends StatelessWidget {
         children: [
           // Mesajlar Listesi
           Padding(
-            padding: const EdgeInsets.only(bottom: 80), // Alt butonlar için boşluk
+            padding: EdgeInsets.only(bottom: _minHeight),
             child: ListView.builder(
               reverse: true,
               padding: const EdgeInsets.all(16),
@@ -64,47 +89,69 @@ class _TextToImageContent extends StatelessWidget {
             ),
           ),
 
-          // Kaydırılabilir ChatInput
-          // Kaydırılabilir ChatInput
-          DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            minChildSize: 0.4,
-            maxChildSize: 0.85,
-            builder: (context, scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.surface.withOpacity(0.95),
-                      AppColors.surface,
-                    ],
-                  ),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, -2),
+          // Sürüklenebilir Input Alanı
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: GestureDetector(
+              onVerticalDragUpdate: (details) {
+                setState(() {
+                  if (_isExpanded) {
+                    if (details.delta.dy > 0) {
+                      // Aşağı sürükleme
+                      final newValue = _controller.value + (details.delta.dy / (_maxHeight - _minHeight));
+                      _controller.value = newValue.clamp(0.0, 1.0);
+                    }
+                  } else {
+                    if (details.delta.dy < 0) {
+                      // Yukarı sürükleme
+                      final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
+                      _controller.value = newValue.clamp(0.0, 1.0);
+                    }
+                  }
+                });
+              },
+              onVerticalDragEnd: (details) {
+                if (_controller.value > 0.5) {
+                  _controller.forward();
+                  setState(() => _isExpanded = true);
+                } else {
+                  _controller.reverse();
+                  setState(() => _isExpanded = false);
+                }
+              },
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  final height = _minHeight + (_maxHeight - _minHeight) * _controller.value;
+                  return Container(
+                    height: height,
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 80), // Alt butonlar için boşluk
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: ChatInput(
-                      onSend: viewModel.sendMessage,
-                      onSurpriseMe: viewModel.generateSurprisePrompt,
-                      onAddImage: () {
-                        // Görsel ekleme işlevi
-                      },
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: ChatInput(
+                        onSend: viewModel.sendMessage,
+                        onSurpriseMe: viewModel.generateSurprisePrompt,
+                        onAddImage: () {
+                          // Görsel ekleme işlevi
+                        },
+                      ),
                     ),
-                  ),
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
 
           // Sabit Alt Butonlar

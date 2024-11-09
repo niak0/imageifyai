@@ -95,7 +95,8 @@ class _ChatInputState extends State<ChatInput> {
             child: TextField(
               controller: _textController,
               enabled: false,
-              style: const TextStyle(color: Colors.white),
+              maxLines: 2,
+              style: TextStyle(color: AppColors.primary),
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'İstem Girin',
