@@ -12,7 +12,7 @@ class TextToImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TextToImageViewModel(),
+      create: (_) => TextToImageViewModel()..initialize(),
       child: const _TextToImageContent(),
     );
   }
@@ -64,6 +64,9 @@ class _TextToImageContent extends StatelessWidget {
           ChatInput(
             onSend: viewModel.sendMessage,
             onSurpriseMe: viewModel.generateSurprisePrompt,
+            onAddImage: () {
+              // Görsel ekleme işlemi
+            },
           ),
         ],
       ),

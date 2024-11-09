@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/color_constants.dart';
 import 'full_screen_input.dart';
 
-class ChatInput extends StatelessWidget {
+class ChatInput extends StatefulWidget {
   final Function(String) onSend;
   final VoidCallback? onSurpriseMe;
   final VoidCallback? onAddImage;
@@ -15,110 +15,267 @@ class ChatInput extends StatelessWidget {
   });
 
   @override
+  State<ChatInput> createState() => _ChatInputState();
+}
+
+class _ChatInputState extends State<ChatInput> with SingleTickerProviderStateMixin {
+  bool _isExpanded = false;
+  late AnimationController _animationController;
+  final TextEditingController _textController = TextEditingController();
+  double _dragStartY = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _textController.dispose();
+    super.dispose();
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    if (details.primaryDelta! < 0) {
+      // Yukarı sürükleme
+      if (!_isExpanded) {
+        setState(() {
+          _isExpanded = true;
+          _animationController.forward();
+        });
+      }
+    } else if (details.primaryDelta! > 0) {
+      // Aşağı sürükleme
+      if (_isExpanded) {
+        setState(() {
+          _isExpanded = false;
+          _animationController.reverse();
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.outline.withOpacity(0.1),
+    return GestureDetector(
+      onVerticalDragUpdate: _handleDragUpdate,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: _isExpanded ? MediaQuery.of(context).size.height * 0.8 : null,
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(
+            top: const Radius.circular(20),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
+          ],
         ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Üst kısımdaki butonlar
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildActionButton(
-                onPressed: onSurpriseMe,
-                icon: Icons.casino,
-                label: 'Beni Şaşırt',
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Draggable Handle
+            Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey[600],
+                borderRadius: BorderRadius.circular(2),
               ),
-              _buildActionButton(
-                onPressed: onAddImage,
-                icon: Icons.add_photo_alternate_outlined,
-                label: 'Görsel Ekle',
+            ),
+            // Beni Şaşırt ve Görsel Ekle butonları
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton.icon(
+                  onPressed: () {
+                    final random = DateTime.now().millisecond % 8;
+                    _textController.text = [
+                      'Neon ışıklarıyla aydınlatılmış cyberpunk şehir manzarası',
+                      'Mistik bir ormanın derinliklerinde dans eden periler',
+                      'Steampunk tarzında mekanik bir ejderha',
+                      'Uzay boşluğunda süzülen renkli baloncuklar içinde kelebekler',
+                      'Antik bir tapınağın içinde meditasyon yapan robot keşişler',
+                      'Kristal dağların arasında uçan fosforlu balinalar',
+                      'Retro-fütüristik bir uzay istasyonunda günbatımı',
+                      'Yağmurlu bir gecede neon tabelalar altında yürüyen samuray',
+                    ][random];
+                  },
+                  icon: const Icon(Icons.casino, color: AppColors.primary),
+                  label: const Text('Beni Şaşırt', style: TextStyle(color: AppColors.primary)),
+                ),
+                TextButton.icon(
+                  onPressed: widget.onAddImage,
+                  icon: const Icon(Icons.add_photo_alternate_outlined, color: AppColors.primary),
+                  label: const Text('Görsel Ekle', style: TextStyle(color: AppColors.primary)),
+                ),
+              ],
+            ),
+            // Text Input
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => FullScreenInput(
+                      onSubmit: widget.onSend,
+                      initialText: _textController.text,
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.background,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: AppColors.primary.withOpacity(0.5),
+                      width: 2,
+                    ),
+                  ),
+                  constraints: const BoxConstraints(minHeight: 80),
+                  child: TextField(
+                    controller: _textController,
+                    enabled: false,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Görsel türü, obje, herhangi bir det...',
+                      hintStyle: TextStyle(color: AppColors.textSecondary),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            if (_isExpanded) ...[
+              // Genişletilmiş içerik
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Negatif Prompt
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.background,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: AppColors.primary.withOpacity(0.5),
+                            ),
+                          ),
+                          child: const TextField(
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Negatif Prompt...',
+                              hintStyle: TextStyle(color: AppColors.textSecondary),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Stiller
+                      Container(
+                        height: 100,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            _buildStyleChip('Van Gogh'),
+                            _buildStyleChip('Gerçekçi'),
+                            _buildStyleChip('Fantastik'),
+                            _buildStyleChip('Retro'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
-          ),
-          const SizedBox(height: 8),
-          // Input alanı
-          GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => FullScreenInput(
-                  onSubmit: onSend,
-                  onSurpriseMe: onSurpriseMe,
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: AppColors.surfaceVariant,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(
-                  color: AppColors.primary.withOpacity(0.5),
-                  width: 1,
-                ),
-              ),
+            // Alt Butonlar
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      'İstem Girin',
-                      style: TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 16,
-                      ),
+                    child: _buildButton(
+                      label: 'İleri',
+                      onTap: () {},
+                      isPrimary: false,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      'Oluştur',
-                      style: TextStyle(
-                        color: AppColors.onPrimary,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildButton(
+                      label: 'Oluştur',
+                      onTap: () => widget.onSend(_textController.text),
+                      isPrimary: true,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildActionButton({
-    required VoidCallback? onPressed,
-    required IconData icon,
-    required String label,
-  }) {
-    return TextButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon, color: AppColors.primary),
-      label: Text(
-        label,
-        style: const TextStyle(
-          color: AppColors.primary,
-        ),
+  Widget _buildStyleChip(String label) {
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      child: Chip(
+        label: Text(label),
+        backgroundColor: AppColors.surface,
+        side: BorderSide(color: AppColors.primary.withOpacity(0.5)),
       ),
-      style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    );
+  }
+
+  Widget _buildButton({
+    required String label,
+    required VoidCallback onTap,
+    required bool isPrimary,
+  }) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        gradient: isPrimary ? const LinearGradient(colors: AppColors.primaryGradient) : null,
+        color: isPrimary ? null : AppColors.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: isPrimary ? null : Border.all(color: AppColors.primary.withOpacity(0.5)),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(24),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: isPrimary ? AppColors.onPrimary : AppColors.primary,
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

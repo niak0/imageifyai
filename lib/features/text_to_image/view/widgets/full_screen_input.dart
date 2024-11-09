@@ -32,78 +32,174 @@ class _FullScreenInputState extends State<FullScreenInput> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          if (_hasText)
-            TextButton(
-              onPressed: () {
-                widget.onSubmit(_controller.text);
-                Navigator.pop(context);
-              },
-              child: const Text('Oluştur'),
-            ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: TextField(
-                controller: _controller,
-                autofocus: true,
-                maxLines: null,
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 18,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Oluşturmak istediğiniz görseli detaylı bir şekilde anlatın...',
-                  hintStyle: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.all(16),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Custom AppBar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: AppColors.surface,
                 border: Border(
-                  top: BorderSide(
+                  bottom: BorderSide(
                     color: AppColors.outline.withOpacity(0.1),
                   ),
                 ),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (!_hasText)
-                    IconButton(
-                      icon: const Icon(Icons.smart_toy_outlined),
-                      color: AppColors.primary,
-                      onPressed: widget.onSurpriseMe,
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      'Kapat',
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 16,
+                      ),
                     ),
-                  const Spacer(),
+                  ),
                   Text(
                     '${_controller.text.length}/500',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.textSecondary,
+                      fontSize: 16,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      _controller.clear();
+                      setState(() {});
+                    },
+                    child: const Text(
+                      'Tümünü Temizle',
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+            // Content
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'İstem Girin',
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextField(
+                      controller: _controller,
+                      autofocus: true,
+                      maxLines: null,
+                      style: const TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 16,
+                      ),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Görsel türü, obje, herhangi bir detay',
+                        hintStyle: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      'Örn: Şapkalı bir kedi portresi',
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Etiket Paketleri
+            Container(
+              height: 120,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'Etiket Paketleri',
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      children: [
+                        _buildStyleCard('Van Gogh'),
+                        _buildStyleCard('Gerçekçi'),
+                        _buildStyleCard('Fantastik'),
+                        _buildStyleCard('Retro'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStyleCard(String title) {
+    return Container(
+      width: 120,
+      margin: const EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        image: DecorationImage(
+          image: NetworkImage('https://picsum.photos/200'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.7),
+            ],
           ),
-        ],
+        ),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
