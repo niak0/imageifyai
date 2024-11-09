@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/theme/app_styles.dart';
 import '../../../../core/constants/color_constants.dart';
 
 class ChatInput extends StatelessWidget {
@@ -19,23 +20,24 @@ class ChatInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final textController = TextEditingController();
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Handle
-        Container(
-          width: 40,
-          height: 4,
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: AppColors.outline,
-            borderRadius: BorderRadius.circular(2),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Handle
+          Container(
+            width: 40,
+            height: 4,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.outline,
+              borderRadius: BorderRadius.circular(2),
+            ),
           ),
-        ),
-        // Üst Butonlar
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
+          // Üst Butonlar
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildActionButton(
                 icon: Icons.casino,
@@ -50,81 +52,82 @@ class ChatInput extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        const SizedBox(height: 16),
-        // Ana İstem Input Alanı
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: AppColors.background,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: AppColors.primary.withOpacity(0.5),
-                width: 2,
+          const SizedBox(height: 16),
+          // Ana İstem Input Alanı
+          InkWell(
+            onTap: () {
+              print("object");
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.primary,
+                  width: 3.0, // Kalın kenar
+                ),
               ),
-            ),
-            child: TextField(
-              controller: textController,
-              maxLines: 2,
-              style: const TextStyle(color: AppColors.textPrimary),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: 'İstem Girin\nGörsel türü, obje, herhangi bir det...',
-                hintStyle: TextStyle(color: AppColors.textSecondary),
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: textController,
+                enabled: false,
+                maxLines: 2,
+                style: const TextStyle(color: AppColors.textPrimary),
+                decoration: AppStyles.inputDecoration.copyWith(
+                  hintText: 'İstem Girin\nGörsel türü, obje, herhangi bir det...',
+                  hintStyle: TextStyle(color: AppColors.textSecondary),
+                  border: InputBorder.none,
+                ),
               ),
             ),
           ),
-        ),
-        // Genişletilmiş içerik
-        AnimatedOpacity(
-          duration: const Duration(milliseconds: 200),
-          opacity: expandRatio,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              // Negatif Prompt
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: AppColors.outline,
+          // Genişletilmiş içerik
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 200),
+            opacity: expandRatio,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                // Negatif Prompt
+                InkWell(
+                  onTap: () {
+                    print("object");
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: AppColors.outline,
+                        width: 3.0, // Kalın kenar
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: textController,
+                      enabled: false,
+                      maxLines: 1,
+                      style: const TextStyle(color: AppColors.textPrimary),
+                      decoration: AppStyles.inputDecoration.copyWith(
+                        hintText: 'Negatif İstem Girin',
+                        hintStyle: TextStyle(color: AppColors.textSecondary),
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Negatif İstem Girin',
-                        style: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                        ),
-                      ),
-                      TextField(
-                        maxLines: 2,
-                        style: const TextStyle(color: AppColors.textPrimary),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Son görselde ne görmek istemediğinizi belirtin.',
-                          hintStyle: TextStyle(color: AppColors.textSecondary),
-                        ),
-                      ),
-                    ],
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'Negatif İstem Girin',
+                  style: TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 14,
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              // Stiller
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
+                const SizedBox(height: 16),
+                // Stiller
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
@@ -150,12 +153,9 @@ class ChatInput extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 16),
-              // Görsel Oranı
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
+                const SizedBox(height: 16),
+                // Görsel Oranı
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
@@ -176,11 +176,11 @@ class ChatInput extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
