@@ -62,7 +62,6 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<TextToImageViewModel>();
-    final bottomPadding = MediaQuery.of(context).padding.bottom + 80; // Alt butonlar için ekstra padding
 
     return GradientScaffold(
       appBar: AppBar(
@@ -91,7 +90,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
         children: [
           // Mesajlar Listesi
           Padding(
-            padding: EdgeInsets.only(bottom: _minHeight + bottomPadding),
+            padding: EdgeInsets.only(bottom: _minHeight + 80),
             child: ListView.builder(
               reverse: true,
               padding: const EdgeInsets.all(16),
@@ -103,136 +102,32 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
             ),
           ),
 
-          // Sürüklenebilir Input Alanı
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: bottomPadding,
-            child: GestureDetector(
-              onVerticalDragUpdate: (details) {
-                setState(() {
-                  final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
-                  _controller.value = newValue.clamp(0.0, 1.0);
-                  _isExpanded = _controller.value > 0.5;
-                });
-              },
-              onVerticalDragEnd: (details) {
-                if (_controller.value > 0.5) {
-                  _controller.animateTo(1.0);
-                  setState(() => _isExpanded = true);
-                } else {
-                  _controller.animateTo(0.0);
-                  setState(() => _isExpanded = false);
-                }
-              },
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  final height = _minHeight + (_maxHeight - _minHeight) * _controller.value;
-                  return Container(
-                    height: height,
-                    decoration: BoxDecoration(
-                      color: AppColors.surface,
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 10,
-                          offset: const Offset(0, -2),
-                        ),
-                      ],
-                    ),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: ChatInput(
-                        key: _chatInputKey,
-                        onSend: viewModel.sendMessage,
-                        onSurpriseMe: viewModel.generateSurprisePrompt,
-                        onAddImage: () {
-                          // Görsel ekleme işlevi
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-
-          // Sabit Alt Butonlar
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    AppColors.surface.withOpacity(0.95),
-                    AppColors.surface,
-                  ],
-                ),
-              ),
-              padding: EdgeInsets.fromLTRB(16, 12, 16, MediaQuery.of(context).padding.bottom + 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // İleri butonu işlevi
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.surface,
-                          foregroundColor: AppColors.primary,
-                          elevation: 8,
-                          shadowColor: AppColors.primary.withOpacity(0.3),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: const BorderSide(color: AppColors.primary),
-                          ),
-                        ),
-                        icon: const Icon(Icons.arrow_forward),
-                        label: const Text(
-                          'İleri',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Oluştur butonu işlevi
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: Colors.white,
-                          elevation: 8,
-                          shadowColor: AppColors.primary.withOpacity(0.3),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        icon: const Icon(Icons.create),
-                        label: const Text(
-                          'Oluştur',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          // Chat Input
+          ChatInput(
+            key: _chatInputKey,
+            onSend: viewModel.sendMessage,
+            onSurpriseMe: viewModel.generateSurprisePrompt,
+            onAddImage: () {
+              // Görsel ekleme işlevi
+            },
+            height: _minHeight + (_maxHeight - _minHeight) * _controller.value,
+            isExpanded: _isExpanded,
+            onDragUpdate: (details) {
+              setState(() {
+                final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
+                _controller.value = newValue.clamp(0.0, 1.0);
+                _isExpanded = _controller.value > 0.5;
+              });
+            },
+            onDragEnd: (details) {
+              if (_controller.value > 0.5) {
+                _controller.animateTo(1.0);
+                setState(() => _isExpanded = true);
+              } else {
+                _controller.animateTo(0.0);
+                setState(() => _isExpanded = false);
+              }
+            },
           ),
         ],
       ),
