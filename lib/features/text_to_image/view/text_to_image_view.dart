@@ -28,8 +28,9 @@ class _TextToImageContent extends StatefulWidget {
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isExpanded = false;
-  static const double _minHeight = 230.0;
-  static const double _maxHeight = 600.0;
+  double _minHeight = 230.0;
+  double _maxHeight = 230.0;
+  final GlobalKey _chatInputKey = GlobalKey();
 
   @override
   void initState() {
@@ -38,6 +39,18 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateMaxHeight();
+    });
+  }
+
+  void _updateMaxHeight() {
+    final RenderBox? renderBox = _chatInputKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      setState(() {
+        _maxHeight = renderBox.size.height;
+      });
+    }
   }
 
   @override
@@ -97,27 +110,17 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
                 setState(() {
-                  if (_isExpanded) {
-                    if (details.delta.dy > 0) {
-                      // Aşağı sürükleme
-                      final newValue = _controller.value + (details.delta.dy / (_maxHeight - _minHeight));
-                      _controller.value = newValue.clamp(0.0, 1.0);
-                    }
-                  } else {
-                    if (details.delta.dy < 0) {
-                      // Yukarı sürükleme
-                      final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
-                      _controller.value = newValue.clamp(0.0, 1.0);
-                    }
-                  }
+                  final newValue = _controller.value - (details.delta.dy / (_maxHeight - _minHeight));
+                  _controller.value = newValue.clamp(0.0, 1.0);
+                  _isExpanded = _controller.value > 0.5;
                 });
               },
               onVerticalDragEnd: (details) {
                 if (_controller.value > 0.5) {
-                  _controller.forward();
+                  _controller.animateTo(1.0);
                   setState(() => _isExpanded = true);
                 } else {
-                  _controller.reverse();
+                  _controller.animateTo(0.0);
                   setState(() => _isExpanded = false);
                 }
               },
@@ -141,6 +144,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
                     child: SingleChildScrollView(
                       physics: const NeverScrollableScrollPhysics(),
                       child: ChatInput(
+                        key: _chatInputKey,
                         onSend: viewModel.sendMessage,
                         onSurpriseMe: viewModel.generateSurprisePrompt,
                         onAddImage: () {
