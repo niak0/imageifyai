@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/components/buttons/app_button.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +28,8 @@ class _TextToImageContent extends StatefulWidget {
 }
 
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
-  double _currentHeight = 200;
-  static const double _minHeight = 200;
+  double _currentHeight = 160;
+  static const double _minHeight = 160;
   static const double _maxHeight = 600;
   static const double _bottomBarHeight = 80; // BottomNavigationBar yüksekliği
 
@@ -114,7 +116,6 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
                   ],
                 ),
                 child: SingleChildScrollView(
-                  // Overflow'u engellemek için
                   physics: const NeverScrollableScrollPhysics(),
                   child: ChatInput(
                     expandRatio: _expandRatio,
@@ -144,45 +145,22 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
         child: Row(
           children: [
             Expanded(
-              child: ElevatedButton(
+              child: AppButton(
+                type: AppButtonType.secondary,
+                text: 'Detaylı Ayarla',
                 onPressed: () {
-                  // İleri butonu işlevi
+                  // Detaylı ayarla butonu işlevi
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.surface,
-                  foregroundColor: AppColors.primary,
-                  elevation: 8,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: const BorderSide(color: AppColors.primary),
-                  ),
-                ),
-                child: const Text(
-                  'İleri',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: ElevatedButton(
+              child: AppButton(
+                type: AppButtonType.primary,
+                text: 'Oluştur',
                 onPressed: () {
                   // Oluştur butonu işlevi
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  elevation: 8,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text(
-                  'Oluştur',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
               ),
             ),
           ],
