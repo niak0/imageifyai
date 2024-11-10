@@ -23,24 +23,23 @@ class _ModernGridPatternState extends State<ModernGridPattern> with SingleTicker
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
-    )..repeat(reverse: true);
+      duration: const Duration(seconds: 8),
+    )..repeat();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ModernGridPainter(
-            animation: _controller,
-            primaryColor: widget.primaryColor,
-            accentColor: widget.accentColor,
-          ),
-          child: const SizedBox.expand(),
-        );
-      },
+    return RepaintBoundary(
+      child: CustomPaint(
+        isComplex: true,
+        willChange: false,
+        painter: ModernGridPainter(
+          animation: _controller,
+          primaryColor: widget.primaryColor,
+          accentColor: widget.accentColor,
+        ),
+        child: const SizedBox.expand(),
+      ),
     );
   }
 

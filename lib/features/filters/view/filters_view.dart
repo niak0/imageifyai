@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/gradient_scaffold.dart';
+import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/filters_view_model.dart';
 

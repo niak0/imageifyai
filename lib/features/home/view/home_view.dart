@@ -31,7 +31,7 @@ class _HomeViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      backgroundStyle: BackgroundStyle.modernGrid,
+      backgroundStyle: BackgroundStyle.simpleGrid,
       body: CustomScrollView(
         slivers: [
           const CustomAppBar(),

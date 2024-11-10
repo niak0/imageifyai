@@ -3,35 +3,38 @@ import 'package:flutter/material.dart';
 /// Uygulama genelinde kullanılan renk tanımlamaları
 class AppColors {
   // Ana Renkler ve Tonları
-  static const Color onPrimary = Color(0xFFFFFFFF); // Primary üzerinde beyaz
+  static const Color onPrimary = Color(0xFFFFFFFF);
 
-  static const Color primary = Color(0xFF6C72CB);
-  static const Color primaryLight = Color(0xFF8687E7);
-  static const Color primaryDark = Color(0xFF5156A6);
-  static const Color primaryContainer = Color(0xFF4A4F9F);
-  static const Color onPrimaryContainer = Color(0xFFE6E7FF);
+  // Neon Mavi tonları
+  static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
+  static const Color primaryLight = Color(0xFF80F9FF); // Açık Neon Mavi
+  static const Color primaryDark = Color(0xFF00C8D4); // Koyu Neon Mavi
+  static const Color primaryContainer = Color(0xFF00B4BF);
+  static const Color onPrimaryContainer = Color(0xFFE6FFFF);
 
-  static const Color secondary = Color(0xFF8687E7);
-  static const Color secondaryLight = Color(0xFFA5A6FF);
-  static const Color secondaryDark = Color(0xFF6869B8);
-  static const Color secondaryContainer = Color(0xFF6263AD);
-  static const Color onSecondaryContainer = Color(0xFFF0F0FF);
+  // Neon Mor tonları
+  static const Color secondary = Color(0xFFBF00FF); // Parlak Mor
+  static const Color secondaryLight = Color(0xFFD580FF); // Açık Neon Mor
+  static const Color secondaryDark = Color(0xFF9900CC); // Koyu Neon Mor
+  static const Color secondaryContainer = Color(0xFF8800B3);
+  static const Color onSecondaryContainer = Color(0xFFF9E6FF);
 
-  static const Color tertiary = Color(0xFF7C7FF3);
-  static const Color tertiaryLight = Color(0xFF9EA1FF);
-  static const Color tertiaryDark = Color(0xFF5A5DC4);
-  static const Color tertiaryContainer = Color(0xFF5457B9);
-  static const Color onTertiaryContainer = Color(0xFFEBECFF);
+  // Neon Pembe tonları
+  static const Color tertiary = Color(0xFFFF00FF); // Parlak Magenta
+  static const Color tertiaryLight = Color(0xFFFF80FF); // Açık Neon Pembe
+  static const Color tertiaryDark = Color(0xFFCC00CC); // Koyu Neon Pembe
+  static const Color tertiaryContainer = Color(0xFFB300B3);
+  static const Color onTertiaryContainer = Color(0xFFFFE6FF);
 
   // Gradyanlar
   static const List<Color> primaryGradient = [
-    Color(0xFF6C72CB),
-    Color(0xFF8687E7),
+    Color(0xFF00F5FF), // Neon Mavi
+    Color(0xFFBF00FF), // Neon Mor
   ];
 
   static const List<Color> secondaryGradient = [
-    Color(0xFF8687E7),
-    Color(0xFFA5A6FF),
+    Color(0xFFBF00FF), // Neon Mor
+    Color(0xFFFF00FF), // Neon Pembe
   ];
 
   static const List<Color> glassGradient = [
@@ -39,43 +42,43 @@ class AppColors {
     Color(0x0AFFFFFF),
   ];
 
-  // Arka Plan ve Yüzey Renkleri
-  static const Color background = Color(0xFF0F0F0F);
-  static const Color backgroundLight = Color(0xFF141414);
-  static const Color backgroundDark = Color(0xFF0A0A0A);
+  // Arka Plan ve Yüzey Renkleri (Daha koyu ve kontrast)
+  static const Color background = Color(0xFF0A0A0F); // Çok koyu lacivert
+  static const Color backgroundLight = Color(0xFF12121A);
+  static const Color backgroundDark = Color(0xFF050508);
 
-  static const Color surface = Color(0xFF1A1A1A);
-  static const Color surfaceLight = Color(0xFF202020);
-  static const Color surfaceDark = Color(0xFF151515);
-  static const Color surfaceVariant = Color(0xFF252525);
+  static const Color surface = Color(0xFF15151F);
+  static const Color surfaceLight = Color(0xFF1C1C28);
+  static const Color surfaceDark = Color(0xFF0F0F16);
+  static const Color surfaceVariant = Color(0xFF1F1F2C);
 
-  // Metin Renkleri
-  static const Color textPrimary = Color(0xFFFAFAFA);
-  static const Color textSecondary = Color(0xFFABABAB);
-  static const Color textTertiary = Color(0xFF808080);
-  static const Color textDisabled = Color(0xFF666666);
+  // Metin Renkleri (Daha parlak)
+  static const Color textPrimary = Color(0xFFFCFCFC);
+  static const Color textSecondary = Color(0xFFB3B3CC);
+  static const Color textTertiary = Color(0xFF8080A6);
+  static const Color textDisabled = Color(0xFF666680);
 
-  // Durum Renkleri
-  static const Color success = Color(0xFF6C72CB); // Primary ile aynı
-  static const Color successLight = Color(0xFF8687E7);
-  static const Color successDark = Color(0xFF5156A6);
+  // Durum Renkleri (Neon versiyonları)
+  static const Color success = Color(0xFF00FF9C); // Neon Yeşil
+  static const Color successLight = Color(0xFF80FFCE);
+  static const Color successDark = Color(0xFF00CC7D);
 
-  static const Color error = Color(0xFFE26D5C);
-  static const Color errorLight = Color(0xFFFF8A7A);
-  static const Color errorDark = Color(0xFFB54F3E);
+  static const Color error = Color(0xFFFF0055); // Neon Kırmızı
+  static const Color errorLight = Color(0xFFFF80AA);
+  static const Color errorDark = Color(0xFFCC0044);
 
-  static const Color warning = Color(0xFFFFB74D);
-  static const Color warningLight = Color(0xFFFFCC80);
-  static const Color warningDark = Color(0xFFF57C00);
+  static const Color warning = Color(0xFFFFB300); // Neon Turuncu
+  static const Color warningLight = Color(0xFFFFD980);
+  static const Color warningDark = Color(0xFFCC8F00);
 
-  static const Color info = Color(0xFF64B5F6);
-  static const Color infoLight = Color(0xFF90CAF9);
-  static const Color infoDark = Color(0xFF1E88E5);
+  static const Color info = Color(0xFF00B3FF); // Neon Açık Mavi
+  static const Color infoLight = Color(0xFF80D9FF);
+  static const Color infoDark = Color(0xFF008FCC);
 
-  // Çizgi ve Kenarlık Renkleri
-  static const Color outline = Color(0xFF2F2F2F);
-  static const Color outlineVariant = Color(0xFF3F3F3F);
-  static const Color border = Color(0xFF2A2A2A);
+  // Çizgi ve Kenarlık Renkleri (Daha belirgin)
+  static const Color outline = Color(0xFF2F2F3F);
+  static const Color outlineVariant = Color(0xFF3F3F52);
+  static const Color border = Color(0xFF2A2A38);
 
   // Gölge ve Overlay Renkleri
   static const Color shadow = Color(0xFF000000);
@@ -83,14 +86,31 @@ class AppColors {
   static const Color overlay = Color(0x1AFFFFFF);
 
   // Özel Durum Renkleri
-  static const Color shimmerBase = Color(0xFF262626);
-  static const Color shimmerHighlight = Color(0xFF3D3D3D);
+  static const Color shimmerBase = Color(0xFF262633);
+  static const Color shimmerHighlight = Color(0xFF3D3D4F);
 
-  static const Color divider = Color(0xFF2A2A2A);
-  static const Color inactive = Color(0xFF404040);
-  static const Color disabled = Color(0xFF333333);
+  static const Color divider = Color(0xFF2A2A38);
+  static const Color inactive = Color(0xFF404052);
+  static const Color disabled = Color(0xFF333342);
 
-  // Özel Renk Tonları Oluşturma
+  // Glow Efektleri
+  static List<BoxShadow> primaryGlow({double opacity = 0.5}) => [
+        BoxShadow(
+          color: primary.withOpacity(opacity),
+          blurRadius: 8,
+          spreadRadius: 1,
+        ),
+      ];
+
+  static List<BoxShadow> secondaryGlow({double opacity = 0.5}) => [
+        BoxShadow(
+          color: secondary.withOpacity(opacity),
+          blurRadius: 8,
+          spreadRadius: 1,
+        ),
+      ];
+
+  // Özel Renk Tonları Oluşturma metodları aynı kalabilir
   static Color withOpacity(Color color, double opacity) {
     return color.withOpacity(opacity);
   }
