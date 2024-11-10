@@ -4,6 +4,26 @@ import 'app_tokens.dart';
 
 /// Uygulama genelinde kullanılan stil tanımlamaları
 class AppStyles {
+  /// Container Gradient Stil
+  static BoxDecoration get containerGradientDecoration => BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.border,
+            AppColors.border.withOpacity(0.4),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow.withOpacity(0.9),
+            blurRadius: AppTokens.elevationMd,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      );
+
   /// Card Stilleri
   static BoxDecoration get cardDecoration => BoxDecoration(
         color: AppColors.surface,

@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/services/image_service.dart';
+import 'package:imageifyai/core/utils/image_picker_dialog.dart';
+import 'package:imageifyai/features/text_to_image/constants/prompt_constants.dart';
 import '../../../core/base/base_view_model.dart';
 
 import '../model/chat_message.dart';
@@ -17,10 +18,10 @@ class TextToImageViewModel extends BaseViewModel {
   File? selectedImage;
   final ScrollController scrollController = ScrollController();
 
-  static const double minHeight = 150;
-  static const double maxHeight = 600;
+  late final double minHeight;
+  late final double maxHeight;
 
-  double _currentHeight = minHeight;
+  late double _currentHeight;
   double get currentHeight => _currentHeight;
 
   bool _isExpanded = false;
@@ -39,10 +40,15 @@ class TextToImageViewModel extends BaseViewModel {
   ImageAspectRatio _selectedAspectRatio = ImageAspectRatio.ratios.first;
   ImageAspectRatio get selectedAspectRatio => _selectedAspectRatio;
 
-  TextToImageViewModel() {
+  TextToImageViewModel(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    minHeight = screenHeight * 0.15; // Ekranın %15'i
+    maxHeight = screenHeight * 0.7; // Ekranın %70'i
+    _currentHeight = minHeight; // İlk değer minHeight olarak ayarlandı
     _messages.add(ChatMessage.bot(message: 'Merhaba, ben Imageify! Size nasıl yardımcı olabilirim?'));
     _messages.add(ChatMessage.bot(message: 'Merhaba, ben Imageify! Size nasıl yardımcı olabilirim?'));
   }
+
   void _scrollToBottom() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
@@ -55,7 +61,7 @@ class TextToImageViewModel extends BaseViewModel {
 
   void handleDragUpdate(double delta) {
     _currentHeight = (_currentHeight - delta).clamp(minHeight, maxHeight);
-    _isExpanded = _currentHeight > minHeight + 50;
+    _isExpanded = _currentHeight > minHeight + 100;
     notifyListeners();
   }
 
@@ -91,26 +97,7 @@ class TextToImageViewModel extends BaseViewModel {
       return;
     }
 
-    final source = await showModalBottomSheet<ImageSource>(
-      context: context,
-      builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text('Galeriden Seç'),
-              onTap: () => Navigator.pop(context, ImageSource.gallery),
-            ),
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text('Kamera ile Çek'),
-              onTap: () => Navigator.pop(context, ImageSource.camera),
-            ),
-          ],
-        ),
-      ),
-    );
+    final source = await ImagePickerDialog.show(context);
 
     if (source != null) {
       final image = await _imageService.pickImage(source);
@@ -122,17 +109,8 @@ class TextToImageViewModel extends BaseViewModel {
   }
 
   void handleSurpriseMe() {
-    final random = DateTime.now().millisecond % 8;
-    textController.text = [
-      'Neon ışıklarıyla aydınlatılmış cyberpunk şehir manzarası',
-      'Mistik bir ormanın derinliklerinde dans eden periler',
-      'Steampunk tarzında mekanik bir ejderha',
-      'Uzay boşluğunda süzülen renkli baloncuklar içinde kelebekler',
-      'Antik bir tapınağın içinde meditasyon yapan robot keşişler',
-      'Kristal dağların arasında uçan fosforlu balinalar',
-      'Retro-fütüristik bir uzay istasyonunda günbatımı',
-      'Yağmurlu bir gecede neon tabelalar altında yürüyen samuray',
-    ][random];
+    final random = DateTime.now().millisecond % PromptConstants.samplePrompts.length;
+    textController.text = PromptConstants.samplePrompts[random];
     notifyListeners();
   }
 
@@ -154,7 +132,6 @@ class TextToImageViewModel extends BaseViewModel {
 
       _messages.removeLast();
       _messages.add(ChatMessage.bot(
-        message: 'İşte oluşturduğum görsel:',
         imageUrl: 'https://picsum.photos/400',
       ));
       notifyListeners();

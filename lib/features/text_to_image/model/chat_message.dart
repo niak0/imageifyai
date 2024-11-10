@@ -1,7 +1,7 @@
 enum MessageType { user, bot }
 
 class ChatMessage {
-  final String message;
+  final String? message;
   final MessageType type;
   final String? imageUrl;
   final DateTime timestamp;
@@ -27,7 +27,7 @@ class ChatMessage {
 
   // Bot mesajı oluşturmak için factory
   factory ChatMessage.bot({
-    required String message,
+    String? message,
     String? imageUrl,
     bool isLoading = false,
     bool isError = false,

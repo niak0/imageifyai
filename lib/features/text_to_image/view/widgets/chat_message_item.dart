@@ -31,14 +31,15 @@ class ChatMessageItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    message.message,
-                    style: TextStyle(
-                      color: isUser ? AppColors.onPrimary : AppColors.textPrimary,
-                    ),
-                  ),
+                  message.message != null
+                      ? Text(
+                          message.message ?? '',
+                          style: TextStyle(
+                            color: isUser ? AppColors.onPrimary : AppColors.textPrimary,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                   if (message.imageUrl != null) ...[
-                    const SizedBox(height: 8),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/components/buttons/app_button.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class TextToImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TextToImageViewModel(),
+      create: (_) => TextToImageViewModel(context),
       child: const _TextToImageContent(),
     );
   }
@@ -27,8 +28,6 @@ class _TextToImageContent extends StatefulWidget {
 }
 
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
-  static const double _bottomBarHeight = 80;
-
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Row(
@@ -57,14 +56,17 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
   Widget _buildMessageList(TextToImageViewModel viewModel) {
     return ListView.builder(
       controller: viewModel.scrollController,
-      padding: const EdgeInsets.only(
+      reverse: false,
+      padding: EdgeInsets.only(
         left: 16,
         right: 16,
         top: 16,
-        bottom: 150,
+        bottom: viewModel.currentHeight,
       ),
       itemCount: viewModel.messages.length,
       itemBuilder: (context, index) => ChatMessageItem(message: viewModel.messages[index]),
+      physics: const AlwaysScrollableScrollPhysics(),
+      shrinkWrap: false,
     );
   }
 
@@ -74,19 +76,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
       onVerticalDragEnd: (details) => viewModel.handleDragEnd(details.velocity.pixelsPerSecond.dy),
       child: Container(
         height: viewModel.currentHeight,
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
+        decoration: AppStyles.containerGradientDecoration,
         child: SingleChildScrollView(
           physics: viewModel.isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
           child: ChatInput(viewModel: viewModel),
@@ -96,35 +86,34 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
   }
 
   Widget _buildBottomBar(TextToImageViewModel viewModel) {
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
     return Container(
-      height: _bottomBarHeight + bottomPadding,
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomPadding),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        border: Border(
-          top: BorderSide(color: AppColors.outline.withOpacity(0.1)),
+      decoration: AppStyles.containerGradientDecoration,
+      child: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: AppButton(
+                  type: AppButtonType.secondary,
+                  text: 'Detaylı Ayarla',
+                  onPressed: viewModel.toggleExpanded,
+                  rightIcon: viewModel.isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: AppButton(
+                  type: AppButtonType.primary,
+                  text: 'Oluştur',
+                  onPressed: viewModel.generateImage,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppButton(
-              type: AppButtonType.secondary,
-              text: 'Detaylı Ayarla',
-              onPressed: viewModel.toggleExpanded,
-              rightIcon: viewModel.isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: AppButton(
-              type: AppButtonType.primary,
-              text: 'Oluştur',
-              onPressed: viewModel.generateImage,
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -5,8 +5,8 @@ import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/view/widgets/grid_pattern.dart';
 import 'package:provider/provider.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/color_constants.dart';
-import '../../../core/constants/padding_constants.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -68,7 +68,7 @@ class _HomeViewContent extends StatelessWidget {
 
           // İçerik
           SliverPadding(
-            padding: const EdgeInsets.all(PaddingConstants.medium),
+            padding: const EdgeInsets.all(AppConstants.paddingMedium),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
