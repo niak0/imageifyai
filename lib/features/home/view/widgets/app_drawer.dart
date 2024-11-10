@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/theme/app_theme.dart';
-import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
+
+import '../../../../core/theme/widgets/glass_container.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -205,9 +206,8 @@ class AppDrawer extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: CyberpunkCard(
-        style: ThemeStyle.glass,
-        color: color,
+      child: GlassContainer(
+        borderColor: color,
         child: ListTile(
           leading: Icon(icon, color: color).withEffect(),
           title: Text(

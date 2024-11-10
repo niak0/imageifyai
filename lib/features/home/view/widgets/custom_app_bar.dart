@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/app_theme.dart';
-import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/modern_grid_pattern.dart';
+
+import '../../../../core/theme/widgets/glass_container.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -18,8 +18,8 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: CyberpunkCard(
-          style: ThemeStyle.glass,
+        child: GlassContainer(
+          borderColor: AppColors.primary,
           child: IconButton(
             icon: Icon(
               Icons.menu,

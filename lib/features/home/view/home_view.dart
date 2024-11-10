@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
 import 'package:imageifyai/core/theme/app_theme.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
-import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
+import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
@@ -33,10 +33,6 @@ class _HomeViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Cyberpunk temasını aktif et
-    AppTheme.instance.setDarkMode(true);
-    AppTheme.instance.setStyle(ThemeStyle.glass);
-
     return GradientScaffold(
       drawer: const AppDrawer(),
       backgroundStyle: BackgroundStyle.modernGrid,
@@ -47,9 +43,8 @@ class _HomeViewContent extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             sliver: SliverToBoxAdapter(
-              child: CyberpunkCard(
-                style: ThemeStyle.glass,
-                color: AppColors.primary,
+              child: GlassContainer(
+                borderColor: AppColors.primary,
                 child: FeatureCard(
                   feature: AIFeature.textToImage,
                   onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
@@ -86,9 +81,8 @@ class _HomeViewContent extends StatelessWidget {
                 childAspectRatio: 1.1,
               ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) => CyberpunkCard(
-                  style: ThemeStyle.neon,
-                  color: creationFeatures[index].color,
+                (context, index) => GlassContainer(
+                  borderColor: creationFeatures[index].color,
                   child: FeatureCard(
                     feature: creationFeatures[index],
                     onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
@@ -125,9 +119,8 @@ class _HomeViewContent extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: CyberpunkCard(
-                    style: ThemeStyle.gradient,
-                    color: utilityFeatures[index].color,
+                  child: GlassContainer(
+                    borderColor: utilityFeatures[index].color,
                     child: FeatureCard(
                       feature: utilityFeatures[index],
                       onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
