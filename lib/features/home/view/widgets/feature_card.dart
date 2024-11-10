@@ -158,6 +158,7 @@ class FeatureCard extends StatelessWidget {
 
   Widget _buildUtilityCard() {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       onTap: onTap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),

@@ -62,7 +62,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                   ),
                   Text(
                     '${_controller.text.length}/500',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 16,
                     ),
@@ -176,7 +176,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
       margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: NetworkImage('https://picsum.photos/200'),
           fit: BoxFit.cover,
         ),

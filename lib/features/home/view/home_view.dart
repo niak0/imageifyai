@@ -3,7 +3,7 @@ import 'package:imageifyai/core/services/navigation_service.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
-import 'package:imageifyai/features/home/view/widgets/grid_pattern.dart';
+import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
@@ -46,38 +46,46 @@ class _HomeViewContent extends StatelessWidget {
 
           // AI Üretim Araçları
           _buildSectionHeader('AI Üretim Araçları'),
-          SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 1.1,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => FeatureCard(
-                feature: creationFeatures[index],
-                onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingMedium),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1.1,
               ),
-              childCount: creationFeatures.length,
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => FeatureCard(
+                  feature: creationFeatures[index],
+                  onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
+                ),
+                childCount: creationFeatures.length,
+              ),
             ),
           ),
 
           // Yardımcı Araçlar
           _buildSectionHeader('Yardımcı Araçlar'),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingMedium),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingMedium,
+            ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: FeatureCard(
-                    feature: utilityFeatures[index],
-                    onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
-                  ),
+                (context, index) => FeatureCard(
+                  feature: utilityFeatures[index],
+                  onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
                 ),
                 childCount: utilityFeatures.length,
               ),
             ),
+          ),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(
+              vertical: AppConstants.paddingLarge,
+            ),
+            sliver: SliverToBoxAdapter(),
           ),
         ],
       ),

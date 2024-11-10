@@ -17,7 +17,7 @@ class TextToImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TextToImageViewModel(),
-      child: _TextToImageContent(),
+      child: const _TextToImageContent(),
     );
   }
 }

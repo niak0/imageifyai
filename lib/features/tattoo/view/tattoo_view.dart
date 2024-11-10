@@ -125,13 +125,13 @@ class _TattooViewContent extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Text(
                                   'Dene',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.textPrimary,
                                     fontWeight: FontWeight.bold,
                                   ),
