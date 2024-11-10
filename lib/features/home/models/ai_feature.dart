@@ -6,6 +6,8 @@ import 'package:imageifyai/features/filters/view/filters_view.dart';
 import 'package:imageifyai/features/tattoo/view/tattoo_view.dart';
 import 'package:imageifyai/features/text_to_image/view/text_to_image_view.dart';
 
+import '../../rem_bg/view/rem_bg_view.dart';
+
 enum FeatureCategory {
   creation, // AI Üretim Araçları
   utility, // Yardımcı Araçlar
@@ -81,7 +83,7 @@ class AIFeature {
     description: 'Fotoğraflarınızın arka planını kaldırın',
     icon: Icons.remove_red_eye,
     color: AppColors.tertiary,
-    page: TextToImageView(),
+    page: RemoveBackgroundView(),
     category: FeatureCategory.utility,
   );
 

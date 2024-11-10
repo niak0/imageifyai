@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/theme/app_tokens.dart';
 import '../constants/color_constants.dart';
 
 enum ThemeStyle {
@@ -223,21 +224,9 @@ class AppTheme {
         filled: true,
         fillColor: AppColors.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(AppTokens.radiusMd),
           borderSide: BorderSide(
-            color: AppColors.primary.withOpacity(0.1),
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(
-            color: AppColors.primary.withOpacity(0.1),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: AppColors.primary,
+            color: AppColors.outline.withOpacity(0.1),
           ),
         ),
       ),

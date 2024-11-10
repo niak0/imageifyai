@@ -4,7 +4,7 @@ import 'package:imageifyai/core/theme/app_tokens.dart';
 import '../../theme/app_styles.dart';
 import '../../constants/color_constants.dart';
 
-enum AppButtonType { primary, secondary, outlined, text }
+enum AppButtonType { primary, secondary, text }
 
 enum AppButtonSize { small, medium, large }
 
@@ -37,7 +37,7 @@ class AppButton extends StatelessWidget {
       duration: AppAnimations.fast,
       child: SizedBox(
         width: isFullWidth ? double.infinity : null,
-        height: _getHeight(),
+        height: AppStyles.getButtonHeight(size),
         child: _buildButton(),
       ),
     );
@@ -57,12 +57,6 @@ class AppButton extends StatelessWidget {
           style: AppStyles.secondaryButtonStyle,
           child: _buildButtonContent(),
         );
-      case AppButtonType.outlined:
-        return OutlinedButton(
-          onPressed: isLoading ? null : onPressed,
-          style: AppStyles.outlinedButtonStyle,
-          child: _buildButtonContent(),
-        );
       case AppButtonType.text:
         return TextButton(
           onPressed: isLoading ? null : onPressed,
@@ -80,7 +74,7 @@ class AppButton extends StatelessWidget {
         child: CircularProgressIndicator(
           strokeWidth: 2,
           valueColor: AlwaysStoppedAnimation<Color>(
-            type == AppButtonType.primary ? AppColors.onPrimary : AppColors.primary,
+            type == AppButtonType.primary ? AppColors.primary : AppColors.onPrimary,
           ),
         ),
       );
@@ -91,54 +85,18 @@ class AppButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (leftIcon != null) ...[
-          Icon(leftIcon, size: _getIconSize()),
+          Icon(leftIcon, size: AppStyles.getButtonIconSize(size)),
           const SizedBox(width: AppTokens.elevationSm),
         ],
         Text(
           text,
-          style: TextStyle(
-            fontSize: _getFontSize(),
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppStyles.getButtonTextStyle(type, size),
         ),
         if (rightIcon != null) ...[
           const SizedBox(width: AppTokens.elevationSm),
-          Icon(rightIcon, size: _getIconSize()),
+          Icon(rightIcon, size: AppStyles.getButtonIconSize(size)),
         ],
       ],
     );
-  }
-
-  double _getHeight() {
-    switch (size) {
-      case AppButtonSize.small:
-        return 32;
-      case AppButtonSize.medium:
-        return 44;
-      case AppButtonSize.large:
-        return 52;
-    }
-  }
-
-  double _getFontSize() {
-    switch (size) {
-      case AppButtonSize.small:
-        return 12;
-      case AppButtonSize.medium:
-        return 14;
-      case AppButtonSize.large:
-        return 16;
-    }
-  }
-
-  double _getIconSize() {
-    switch (size) {
-      case AppButtonSize.small:
-        return 16;
-      case AppButtonSize.medium:
-        return 20;
-      case AppButtonSize.large:
-        return 24;
-    }
   }
 }

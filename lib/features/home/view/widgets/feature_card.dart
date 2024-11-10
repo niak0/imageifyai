@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/theme/app_theme.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
+import 'package:imageifyai/core/theme/widgets/themed_card.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -14,44 +16,46 @@ class FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // İkon
-            Icon(
-              feature.icon,
-              size: 32,
-              color: feature.color,
-            ).withEffect(color: feature.color),
+    return ThemedCard(
+      color: feature.color,
+      style: ThemeStyle.neon,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // İkon
+              Icon(
+                feature.icon,
+                size: 32,
+                color: feature.color,
+              ).withEffect(color: feature.color),
 
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Başlık
-            Text(
-              feature.title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              // Başlık
+              Text(
+                feature.title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ).withEffect(color: feature.color),
+              const SizedBox(height: 8),
+              // Açıklama
+              Text(
+                feature.description,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-            ).withEffect(color: feature.color),
-
-            const SizedBox(height: 8),
-
-            // Açıklama
-            Text(
-              feature.description,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white.withOpacity(0.7),
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

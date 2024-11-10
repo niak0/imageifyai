@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/theme/app_theme.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';

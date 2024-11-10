@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/components/buttons/app_button.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
 import 'app_tokens.dart';
 
@@ -77,53 +78,59 @@ class AppStyles {
 
   /// Button Stilleri
   static ButtonStyle get primaryButtonStyle => ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
+        backgroundColor: AppColors.primary.withOpacity(0.15),
+        foregroundColor: AppColors.primary,
         padding: const EdgeInsets.symmetric(
           horizontal: AppTokens.elevationLg,
           vertical: AppTokens.elevationSm,
         ),
         shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColors.primary),
           borderRadius: BorderRadius.circular(AppTokens.radiusMd),
         ),
         elevation: 0,
       );
 
   static ButtonStyle get secondaryButtonStyle => ElevatedButton.styleFrom(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Colors.transparent,
         foregroundColor: AppColors.primary,
         padding: const EdgeInsets.symmetric(
-          horizontal: AppTokens.elevationMd,
+          horizontal: AppTokens.elevationLg, // Primary ile aynı padding
           vertical: AppTokens.elevationSm,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-          side: BorderSide(color: AppColors.primary.withOpacity(0.5)),
+          side: BorderSide(color: AppColors.primary), // Primary ile aynı border
         ),
         elevation: 0,
       );
-  static ButtonStyle get outlinedButtonStyle => OutlinedButton.styleFrom(
-        foregroundColor: AppColors.primary,
-        side: const BorderSide(color: AppColors.primary),
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppTokens.elevationLg,
-          vertical: AppTokens.elevationMd,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-        ),
-      );
-
   static ButtonStyle get textButtonStyle => TextButton.styleFrom(
-        foregroundColor: AppColors.primary,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(
           horizontal: AppTokens.elevationMd,
           vertical: AppTokens.elevationSm,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppTokens.radiusSm),
+          borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+          side: const BorderSide(color: Colors.white),
         ),
+        elevation: 0,
       );
+
+  static TextStyle getButtonTextStyle(AppButtonType type, AppButtonSize size) {
+    final fontSize = size == AppButtonSize.small
+        ? 12
+        : size == AppButtonSize.medium
+            ? 14
+            : 16;
+
+    return TextStyle(
+      color: type == AppButtonType.primary ? AppColors.primary : AppColors.primary,
+      fontSize: fontSize.toDouble(),
+      fontWeight: FontWeight.w600,
+    );
+  }
 
   static ButtonStyle get iconButtonStyle => IconButton.styleFrom(
         foregroundColor: AppColors.primary,
@@ -231,4 +238,27 @@ class AppStyles {
           ),
         ],
       );
+
+  /// Button boyutlandırma ve stil methodları
+  static double getButtonHeight(AppButtonSize size) {
+    switch (size) {
+      case AppButtonSize.small:
+        return 32;
+      case AppButtonSize.medium:
+        return 44;
+      case AppButtonSize.large:
+        return 52;
+    }
+  }
+
+  static double getButtonIconSize(AppButtonSize size) {
+    switch (size) {
+      case AppButtonSize.small:
+        return 16;
+      case AppButtonSize.medium:
+        return 20;
+      case AppButtonSize.large:
+        return 24;
+    }
+  }
 }
