@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/components/buttons/app_button.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ class TextToImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TextToImageViewModel()..initialize(),
+      create: (_) => TextToImageViewModel(),
       child: const _TextToImageContent(),
     );
   }
@@ -28,144 +27,126 @@ class _TextToImageContent extends StatefulWidget {
 }
 
 class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
-  double _currentHeight = 160;
-  static const double _minHeight = 160;
-  static const double _maxHeight = 600;
-  static const double _bottomBarHeight = 80; // BottomNavigationBar yüksekliği
+  static const double _bottomBarHeight = 80;
 
-  double get _expandRatio => (_currentHeight - _minHeight) / (_maxHeight - _minHeight);
-
-  void _handleDragUpdate(DragUpdateDetails details) {
-    setState(() {
-      _currentHeight = (_currentHeight - details.delta.dy).clamp(_minHeight, _maxHeight);
-    });
-  }
-
-  void _handleDragEnd(DragEndDetails details) {
-    final shouldExpand = _expandRatio > 0.5;
-    setState(() {
-      _currentHeight = shouldExpand ? _maxHeight : _minHeight;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = context.watch<TextToImageViewModel>();
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
-
-    return GradientScaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Sanat Oluşturucu'),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(colors: AppColors.primaryGradient),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                'PRO',
-                style: TextStyle(
-                  color: AppColors.onPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Stack(
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Mesajlar Listesi
-          ListView.builder(
-            reverse: true,
-            padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 16,
-              bottom: _minHeight, // BottomBar ve Input için padding
+          const Text('Sanat Oluşturucu'),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: AppColors.primaryGradient),
+              borderRadius: BorderRadius.circular(20),
             ),
-            itemCount: viewModel.messages.length,
-            itemBuilder: (context, index) {
-              final message = viewModel.messages[index];
-              return ChatMessageItem(message: message);
-            },
-          ),
-
-          // Chat Input
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: GestureDetector(
-              onVerticalDragUpdate: _handleDragUpdate,
-              onVerticalDragEnd: _handleDragEnd,
-              child: Container(
-                height: _currentHeight,
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, -2),
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: ChatInput(
-                    expandRatio: _expandRatio,
-                    onSend: viewModel.sendMessage,
-                    onSurpriseMe: viewModel.generateSurprisePrompt,
-                    onAddImage: () {
-                      // Görsel ekleme işlevi
-                    },
-                  ),
-                ),
+            child: const Text(
+              'PRO',
+              style: TextStyle(
+                color: AppColors.onPrimary,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: _bottomBarHeight + bottomPadding,
-        padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomPadding),
+    );
+  }
+
+  Widget _buildMessageList(TextToImageViewModel viewModel) {
+    return ListView.builder(
+      controller: viewModel.scrollController,
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 16,
+        bottom: 150,
+      ),
+      itemCount: viewModel.messages.length,
+      itemBuilder: (context, index) => ChatMessageItem(message: viewModel.messages[index]),
+    );
+  }
+
+  Widget _buildChatInput(TextToImageViewModel viewModel) {
+    return GestureDetector(
+      onVerticalDragUpdate: (details) => viewModel.handleDragUpdate(details.delta.dy),
+      onVerticalDragEnd: (details) => viewModel.handleDragEnd(details.velocity.pixelsPerSecond.dy),
+      child: Container(
+        height: viewModel.currentHeight,
         decoration: BoxDecoration(
           color: AppColors.surface,
-          border: Border(
-            top: BorderSide(
-              color: AppColors.outline.withOpacity(0.1),
-            ),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(20),
           ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: AppButton(
-                type: AppButtonType.secondary,
-                text: 'Detaylı Ayarla',
-                onPressed: () {
-                  // Detaylı ayarla butonu işlevi
-                },
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: AppButton(
-                type: AppButtonType.primary,
-                text: 'Oluştur',
-                onPressed: () {
-                  // Oluştur butonu işlevi
-                },
-              ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
             ),
           ],
         ),
+        child: SingleChildScrollView(
+          physics: viewModel.isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+          child: ChatInput(viewModel: viewModel),
+        ),
       ),
+    );
+  }
+
+  Widget _buildBottomBar(TextToImageViewModel viewModel) {
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    return Container(
+      height: _bottomBarHeight + bottomPadding,
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomPadding),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        border: Border(
+          top: BorderSide(color: AppColors.outline.withOpacity(0.1)),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: AppButton(
+              type: AppButtonType.secondary,
+              text: 'Detaylı Ayarla',
+              onPressed: viewModel.toggleExpanded,
+              rightIcon: viewModel.isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: AppButton(
+              type: AppButtonType.primary,
+              text: 'Oluştur',
+              onPressed: viewModel.generateImage,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<TextToImageViewModel>();
+
+    return GradientScaffold(
+      appBar: _buildAppBar(),
+      body: Stack(
+        children: [
+          _buildMessageList(viewModel),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildChatInput(viewModel),
+          ),
+        ],
+      ),
+      bottomNavigationBar: _buildBottomBar(viewModel),
     );
   }
 }

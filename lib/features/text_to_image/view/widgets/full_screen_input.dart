@@ -49,7 +49,9 @@ class _FullScreenInputState extends State<FullScreenInput> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      widget.onSubmit(_controller.text);
+                    },
                     child: const Text(
                       'Kapat',
                       style: TextStyle(
@@ -101,6 +103,10 @@ class _FullScreenInputState extends State<FullScreenInput> {
                       autofocus: true,
                       maxLines: null,
                       enabled: true,
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (value) {
+                        widget.onSubmit(value);
+                      },
                       style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 16,
