@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/theme/app_theme.dart';
-import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
-import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_icon_extension.dart';
-import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_text_extension.dart';
 import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
+import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -81,7 +79,7 @@ class AppDrawer extends StatelessWidget {
                             Icons.auto_awesome,
                             size: 40,
                             color: AppColors.primary,
-                          ).withNeonEffect(),
+                          ).withEffect(),
                         ),
                         const SizedBox(height: 16),
                         // Uygulama Adı
@@ -92,7 +90,7 @@ class AppDrawer extends StatelessWidget {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
-                        ).withNeonEffect(),
+                        ).withEffect(),
                       ],
                     ),
                   ),
@@ -150,6 +148,14 @@ class AppDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Karanlık Mod Seçimi
+                SwitchListTile(
+                  title: const Text('Karanlık Mod'),
+                  value: AppTheme.instance.isDark,
+                  onChanged: (value) {
+                    AppTheme.instance.setDarkMode(value);
+                  },
+                ),
 
                 // Alt kısım - Her zaman altta
                 Padding(
@@ -169,7 +175,7 @@ class AppDrawer extends StatelessWidget {
                             Icons.rocket_launch,
                             size: 16,
                             color: AppColors.primary,
-                          ).withNeonEffect(),
+                          ).withEffect(),
                           const SizedBox(width: 8),
                           Text(
                             'Version 1.0.0',
@@ -200,10 +206,10 @@ class AppDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: CyberpunkCard(
-        style: CyberpunkStyle.glass,
+        style: ThemeStyle.glass,
         color: color,
         child: ListTile(
-          leading: Icon(icon, color: color).withNeonEffect(),
+          leading: Icon(icon, color: color).withEffect(),
           title: Text(
             title,
             style: TextStyle(

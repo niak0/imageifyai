@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/app_theme.dart';
 import 'package:imageifyai/core/theme/cyberpunk/widgets/glass_container.dart';
 import 'package:imageifyai/core/theme/cyberpunk/widgets/neon_border.dart';
 
 class CyberpunkCard extends StatelessWidget {
   final Widget child;
   final Color? color;
-  final CyberpunkStyle? style;
+  final ThemeStyle? style;
   final double? blur;
 
   const CyberpunkCard({
@@ -20,9 +20,9 @@ class CyberpunkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!CyberpunkTheme.instance.enabled) return child;
+    if (!AppTheme.instance.isDark) return child;
 
-    final cardStyle = style ?? CyberpunkTheme.instance.style;
+    final cardStyle = style ?? AppTheme.instance.style;
     final themeColor = color ?? AppColors.primary;
 
     Widget cardContent = Container(
@@ -34,20 +34,20 @@ class CyberpunkCard extends StatelessWidget {
     );
 
     switch (cardStyle) {
-      case CyberpunkStyle.glass:
+      case ThemeStyle.glass:
         return GlassContainer(
           borderColor: themeColor,
           blur: blur,
           child: cardContent,
         );
 
-      case CyberpunkStyle.neon:
+      case ThemeStyle.neon:
         return NeonBorder(
           color: themeColor,
           child: cardContent,
         );
 
-      case CyberpunkStyle.gradient:
+      case ThemeStyle.gradient:
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -67,7 +67,7 @@ class CyberpunkCard extends StatelessWidget {
           child: child,
         );
 
-      case CyberpunkStyle.minimal:
+      case ThemeStyle.minimal:
         return cardContent;
     }
   }

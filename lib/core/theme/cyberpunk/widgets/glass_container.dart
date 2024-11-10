@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/app_theme.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
@@ -18,14 +18,14 @@ class GlassContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!CyberpunkTheme.instance.enabled) return child;
+    if (!AppTheme.instance.isDark) return child;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: blur ?? CyberpunkTheme.instance.glassBlur,
-          sigmaY: blur ?? CyberpunkTheme.instance.glassBlur,
+          sigmaX: blur ?? AppTheme.instance.glassBlur,
+          sigmaY: blur ?? AppTheme.instance.glassBlur,
         ),
         child: Container(
           decoration: BoxDecoration(

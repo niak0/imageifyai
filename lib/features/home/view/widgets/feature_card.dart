@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_icon_extension.dart';
-import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_text_extension.dart';
+import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -27,7 +26,7 @@ class FeatureCard extends StatelessWidget {
               feature.icon,
               size: 32,
               color: feature.color,
-            ).withNeonEffect(color: feature.color),
+            ).withEffect(color: feature.color),
 
             const SizedBox(height: 16),
 
@@ -38,7 +37,7 @@ class FeatureCard extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
-            ).withNeonEffect(color: feature.color),
+            ).withEffect(color: feature.color),
 
             const SizedBox(height: 8),
 

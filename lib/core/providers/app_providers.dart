@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class AppProviders {
   static List<ChangeNotifierProvider> get providers => [
         ChangeNotifierProvider(create: (_) => NavigationBarManager()),
-        ChangeNotifierProvider(create: (_) => ThemeManager()),
+        ChangeNotifierProvider.value(value: ThemeManager.instance),
         // ChangeNotifierProvider(create: (_) => LocalizationManager()),
         // Diğer global provider'lar...
       ];

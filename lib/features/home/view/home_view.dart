@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_text_extension.dart';
+import 'package:imageifyai/core/theme/app_theme.dart';
+import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
@@ -11,7 +12,6 @@ import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/color_constants.dart';
-import '../../../core/theme/cyberpunk/cyberpunk_theme.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -34,8 +34,8 @@ class _HomeViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Cyberpunk temasını aktif et
-    CyberpunkTheme.instance.setEnabled(true);
-    CyberpunkTheme.instance.setStyle(CyberpunkStyle.glass);
+    AppTheme.instance.setDarkMode(true);
+    AppTheme.instance.setStyle(ThemeStyle.glass);
 
     return GradientScaffold(
       drawer: const AppDrawer(),
@@ -48,7 +48,7 @@ class _HomeViewContent extends StatelessWidget {
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             sliver: SliverToBoxAdapter(
               child: CyberpunkCard(
-                style: CyberpunkStyle.glass,
+                style: ThemeStyle.glass,
                 color: AppColors.primary,
                 child: FeatureCard(
                   feature: AIFeature.textToImage,
@@ -71,7 +71,7 @@ class _HomeViewContent extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withNeonEffect(color: AppColors.secondary),
+              ).withEffect(color: AppColors.secondary),
             ),
           ),
 
@@ -87,7 +87,7 @@ class _HomeViewContent extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) => CyberpunkCard(
-                  style: CyberpunkStyle.neon,
+                  style: ThemeStyle.neon,
                   color: creationFeatures[index].color,
                   child: FeatureCard(
                     feature: creationFeatures[index],
@@ -112,7 +112,7 @@ class _HomeViewContent extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withNeonEffect(color: AppColors.tertiary),
+              ).withEffect(color: AppColors.tertiary),
             ),
           ),
 
@@ -126,7 +126,7 @@ class _HomeViewContent extends StatelessWidget {
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: CyberpunkCard(
-                    style: CyberpunkStyle.gradient,
+                    style: ThemeStyle.gradient,
                     color: utilityFeatures[index].color,
                     child: FeatureCard(
                       feature: utilityFeatures[index],
