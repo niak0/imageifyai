@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/components/buttons/app_button.dart';
+import 'package:imageifyai/core/constants/animation_constants.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
@@ -14,7 +15,7 @@ class TextToImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TextToImageViewModel(context),
+      create: (_) => TextToImageViewModel(),
       child: const _TextToImageContent(),
     );
   }
@@ -28,6 +29,76 @@ class _TextToImageContent extends StatefulWidget {
 }
 
 class _TextToImageContentState extends State<_TextToImageContent> {
+  late final ScrollController scrollController;
+  late final DraggableScrollableController dragController;
+
+  // Sabit değerler
+  static const double _minSheetSize = 0.29;
+  static const double _maxSheetSize = 0.8;
+  static const double _expandThreshold = 0.5;
+  static const List<double> snapSizes = [_minSheetSize, _maxSheetSize];
+
+  double sheetSize = _minSheetSize;
+  bool isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    // Sheet'in durumunu dinle
+    dragController = DraggableScrollableController();
+    dragController.addListener(_onSheetChanged);
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    dragController.dispose();
+    super.dispose();
+  }
+
+  /// Bu metot, alt sayfanın boyutunu ve genişletilmiş durumunu günceller.
+  /// DraggableScrollableController'ın boyutunu alır ve setState ile
+  /// sheetSize ve isExpanded değişkenlerini günceller.
+  void _onSheetChanged() {
+    setState(() {
+      sheetSize = dragController.size;
+      isExpanded = sheetSize > _expandThreshold;
+    });
+  }
+
+  /// Bu metot, alt sayfanın genişletilmiş veya daraltılmış durumunu değiştirir.
+  /// Eğer sayfa genişletilmişse, daraltılmış duruma geçer.
+  /// Eğer sayfa daraltılmışsa, genişletilmiş duruma geçer.
+  void handleToggleExpand() {
+    final targetSize = isExpanded ? _minSheetSize : _maxSheetSize;
+    dragController.animateTo(
+      targetSize,
+      duration: AppAnimations.normal,
+      curve: AppAnimations.sharpCurve,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<TextToImageViewModel>();
+    final screenHeight = MediaQuery.of(context).size.height;
+    final bottomPadding = screenHeight * sheetSize * 0.9;
+
+    return GradientScaffold(
+      appBar: _buildAppBar(),
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: bottomPadding),
+            child: _buildMessageList(viewModel),
+          ),
+          _buildChatInput(viewModel),
+        ],
+      ),
+    );
+  }
+
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Row(
@@ -55,87 +126,63 @@ class _TextToImageContentState extends State<_TextToImageContent> {
 
   Widget _buildMessageList(TextToImageViewModel viewModel) {
     return ListView.builder(
-      controller: viewModel.scrollController,
-      reverse: false,
-      padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 16,
-        bottom: viewModel.currentHeight,
-      ),
+      controller: scrollController,
+      padding: const EdgeInsets.only(left: 16, right: 16),
       itemCount: viewModel.messages.length,
       itemBuilder: (context, index) => ChatMessageItem(message: viewModel.messages[index]),
-      physics: const AlwaysScrollableScrollPhysics(),
-      shrinkWrap: false,
     );
   }
 
   Widget _buildChatInput(TextToImageViewModel viewModel) {
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: GestureDetector(
-        onVerticalDragUpdate: (details) => viewModel.handleDragUpdate(details.delta.dy),
-        onVerticalDragEnd: (details) => viewModel.handleDragEnd(details.velocity.pixelsPerSecond.dy),
-        child: Container(
-          height: viewModel.currentHeight,
+    return DraggableScrollableSheet(
+      controller: dragController,
+      initialChildSize: _minSheetSize,
+      minChildSize: _minSheetSize,
+      maxChildSize: _maxSheetSize,
+      snap: true,
+      snapSizes: snapSizes,
+      builder: (context, scrollController) {
+        return Container(
           decoration: AppStyles.containerGradientDecoration,
-          child: SingleChildScrollView(
-            physics: viewModel.isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-            child: ChatInput(viewModel: viewModel),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomBar(TextToImageViewModel viewModel) {
-    return Container(
-      decoration: AppStyles.containerGradientDecoration,
-      child: SafeArea(
-        bottom: true,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: [
               Expanded(
-                child: AppButton(
-                  type: AppButtonType.secondary,
-                  text: 'Detaylı Ayarla',
-                  onPressed: viewModel.toggleExpanded,
-                  rightIcon: viewModel.isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: ChatInput(viewModel: viewModel),
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppButton(
-                  type: AppButtonType.primary,
-                  text: 'Oluştur',
-                  onPressed: viewModel.generateImage,
-                ),
-              ),
+              _buildBottomButtons(viewModel),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = context.watch<TextToImageViewModel>();
-
-    return GradientScaffold(
-      appBar: _buildAppBar(),
-      body: Stack(
+  Widget _buildBottomButtons(TextToImageViewModel viewModel) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Row(
         children: [
-          _buildMessageList(viewModel),
-          _buildChatInput(viewModel),
+          Expanded(
+            child: AppButton(
+              type: AppButtonType.secondary,
+              text: 'Detaylı Ayarla',
+              onPressed: handleToggleExpand,
+              rightIcon: isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: AppButton(
+              type: AppButtonType.primary,
+              text: 'Oluştur',
+              onPressed: viewModel.generateImage,
+            ),
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomBar(viewModel),
     );
   }
 }
