@@ -19,7 +19,7 @@ class TextToImageViewModel extends BaseViewModel {
   final ScrollController scrollController = ScrollController();
 
   late final double minHeight;
-  late final double maxHeight;
+  late double maxHeight; // artık final değil
 
   late double _currentHeight;
   double get currentHeight => _currentHeight;
@@ -42,11 +42,19 @@ class TextToImageViewModel extends BaseViewModel {
 
   TextToImageViewModel(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    minHeight = screenHeight * 0.15; // Ekranın %15'i
-    maxHeight = screenHeight * 0.7; // Ekranın %70'i
+    minHeight = screenHeight * 0.17; // Ekranın %17'si
     _currentHeight = minHeight; // İlk değer minHeight olarak ayarlandı
     _messages.add(ChatMessage.bot(message: 'Merhaba, ben Imageify! Size nasıl yardımcı olabilirim?'));
     _messages.add(ChatMessage.bot(message: 'Merhaba, ben Imageify! Size nasıl yardımcı olabilirim?'));
+  }
+  // Yeni metod: ChatInput'tan gelen yüksekliği set eder
+  void updateMaxHeight(double contentHeight) {
+    maxHeight = contentHeight;
+    // Eğer current height maxHeight'tan büyükse güncelle
+    if (_currentHeight > maxHeight) {
+      _currentHeight = maxHeight;
+      notifyListeners();
+    }
   }
 
   void _scrollToBottom() {

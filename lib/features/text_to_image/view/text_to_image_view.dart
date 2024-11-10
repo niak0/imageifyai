@@ -27,7 +27,7 @@ class _TextToImageContent extends StatefulWidget {
   State<_TextToImageContent> createState() => _TextToImageContentState();
 }
 
-class _TextToImageContentState extends State<_TextToImageContent> with SingleTickerProviderStateMixin {
+class _TextToImageContentState extends State<_TextToImageContent> {
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Row(
@@ -71,15 +71,20 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
   }
 
   Widget _buildChatInput(TextToImageViewModel viewModel) {
-    return GestureDetector(
-      onVerticalDragUpdate: (details) => viewModel.handleDragUpdate(details.delta.dy),
-      onVerticalDragEnd: (details) => viewModel.handleDragEnd(details.velocity.pixelsPerSecond.dy),
-      child: Container(
-        height: viewModel.currentHeight,
-        decoration: AppStyles.containerGradientDecoration,
-        child: SingleChildScrollView(
-          physics: viewModel.isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-          child: ChatInput(viewModel: viewModel),
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: GestureDetector(
+        onVerticalDragUpdate: (details) => viewModel.handleDragUpdate(details.delta.dy),
+        onVerticalDragEnd: (details) => viewModel.handleDragEnd(details.velocity.pixelsPerSecond.dy),
+        child: Container(
+          height: viewModel.currentHeight,
+          decoration: AppStyles.containerGradientDecoration,
+          child: SingleChildScrollView(
+            physics: viewModel.isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+            child: ChatInput(viewModel: viewModel),
+          ),
         ),
       ),
     );
@@ -127,12 +132,7 @@ class _TextToImageContentState extends State<_TextToImageContent> with SingleTic
       body: Stack(
         children: [
           _buildMessageList(viewModel),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _buildChatInput(viewModel),
-          ),
+          _buildChatInput(viewModel),
         ],
       ),
       bottomNavigationBar: _buildBottomBar(viewModel),

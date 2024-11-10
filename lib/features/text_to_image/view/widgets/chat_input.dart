@@ -7,17 +7,27 @@ import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_m
 
 class ChatInput extends StatelessWidget {
   final TextToImageViewModel viewModel;
+  final GlobalKey _contentKey = GlobalKey();
 
-  const ChatInput({
+  ChatInput({
     super.key,
     required this.viewModel,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Build tamamlandıktan sonra yüksekliği hesaplayıp viewModel'a bildirelim
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox? renderBox = _contentKey.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        final height = renderBox.size.height;
+        viewModel.updateMaxHeight(height);
+      }
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
+        key: _contentKey,
         mainAxisSize: MainAxisSize.min,
         children: [
           // Handle
