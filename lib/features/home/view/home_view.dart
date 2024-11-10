@@ -4,7 +4,6 @@ import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
@@ -31,7 +30,7 @@ class _HomeViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      backgroundStyle: BackgroundStyle.simpleGrid,
+      backgroundStyle: BackgroundStyle.modernGrid,
       body: CustomScrollView(
         slivers: [
           const CustomAppBar(),
