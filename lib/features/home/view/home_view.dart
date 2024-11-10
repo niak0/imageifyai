@@ -34,7 +34,8 @@ class _HomeViewContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return GradientScaffold(
       drawer: const AppDrawer(),
-      backgroundStyle: BackgroundStyle.modernGrid,
+      backgroundStyle: BackgroundStyle.particles,
+      gradientColors: AppColors.fullNeonGradient,
       body: CustomScrollView(
         slivers: [
           const CustomAppBar(),

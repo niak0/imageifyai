@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget {
         child: GlassContainer(
           borderColor: AppColors.primary,
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: AppColors.primary,
             ).withEffect(),
@@ -37,15 +37,15 @@ class CustomAppBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'AI Studio',
+              'Imageify AI',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
                 shadows: [
                   Shadow(
-                    color: Color(0xFF00F5FF),
-                    blurRadius: 8,
+                    color: AppColors.neonGreen,
+                    blurRadius: 5,
                   ),
                 ],
               ),

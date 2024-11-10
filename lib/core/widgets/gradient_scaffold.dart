@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/particle_system.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/modern_grid_pattern.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
@@ -33,6 +34,7 @@ class GradientScaffold extends StatelessWidget {
   final Color secondaryColor;
   final double backgroundOpacity;
   final double gradientOpacity;
+  final List<Color>? gradientColors; // Gradient renkleri için yeni parametre
 
   const GradientScaffold({
     super.key,
@@ -56,6 +58,7 @@ class GradientScaffold extends StatelessWidget {
     this.secondaryColor = const Color(0xFF6C72CB),
     this.backgroundOpacity = 1.0,
     this.gradientOpacity = 0.05,
+    this.gradientColors, // Yeni parametre
   });
 
   Widget _buildBackground() {
@@ -70,9 +73,9 @@ class GradientScaffold extends StatelessWidget {
         );
 
       case BackgroundStyle.particles:
-        return ParticleSystem(
-          particleColor: primaryColor,
-          particleCount: 50,
+        return const ParticleSystem(
+          particleColor: AppColors.neonGreen,
+          particleCount: 100,
         );
 
       case BackgroundStyle.none:
@@ -104,10 +107,11 @@ class GradientScaffold extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  effectiveBackgroundColor,
-                  primaryColor.withOpacity(gradientOpacity),
-                ],
+                colors: gradientColors ??
+                    [
+                      effectiveBackgroundColor,
+                      primaryColor.withOpacity(gradientOpacity),
+                    ],
               ),
             ),
           ),

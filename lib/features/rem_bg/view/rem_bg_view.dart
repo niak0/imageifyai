@@ -17,6 +17,8 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
+          backgroundStyle: BackgroundStyle.particles,
+          gradientColors: AppColors.glassGradient,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
@@ -27,6 +29,7 @@ class RemoveBackgroundView extends StatelessWidget {
               children: [
                 // Resim seçme/yükleme alanı
                 GlassContainer(
+                  blur: 10,
                   borderColor: AppColors.primary,
                   child: viewModel.selectedImage != null
                       ? Image.file(
@@ -36,13 +39,13 @@ class RemoveBackgroundView extends StatelessWidget {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.cloud_upload_outlined,
                               size: 48,
                               color: AppColors.primary,
                             ),
                             const SizedBox(height: 16),
-                            Text(
+                            const Text(
                               'Resim Yükle',
                               style: TextStyle(
                                 color: AppColors.primary,
@@ -52,7 +55,7 @@ class RemoveBackgroundView extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'veya sürükle bırak',
+                              've keyfine bak',
                               style: TextStyle(
                                 color: AppColors.primary.withOpacity(0.7),
                                 fontSize: 14,
@@ -115,7 +118,7 @@ class RemoveBackgroundView extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     viewModel.error!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.error,
                       fontSize: 14,
                     ),

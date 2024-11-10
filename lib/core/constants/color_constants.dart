@@ -4,8 +4,24 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Ana Renkler ve Tonları
   static const Color onPrimary = Color(0xFFFFFFFF);
+  // Ek Neon Renkler
+  static const Color neonGreen = Color(0xFF39FF14);
+
+  // Ana renk (base)
+  static const primary1 = Color(0xFF8687E7); // Neon Mor (mevcut)
+
+  // Yardımcı araçlar
+  static const utility = Color(0xFF00E676); // Neon Yeşil
+
+  // AI üretim araçları
+  static const aiTools = Color(0xFF00B0FF); // Neon Mavi
+
+  // Opsiyonel: Özel araçlar
+  static const special = Color(0xFFFF1744); // Neon Kırmızı
 
   // Neon Mavi tonları
+  // static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
+
   static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
   static const Color primaryLight = Color(0xFF80F9FF); // Açık Neon Mavi
   static const Color primaryDark = Color(0xFF00C8D4); // Koyu Neon Mavi
@@ -25,38 +41,6 @@ class AppColors {
   static const Color tertiaryDark = Color(0xFFCC00CC); // Koyu Neon Pembe
   static const Color tertiaryContainer = Color(0xFFB300B3);
   static const Color onTertiaryContainer = Color(0xFFFFE6FF);
-
-  // Gradyanlar
-  static const List<Color> primaryGradient = [
-    Color(0xFF00F5FF), // Neon Mavi
-    Color(0xFFBF00FF), // Neon Mor
-  ];
-
-  static const List<Color> secondaryGradient = [
-    Color(0xFFBF00FF), // Neon Mor
-    Color(0xFFFF00FF), // Neon Pembe
-  ];
-
-  static const List<Color> glassGradient = [
-    Color(0x1AFFFFFF),
-    Color(0x0AFFFFFF),
-  ];
-  // Ek Neon Renkler
-  static const Color neonGreen = Color(0xFF39FF14);
-
-  // Yeni Gradyanlar
-  static const List<Color> neonGradient = [
-    Color(0xFF00F5FF), // Neon Mavi
-    Color(0xFF39FF14), // Neon Yeşil
-  ];
-
-  static const List<Color> fullNeonGradient = [
-    Color(0xFF00F5FF), // Neon Mavi
-    Color(0xFFBF00FF), // Neon Mor
-    Color(0xFFFF00FF), // Neon Pembe
-    Color(0xFF39FF14), // Neon Yeşil
-  ];
-
   // Arka Plan ve Yüzey Renkleri (Daha koyu ve kontrast)
   static const Color background = Color(0xFF0A0A0F); // Çok koyu lacivert
   static const Color backgroundLight = Color(0xFF12121A);
@@ -107,6 +91,57 @@ class AppColors {
   static const Color divider = Color(0xFF2A2A38);
   static const Color inactive = Color(0xFF404052);
   static const Color disabled = Color(0xFF333342);
+
+  /// Gradyanlar
+// AI Araçları için - Neon Mavi tonları
+  static const List<Color> aiToolsGradient = [
+    Color(0x2600F5FF), // Neon Mavi %15 opaklık
+    Color(0x1A00B0FF), // Koyu Mavi %10 opaklık
+  ];
+
+// Yardımcı Araçlar için - Neon Yeşil tonları
+  static const List<Color> utilityGradient = [
+    Color(0x2600E676), // Neon Yeşil %15 opaklık
+    Color(0x1A00C853), // Koyu Yeşil %10 opaklık
+  ];
+
+// Premium/Özel Araçlar için - Neon Pembe ve Kırmızı
+  static const List<Color> specialGradient = [
+    Color(0x26FF00FF), // Neon Pembe %15 opaklık
+    Color(0x1AFF1744), // Neon Kırmızı %10 opaklık
+  ];
+
+// Ana Gradient - Neon Mavi ve Mor
+  static const List<Color> primaryGradient = [
+    Color(0x2600F5FF), // Neon Mavi %15 opaklık
+    Color(0x1ABF00FF), // Neon Mor %10 opaklık
+  ];
+
+// İkincil Gradient - Neon Mor ve Pembe
+  static const List<Color> secondaryGradient = [
+    Color(0x26BF00FF), // Neon Mor %15 opaklık
+    Color(0x1AFF00FF), // Neon Pembe %10 opaklık
+  ];
+
+// Cam efekti için gradient
+  static const List<Color> glassGradient = [
+    Color(0x0FFFFFFF), // Beyaz %6 opaklık
+    Color(0x05FFFFFF), // Beyaz %2 opaklık
+  ];
+
+// Neon Gradient - Mavi ve Yeşil
+  static const List<Color> neonGradient = [
+    Color(0x2600F5FF), // Neon Mavi %15 opaklık
+    Color(0x1A39FF14), // Neon Yeşil %10 opaklık
+  ];
+
+// Tam Neon Gradient - Tüm renkler
+  static const List<Color> fullNeonGradient = [
+    Color(0x2600F5FF), // Neon Mavi %15 opaklık
+    Color(0x1ABF00FF), // Neon Mor %10 opaklık
+    Color(0x1AFF00FF), // Neon Pembe %10 opaklık
+    Color(0x1A39FF14), // Neon Yeşil %10 opaklık
+  ];
 
   // Opaklık Değerleri
   static const double glowOpacity = 0.15;

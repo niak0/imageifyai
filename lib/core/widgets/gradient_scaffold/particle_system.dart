@@ -7,6 +7,9 @@ class Particle {
   late double speed;
   late double theta;
   late double radius;
+  // Hız sabitleri
+  static const double particleSpeed = 0.02; // Yavaş ve sabit hız
+  static const double deltaTime = 0.016; // Sabit delta (yaklaşık 60 FPS)
 
   Particle.random() {
     _initialize();
@@ -16,21 +19,28 @@ class Particle {
     final random = math.Random();
     x = random.nextDouble();
     y = random.nextDouble();
-    speed = 0.2 + random.nextDouble() * 0.3; // 0.2 ile 0.5 arası hız
+    // Hızı minSpeed ile maxSpeed arasında ayarla
+    speed = particleSpeed;
     theta = random.nextDouble() * 2 * math.pi; // Rastgele yön
     radius = 1 + random.nextDouble() * 2; // 1-3px arası yarıçap
   }
 
   void update(Size size, double delta) {
-    x += math.cos(theta) * speed * delta;
-    y += math.sin(theta) * speed * delta;
+    // Yeni pozisyonu hesapla
+    x += math.cos(theta) * speed * deltaTime;
+    y += math.sin(theta) * speed * deltaTime;
 
-    // Ekran sınırlarını kontrol et
-    if (x < 0 || x > size.width) {
-      theta = math.pi - theta;
+    // Ekran sınırlarını kontrol et ve wrap-around uygula
+    if (x < 0) {
+      x = 1.0; // Sağ taraftan geri gir
+    } else if (x > 1) {
+      x = 0.0; // Sol taraftan geri gir
     }
-    if (y < 0 || y > size.height) {
-      theta = -theta;
+
+    if (y < 0) {
+      y = 1.0; // Alt taraftan geri gir
+    } else if (y > 1) {
+      y = 0.0; // Üst taraftan geri gir
     }
   }
 }
@@ -39,56 +49,70 @@ class ParticlePainter extends CustomPainter {
   final List<Particle> particles;
   final Color color;
   final Animation<double> animation;
-  final double maxDistance = 150.0; // Parçacıklar arası maksimum bağlantı mesafesi
+  final double maxDistance;
+  // Maksimum doku boyutu
+  static const double maxTextureSize = 8192.0;
+
+  // Pozisyonları tutacak liste
+  late final List<Offset> _positions;
+  late final Paint _paint;
 
   ParticlePainter({
     required this.particles,
     required this.color,
     required this.animation,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Parçacıkları güncelle
-    for (var particle in particles) {
-      particle.update(size, animation.value);
-    }
-
-    final paint = Paint()
+    this.maxDistance = 100.0, // Mesafeyi azalttık
+  }) {
+    _paint = Paint()
       ..strokeWidth = 1
       ..style = PaintingStyle.fill;
 
-    // Parçacıklar arası çizgiler
-    for (var i = 0; i < particles.length; i++) {
-      for (var j = i + 1; j < particles.length; j++) {
-        final p1 = particles[i];
-        final p2 = particles[j];
+    // Pozisyon listesini başlangıçta oluştur
+    _positions = List.filled(particles.length, Offset.zero);
+  }
 
-        final dx = (p1.x - p2.x) * size.width;
-        final dy = (p1.y - p2.y) * size.height;
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Boyut kontrolü
+    final scale = math.min(
+      maxTextureSize / size.width,
+      maxTextureSize / size.height,
+    );
+    if (scale < 1.0) {
+      size = Size(
+        size.width * scale,
+        size.height * scale,
+      );
+    }
+    // Parçacıkları güncelle
+    for (var i = 0; i < particles.length; i++) {
+      particles[i].update(size, animation.value);
+      _positions[i] = Offset(
+        particles[i].x * size.width,
+        particles[i].y * size.height,
+      );
+    }
+    // Bağlantıları çiz
+    for (var i = 0; i < _positions.length; i++) {
+      final p1 = _positions[i];
+      for (var j = i + 1; j < _positions.length; j++) {
+        final p2 = _positions[j];
+        final dx = p1.dx - p2.dx;
+        final dy = p1.dy - p2.dy;
         final distance = math.sqrt(dx * dx + dy * dy);
 
         if (distance < maxDistance) {
           final opacity = (1 - distance / maxDistance) * 0.2;
-          paint.color = color.withOpacity(opacity);
-
-          canvas.drawLine(
-            Offset(p1.x * size.width, p1.y * size.height),
-            Offset(p2.x * size.width, p2.y * size.height),
-            paint,
-          );
+          _paint.color = color.withOpacity(opacity);
+          canvas.drawLine(p1, p2, _paint);
         }
       }
     }
 
     // Parçacıkları çiz
-    paint.color = color.withOpacity(0.6);
-    for (var particle in particles) {
-      canvas.drawCircle(
-        Offset(particle.x * size.width, particle.y * size.height),
-        particle.radius,
-        paint,
-      );
+    _paint.color = color.withOpacity(0.6);
+    for (var i = 0; i < particles.length; i++) {
+      canvas.drawCircle(_positions[i], particles[i].radius, _paint);
     }
   }
 
