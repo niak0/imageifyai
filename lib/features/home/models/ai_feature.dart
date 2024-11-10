@@ -60,6 +60,20 @@ class AIFeature {
     color: AppColors.tertiary,
     page: TextToImageView(),
   );
+  static const removeBackground = AIFeature._(
+    title: 'Arka Planı Kaldır',
+    description: 'Fotoğraflarınızın arka planını kaldırın',
+    icon: Icons.remove_red_eye,
+    color: AppColors.tertiary,
+    page: TextToImageView(),
+  );
+  static const highResolution = AIFeature._(
+    title: 'Yüksek Çözünürlük',
+    description: 'Fotoğraflarınızın çözünürlüğünü artırın',
+    icon: Icons.zoom_in,
+    color: AppColors.tertiary,
+    page: TextToImageView(),
+  );
 
   static final List<AIFeature> values = [
     avatars,
@@ -67,5 +81,7 @@ class AIFeature {
     filters,
     tattoo,
     textToImage,
+    removeBackground,
+    highResolution,
   ];
 }
