@@ -13,10 +13,11 @@ class TextToImageView extends StatelessWidget {
   const TextToImageView({super.key});
 
   @override
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TextToImageViewModel(),
-      child: const _TextToImageContent(),
+      child: _TextToImageContent(),
     );
   }
 }

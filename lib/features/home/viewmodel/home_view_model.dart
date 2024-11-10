@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  AIFeature _selectedFeature = AIFeature.textToImage;
+  List<AIFeature> get creationFeatures => AIFeature.getFeaturesByCategory(FeatureCategory.creation);
+  List<AIFeature> get utilityFeatures => AIFeature.getFeaturesByCategory(FeatureCategory.utility);
 
-  AIFeature get selectedFeature => _selectedFeature;
-
-  void setFeature(AIFeature feature) {
-    if (feature == _selectedFeature) return;
-    _selectedFeature = feature;
-    notifyListeners();
+  // Feature'ların durumlarını yönetme (örn: aktif/pasif)
+  void toggleFeatureStatus(AIFeature feature) {
+    // ...
   }
 }

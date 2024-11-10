@@ -7,83 +7,191 @@ class FeatureCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const FeatureCard({
+    super.key,
     required this.feature,
     required this.onTap,
-    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.surfaceVariant,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    // Kategoriye göre farklı kart tasarımları
+    switch (feature.category) {
+      case FeatureCategory.main:
+        return _buildMainCard();
+      case FeatureCategory.creation:
+        return _buildCreationCard();
+      case FeatureCategory.utility:
+        return _buildUtilityCard();
+    }
+  }
+
+  Widget _buildMainCard() {
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: AppColors.primaryGradient,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Feature görseli
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      feature.color.withOpacity(0.8),
-                      feature.color,
-                    ],
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      feature.icon,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Text(
+                        'Yeni',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Text(
+                  feature.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Center(
+                const SizedBox(height: 8),
+                Text(
+                  feature.description,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCreationCard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: feature.color.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
                   child: Icon(
                     feature.icon,
-                    size: 40,
-                    color: Colors.white,
+                    size: 32,
+                    color: feature.color,
                   ),
                 ),
-              ),
-            ),
-
-            // Feature bilgileri
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    feature.title,
-                    style: const TextStyle(
-                      color: AppColors.textPrimary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(height: 12),
+                Text(
+                  feature.title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    feature.description,
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 12,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildUtilityCard() {
+    return ListTile(
+      onTap: onTap,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: feature.color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(
+          feature.icon,
+          color: feature.color,
+          size: 24,
+        ),
+      ),
+      title: Text(
+        feature.title,
+        style: const TextStyle(
+          fontWeight: FontWeight.w500,
+          color: AppColors.textPrimary,
+        ),
+      ),
+      subtitle: Text(
+        feature.description,
+        style: const TextStyle(
+          color: AppColors.textSecondary,
+          fontSize: 12,
+        ),
+      ),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        size: 16,
+        color: AppColors.textSecondary,
       ),
     );
   }
