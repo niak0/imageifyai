@@ -18,6 +18,14 @@ class GradientScaffold extends StatelessWidget {
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool resizeToAvoidBottomInset;
 
+  // Drawer özellikleri
+  final Widget? drawer;
+  final Widget? endDrawer;
+  final Color? drawerScrimColor;
+  final double? drawerEdgeDragWidth;
+  final bool drawerEnableOpenDragGesture;
+  final bool endDrawerEnableOpenDragGesture;
+
   // Arka plan özellikleri
   final BackgroundStyle backgroundStyle;
   final Color? backgroundColor;
@@ -34,10 +42,18 @@ class GradientScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.resizeToAvoidBottomInset = true,
+    // Drawer parametreleri
+    this.drawer,
+    this.endDrawer,
+    this.drawerScrimColor,
+    this.drawerEdgeDragWidth,
+    this.drawerEnableOpenDragGesture = true,
+    this.endDrawerEnableOpenDragGesture = true,
+    // Arka plan parametreleri
     this.backgroundStyle = BackgroundStyle.none,
+    this.backgroundColor,
     this.primaryColor = const Color(0xFF8687E7),
     this.secondaryColor = const Color(0xFF6C72CB),
-    this.backgroundColor,
     this.backgroundOpacity = 1.0,
     this.gradientOpacity = 0.05,
   });
@@ -71,6 +87,12 @@ class GradientScaffold extends StatelessWidget {
     return Scaffold(
       backgroundColor: effectiveBackgroundColor.withOpacity(backgroundOpacity),
       appBar: appBar,
+      drawer: drawer,
+      endDrawer: endDrawer,
+      drawerScrimColor: drawerScrimColor,
+      drawerEdgeDragWidth: drawerEdgeDragWidth,
+      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
+      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,

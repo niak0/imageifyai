@@ -8,12 +8,14 @@ class CyberpunkCard extends StatelessWidget {
   final Widget child;
   final Color? color;
   final CyberpunkStyle? style;
+  final double? blur;
 
   const CyberpunkCard({
     super.key,
     required this.child,
     this.color,
     this.style,
+    this.blur,
   });
 
   @override
@@ -23,36 +25,50 @@ class CyberpunkCard extends StatelessWidget {
     final cardStyle = style ?? CyberpunkTheme.defaultStyle;
     final themeColor = color ?? AppColors.primary;
 
+    Widget cardContent = Container(
+      decoration: BoxDecoration(
+        color: AppColors.backgroundDark.withOpacity(0.6),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: child,
+    );
+
     switch (cardStyle) {
       case CyberpunkStyle.glass:
         return GlassContainer(
           borderColor: themeColor,
-          child: child,
+          blur: blur,
+          child: cardContent,
         );
 
       case CyberpunkStyle.neon:
         return NeonBorder(
           color: themeColor,
-          child: child,
+          child: cardContent,
         );
 
       case CyberpunkStyle.gradient:
         return Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                themeColor.withOpacity(CyberpunkTheme.gradientOpacity),
-                themeColor.withOpacity(CyberpunkTheme.gradientOpacity * 0.5),
+                AppColors.backgroundDark.withOpacity(0.95),
+                themeColor.withOpacity(0.1),
               ],
+            ),
+            border: Border.all(
+              color: themeColor.withOpacity(0.3),
+              width: 1,
             ),
           ),
           child: child,
         );
 
       case CyberpunkStyle.minimal:
-        return child;
+        return cardContent;
     }
   }
 }
