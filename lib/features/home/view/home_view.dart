@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
+import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
@@ -30,9 +31,10 @@ class _HomeViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
+      backgroundStyle: BackgroundStyle.modernGrid,
       body: CustomScrollView(
         slivers: [
-          _appBar,
+          const CustomAppBar(),
           // Ana Özellik - Text to Image (Daha geniş ve dikkat çekici)
           SliverPadding(
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
@@ -91,41 +93,6 @@ class _HomeViewContent extends StatelessWidget {
       ),
     );
   }
-
-  SliverAppBar get _appBar => SliverAppBar(
-        expandedHeight: 150,
-        floating: false,
-        pinned: true,
-        backgroundColor: AppColors.background,
-        flexibleSpace: FlexibleSpaceBar(
-          title: const Text(
-            'AI Studio',
-            style: TextStyle(
-              color: AppColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          background: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: AppColors.primaryGradient,
-              ),
-            ),
-            child: const Stack(
-              children: [
-                Positioned.fill(
-                  child: Opacity(
-                    opacity: 0.1,
-                    child: GridPattern(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
 
   Widget _buildSectionHeader(String title) {
     return SliverPadding(
