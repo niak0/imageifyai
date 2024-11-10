@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/themes/cyberpunk/extensions/cyberpunk_icon_extension.dart';
-import 'package:imageifyai/core/themes/cyberpunk/extensions/cyberpunk_text_extension.dart';
+import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_icon_extension.dart';
+import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_text_extension.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {

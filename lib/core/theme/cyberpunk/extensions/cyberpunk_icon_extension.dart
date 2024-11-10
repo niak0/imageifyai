@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/themes/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
 
 extension CyberpunkIconExtension on Icon {
   Widget withNeonEffect({Color? color}) {
-    if (!CyberpunkTheme.enabled) return this;
+    if (!CyberpunkTheme.instance.enabled) return this;
 
     final neonColor = color ?? AppColors.primary;
     return Icon(

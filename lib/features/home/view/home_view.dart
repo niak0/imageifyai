@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/themes/cyberpunk/extensions/cyberpunk_text_extension.dart';
-import 'package:imageifyai/core/themes/cyberpunk/widgets/cyberpunk_card.dart';
+import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_text_extension.dart';
+import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
@@ -11,7 +11,7 @@ import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/color_constants.dart';
-import '../../../core/themes/cyberpunk/cyberpunk_theme.dart';
+import '../../../core/theme/cyberpunk/cyberpunk_theme.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -34,12 +34,11 @@ class _HomeViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Cyberpunk temasını aktif et
-    CyberpunkTheme.enabled = true;
-    CyberpunkTheme.defaultStyle = CyberpunkStyle.glass;
+    CyberpunkTheme.instance.setEnabled(true);
+    CyberpunkTheme.instance.setStyle(CyberpunkStyle.glass);
 
     return GradientScaffold(
       drawer: const AppDrawer(),
-      drawerScrimColor: Colors.black54, // İsteğe bağlı: Drawer açıkken arka plan rengi
       backgroundStyle: BackgroundStyle.modernGrid,
       body: CustomScrollView(
         slivers: [

@@ -41,6 +41,21 @@ class AppColors {
     Color(0x1AFFFFFF),
     Color(0x0AFFFFFF),
   ];
+  // Ek Neon Renkler
+  static const Color neonGreen = Color(0xFF39FF14);
+
+  // Yeni Gradyanlar
+  static const List<Color> neonGradient = [
+    Color(0xFF00F5FF), // Neon Mavi
+    Color(0xFF39FF14), // Neon Yeşil
+  ];
+
+  static const List<Color> fullNeonGradient = [
+    Color(0xFF00F5FF), // Neon Mavi
+    Color(0xFFBF00FF), // Neon Mor
+    Color(0xFFFF00FF), // Neon Pembe
+    Color(0xFF39FF14), // Neon Yeşil
+  ];
 
   // Arka Plan ve Yüzey Renkleri (Daha koyu ve kontrast)
   static const Color background = Color(0xFF0A0A0F); // Çok koyu lacivert
@@ -93,6 +108,26 @@ class AppColors {
   static const Color inactive = Color(0xFF404052);
   static const Color disabled = Color(0xFF333342);
 
+  // Opaklık Değerleri
+  static const double glowOpacity = 0.15;
+  static const double borderOpacity = 0.3;
+  static const double shadowOpacity = 0.2;
+  // Yeni Glow Efektleri
+  static List<BoxShadow> neonGreenGlow({double opacity = 0.5}) => [
+        BoxShadow(
+          color: neonGreen.withOpacity(opacity),
+          blurRadius: 8,
+          spreadRadius: 1,
+        ),
+      ];
+
+  static List<BoxShadow> tertiaryGlow({double opacity = 0.5}) => [
+        BoxShadow(
+          color: tertiary.withOpacity(opacity),
+          blurRadius: 8,
+          spreadRadius: 1,
+        ),
+      ];
   // Glow Efektleri
   static List<BoxShadow> primaryGlow({double opacity = 0.5}) => [
         BoxShadow(

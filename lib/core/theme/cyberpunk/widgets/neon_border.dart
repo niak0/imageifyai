@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/themes/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
 
 class NeonBorder extends StatelessWidget {
   final Widget child;
@@ -16,10 +16,10 @@ class NeonBorder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!CyberpunkTheme.enabled) return child;
+    if (!CyberpunkTheme.instance.enabled) return child;
 
     final neonColor = color ?? AppColors.primary;
-    final neonIntensity = intensity ?? CyberpunkTheme.neonIntensity;
+    final neonIntensity = intensity ?? CyberpunkTheme.instance.neonIntensity;
 
     return Container(
       decoration: BoxDecoration(

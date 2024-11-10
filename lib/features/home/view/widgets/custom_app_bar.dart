@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/themes/cyberpunk/cyberpunk_theme.dart';
-import 'package:imageifyai/core/themes/cyberpunk/extensions/cyberpunk_icon_extension.dart';
-import 'package:imageifyai/core/themes/cyberpunk/widgets/cyberpunk_card.dart';
+import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/cyberpunk/extensions/cyberpunk_icon_extension.dart';
+import 'package:imageifyai/core/theme/cyberpunk/widgets/cyberpunk_card.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold/modern_grid_pattern.dart';
 
 class CustomAppBar extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/themes/cyberpunk/cyberpunk_theme.dart';
-import 'package:imageifyai/core/themes/cyberpunk/widgets/glass_container.dart';
-import 'package:imageifyai/core/themes/cyberpunk/widgets/neon_border.dart';
+import 'package:imageifyai/core/theme/cyberpunk/cyberpunk_theme.dart';
+import 'package:imageifyai/core/theme/cyberpunk/widgets/glass_container.dart';
+import 'package:imageifyai/core/theme/cyberpunk/widgets/neon_border.dart';
 
 class CyberpunkCard extends StatelessWidget {
   final Widget child;
@@ -20,9 +20,9 @@ class CyberpunkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!CyberpunkTheme.enabled) return child;
+    if (!CyberpunkTheme.instance.enabled) return child;
 
-    final cardStyle = style ?? CyberpunkTheme.defaultStyle;
+    final cardStyle = style ?? CyberpunkTheme.instance.style;
     final themeColor = color ?? AppColors.primary;
 
     Widget cardContent = Container(
