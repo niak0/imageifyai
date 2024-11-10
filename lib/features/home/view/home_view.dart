@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
+import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/view/widgets/grid_pattern.dart';
@@ -28,8 +29,7 @@ class _HomeViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
+    return GradientScaffold(
       body: CustomScrollView(
         slivers: [
           _appBar,
@@ -47,8 +47,8 @@ class _HomeViewContent extends StatelessWidget {
           // AI Üretim Araçları
           _buildSectionHeader('AI Üretim Araçları'),
           SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio: 1.1,
@@ -64,14 +64,19 @@ class _HomeViewContent extends StatelessWidget {
 
           // Yardımcı Araçlar
           _buildSectionHeader('Yardımcı Araçlar'),
-          SliverToBoxAdapter(
-            child: Column(
-              children: utilityFeatures
-                  .map((feature) => FeatureCard(
-                        feature: feature,
-                        onTap: () => NavigationService().navigateToPage(feature.page),
-                      ))
-                  .toList(),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingMedium),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: FeatureCard(
+                    feature: utilityFeatures[index],
+                    onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
+                  ),
+                ),
+                childCount: utilityFeatures.length,
+              ),
             ),
           ),
         ],
