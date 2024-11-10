@@ -1,21 +1,20 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imageifyai/core/base/base_view_model.dart';
 
-class RemoveBackgroundViewModel extends ChangeNotifier {
+class RemoveBackgroundViewModel extends BaseViewModel {
   File? _selectedImage;
   File? _resultImage;
-  bool _isLoading = false;
   String? _error;
 
   File? get selectedImage => _selectedImage;
   File? get resultImage => _resultImage;
-  bool get isLoading => _isLoading;
   String? get error => _error;
   bool get hasResult => _resultImage != null;
 
   Future<void> pickImage(ImageSource source) async {
     try {
+      setLoading(true);
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: source);
 
@@ -23,11 +22,11 @@ class RemoveBackgroundViewModel extends ChangeNotifier {
         _selectedImage = File(pickedFile.path);
         _resultImage = null;
         _error = null;
-        notifyListeners();
       }
     } catch (e) {
-      _error = 'Resim seçilirken bir hata oluştu';
-      notifyListeners();
+      setError('Resim seçilirken bir hata oluştu');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -35,9 +34,8 @@ class RemoveBackgroundViewModel extends ChangeNotifier {
     if (_selectedImage == null) return;
 
     try {
-      _isLoading = true;
-      _error = null;
-      notifyListeners();
+      setLoading(true);
+      setError(null);
 
       // TODO: API entegrasyonu yapılacak
       // Örnek bekleme süresi
@@ -48,8 +46,7 @@ class RemoveBackgroundViewModel extends ChangeNotifier {
     } catch (e) {
       _error = 'Arka plan kaldırılırken bir hata oluştu';
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      setLoading(false);
     }
   }
 
@@ -57,16 +54,14 @@ class RemoveBackgroundViewModel extends ChangeNotifier {
     if (_resultImage == null) return;
 
     try {
-      _isLoading = true;
-      notifyListeners();
+      setLoading(true);
 
       // TODO: İndirme işlemi implementasyonu yapılacak
       await Future.delayed(const Duration(seconds: 1));
     } catch (e) {
       _error = 'Resim indirilirken bir hata oluştu';
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      setLoading(false);
     }
   }
 
@@ -74,7 +69,6 @@ class RemoveBackgroundViewModel extends ChangeNotifier {
     _selectedImage = null;
     _resultImage = null;
     _error = null;
-    _isLoading = false;
-    notifyListeners();
+    setLoading(false);
   }
 }
