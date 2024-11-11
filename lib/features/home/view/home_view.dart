@@ -17,8 +17,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeViewModel(),
+    return ChangeNotifierProvider.value(
+      value: HomeViewModel(),
       child: const _HomeViewContent(),
     );
   }
@@ -37,6 +37,7 @@ class _HomeViewContent extends StatelessWidget {
       backgroundStyle: BackgroundStyle.particles,
       gradientColors: AppColors.fullNeonGradient,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           const CustomAppBar(),
           // Ana Özellik - Text to Image
@@ -44,7 +45,7 @@ class _HomeViewContent extends StatelessWidget {
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             sliver: SliverToBoxAdapter(
               child: GlassContainer(
-                borderColor: AppColors.primary,
+                color: AppColors.primary,
                 child: FeatureCard(
                   feature: AIFeature.textToImage,
                   onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
@@ -82,7 +83,7 @@ class _HomeViewContent extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) => GlassContainer(
-                  borderColor: creationFeatures[index].color,
+                  color: creationFeatures[index].color,
                   child: FeatureCard(
                     feature: creationFeatures[index],
                     onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
@@ -120,10 +121,11 @@ class _HomeViewContent extends StatelessWidget {
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: GlassContainer(
-                    borderColor: utilityFeatures[index].color,
+                    color: utilityFeatures[index].color,
                     child: FeatureCard(
                       feature: utilityFeatures[index],
                       onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
+                      useListTile: true,
                     ),
                   ),
                 ),

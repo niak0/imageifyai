@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GlassContainer(
-          borderColor: AppColors.primary,
+          color: AppColors.primary,
           child: IconButton(
             icon: const Icon(
               Icons.menu,
@@ -93,10 +93,7 @@ class CustomAppBar extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF00F5FF).withOpacity(0.1),
-                    const Color(0xFFFF00FF).withOpacity(0.1),
-                  ],
+                  colors: AppColors.aiToolsGradient,
                   stops: const [0.2, 1.0],
                 ),
               ),

@@ -5,51 +5,6 @@ import 'app_tokens.dart';
 
 /// Uygulama genelinde kullanılan stil tanımlamaları
 class AppStyles {
-  /// Container Gradient Stil
-  static BoxDecoration get containerGradientDecoration => BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.border,
-            AppColors.border.withOpacity(0.4),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow.withOpacity(0.9),
-            blurRadius: AppTokens.elevationMd,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      );
-
-  /// Card Stilleri
-  static BoxDecoration get cardDecoration => BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-        border: Border.all(color: AppColors.outline.withOpacity(0.1)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow.withOpacity(0.08),
-            blurRadius: AppTokens.elevationSm,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      );
-
-  static BoxDecoration get activeCardDecoration => cardDecoration.copyWith(
-        border: Border.all(color: AppColors.primary),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.15),
-            blurRadius: AppTokens.elevationMd,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      );
-
   /// Input Stilleri
   static InputDecoration get inputDecoration => InputDecoration(
         filled: true,
@@ -141,40 +96,6 @@ class AppStyles {
         ),
       );
 
-  /// Container Stilleri
-  static BoxDecoration get gradientContainerDecoration => BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.primary,
-            AppColors.primary.withOpacity(0.8),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.25),
-            blurRadius: AppTokens.elevationLg,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      );
-
-  static BoxDecoration get glassContainerDecoration => BoxDecoration(
-        color: AppColors.surface.withOpacity(0.8),
-        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-        border: Border.all(
-          color: AppColors.outline.withOpacity(0.1),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow.withOpacity(0.05),
-            blurRadius: AppTokens.elevationSm,
-          ),
-        ],
-      );
-
   /// Modal ve Bottom Sheet Stilleri
   static BoxDecoration get modalDecoration => BoxDecoration(
         color: AppColors.surface,
@@ -188,15 +109,6 @@ class AppStyles {
             offset: const Offset(0, -4),
           ),
         ],
-      );
-
-  /// List Tile Stilleri
-  static ListTileThemeData get listTileTheme => ListTileThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppTokens.radiusSm),
-        ),
-        selectedTileColor: AppColors.primary.withOpacity(0.1),
-        selectedColor: AppColors.primary,
       );
 
   /// Chip Stilleri

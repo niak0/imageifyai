@@ -229,6 +229,7 @@ class AppTheme {
             color: AppColors.outline.withOpacity(0.1),
           ),
         ),
+        // ... diğer border stilleri benzer şekilde
       ),
 
       // Metin Teması

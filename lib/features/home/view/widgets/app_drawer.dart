@@ -207,7 +207,7 @@ class AppDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: GlassContainer(
-        borderColor: color,
+        color: color,
         child: ListTile(
           leading: Icon(icon, color: color).withEffect(),
           title: Text(

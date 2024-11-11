@@ -5,6 +5,7 @@ import 'package:imageifyai/features/baby/view/baby_view.dart';
 import 'package:imageifyai/features/filters/view/filters_view.dart';
 import 'package:imageifyai/features/tattoo/view/tattoo_view.dart';
 import 'package:imageifyai/features/text_to_image/view/text_to_image_view.dart';
+import 'package:imageifyai/features/upscaler/view/upscaler_view.dart';
 
 import '../../rem_bg/view/rem_bg_view.dart';
 
@@ -35,7 +36,7 @@ class AIFeature {
     title: 'Metin-Görüntü',
     description: 'Metinden AI görüntüleri oluşturun',
     icon: Icons.text_fields,
-    color: AppColors.tertiary,
+    color: AppColors.primary,
     page: TextToImageView(),
     category: FeatureCategory.main,
   );
@@ -45,7 +46,7 @@ class AIFeature {
     title: 'Avatarlar',
     description: 'Kişiselleştirilmiş AI avatarları oluşturun',
     icon: Icons.face,
-    color: AppColors.tertiary,
+    color: AppColors.neonGreen,
     page: AvatarsView(),
     category: FeatureCategory.creation,
   );
@@ -54,7 +55,7 @@ class AIFeature {
     title: 'AI Bebek',
     description: 'Gelecekteki bebeğinizi görün',
     icon: Icons.child_care,
-    color: AppColors.tertiary,
+    color: AppColors.neonGreen,
     page: BabyView(),
     category: FeatureCategory.creation,
   );
@@ -63,7 +64,7 @@ class AIFeature {
     title: 'Filtreler',
     description: 'Fotoğraflarınıza sanatsal stiller uygulayın',
     icon: Icons.filter,
-    color: AppColors.tertiary,
+    color: AppColors.neonGreen,
     page: FiltersView(),
     category: FeatureCategory.creation,
   );
@@ -72,7 +73,7 @@ class AIFeature {
     title: 'Dövme',
     description: 'AI ile dövme tasarımları oluşturun',
     icon: Icons.brush,
-    color: AppColors.tertiary,
+    color: AppColors.neonGreen,
     page: TattooView(),
     category: FeatureCategory.creation,
   );
@@ -87,12 +88,12 @@ class AIFeature {
     category: FeatureCategory.utility,
   );
 
-  static const highResolution = AIFeature._(
+  static const upscaler = AIFeature._(
     title: 'Yüksek Çözünürlük',
     description: 'Fotoğraflarınızın çözünürlüğünü artırın',
     icon: Icons.zoom_in,
     color: AppColors.tertiary,
-    page: TextToImageView(),
+    page: UpscalerView(),
     category: FeatureCategory.utility,
   );
 
@@ -108,6 +109,6 @@ class AIFeature {
     filters,
     tattoo,
     removeBackground,
-    highResolution,
+    upscaler,
   ];
 }
