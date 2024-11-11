@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/components/buttons/app_button.dart';
 import 'package:imageifyai/core/constants/animation_constants.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';

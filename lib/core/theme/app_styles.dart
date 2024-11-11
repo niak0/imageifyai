@@ -40,7 +40,7 @@ class AppStyles {
           vertical: AppTokens.elevationSm,
         ),
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: AppColors.primary),
+          side: const BorderSide(color: AppColors.primary),
           borderRadius: BorderRadius.circular(AppTokens.radiusMd),
         ),
         elevation: 0,
@@ -55,7 +55,7 @@ class AppStyles {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-          side: BorderSide(color: AppColors.primary), // Primary ile aynı border
+          side: const BorderSide(color: AppColors.primary), // Primary ile aynı border
         ),
         elevation: 0,
       );

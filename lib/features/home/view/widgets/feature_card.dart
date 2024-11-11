@@ -28,6 +28,7 @@ class FeatureCard extends StatelessWidget {
 
   Widget _buildListTile() {
     return ListTile(
+      dense: true,
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

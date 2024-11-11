@@ -15,7 +15,7 @@ class AppDrawer extends StatelessWidget {
 
     return Theme(
       data: Theme.of(context).copyWith(
-        drawerTheme: DrawerThemeData(
+        drawerTheme: const DrawerThemeData(
           backgroundColor: AppColors.backgroundDark,
           scrimColor: Colors.black54,
           elevation: 0,
@@ -76,7 +76,7 @@ class AppDrawer extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.auto_awesome,
                             size: 40,
                             color: AppColors.primary,
@@ -84,7 +84,7 @@ class AppDrawer extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         // Uygulama Adı
-                        Text(
+                        const Text(
                           'AI Studio',
                           style: TextStyle(
                             color: Colors.white,
@@ -172,7 +172,7 @@ class AppDrawer extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.rocket_launch,
                             size: 16,
                             color: AppColors.primary,

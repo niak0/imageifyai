@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
 import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/modern_grid_pattern.dart';
 
 import '../../../../core/theme/widgets/glass_container.dart';
 
@@ -14,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
       expandedHeight: 180,
       floating: false,
       pinned: true,
-      backgroundColor: AppColors.background.withOpacity(0.9),
+      backgroundColor: AppColors.background.withOpacity(0.95),
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -84,26 +83,6 @@ class CustomAppBar extends StatelessWidget {
             const DecoratedBox(
               decoration: BoxDecoration(
                 color: Color(0xFF0A0A0F),
-              ),
-            ),
-
-            // Gradient (statik)
-            DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: AppColors.aiToolsGradient,
-                  stops: const [0.2, 1.0],
-                ),
-              ),
-            ),
-
-            // Grid pattern (optimize edilmiş)
-            const Positioned.fill(
-              child: ModernGridPattern(
-                primaryColor: Color(0xFF00F5FF),
-                accentColor: Color(0xFFFF00FF),
               ),
             ),
 

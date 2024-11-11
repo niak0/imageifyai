@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
@@ -21,6 +20,13 @@ class GlassContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Opaklık ve oranlar, sınıf içinde belirlenen değerlerle kontrol edilecek.
+    const double borderOpacity = 0.2;
+    const double shadowOpacity = 0.15;
+    const double backgroundOpacity = 0.1;
+    const double shadowBlurRadius = 12;
+    const double shadowSpreadRadius = 2;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: BackdropFilter(
@@ -31,17 +37,17 @@ class GlassContainer extends StatelessWidget {
         child: Container(
           height: height,
           decoration: BoxDecoration(
-            color: backgroundColor ?? Colors.transparent,
+            color: color.withOpacity(backgroundOpacity),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: color.withOpacity(AppColors.borderOpacity),
+              color: color.withOpacity(borderOpacity),
               width: 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: color.withOpacity(0.08),
-                blurRadius: 10,
-                spreadRadius: 0,
+                color: color.withOpacity(shadowOpacity),
+                blurRadius: shadowBlurRadius,
+                spreadRadius: shadowSpreadRadius,
                 offset: const Offset(0, 0),
               ),
             ],

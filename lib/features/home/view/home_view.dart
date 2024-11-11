@@ -61,9 +61,9 @@ class _HomeViewContent extends StatelessWidget {
               vertical: AppConstants.paddingSmall,
             ),
             sliver: SliverToBoxAdapter(
-              child: Text(
+              child: const Text(
                 'AI Üretim Araçları',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -101,9 +101,9 @@ class _HomeViewContent extends StatelessWidget {
               vertical: AppConstants.paddingSmall,
             ),
             sliver: SliverToBoxAdapter(
-              child: Text(
+              child: const Text(
                 'Yardımcı Araçlar',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
