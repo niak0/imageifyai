@@ -16,7 +16,7 @@ class AppDrawer extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(
         drawerTheme: const DrawerThemeData(
-          backgroundColor: AppColors.backgroundDark,
+          backgroundColor: AppColors.surfaceDark,
           scrimColor: Colors.black54,
           elevation: 0,
         ),
@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
       child: Drawer(
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.backgroundDark,
+            color: AppColors.surfaceDark,
             border: Border(
               right: BorderSide(
                 color: AppColors.primary.withOpacity(0.2),
@@ -206,7 +206,7 @@ class AppDrawer extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: GlassContainer(
+      child: BaseContainer(
         color: color,
         child: ListTile(
           leading: Icon(icon, color: color).withEffect(),

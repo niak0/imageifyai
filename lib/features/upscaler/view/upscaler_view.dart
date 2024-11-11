@@ -17,7 +17,7 @@ class UpscalerView extends StatelessWidget {
       create: (_) => UpscalerViewModel(),
       child: Consumer<UpscalerViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          gradientColors: AppColors.glassGradient,
+          backgroundColor: AppColors.utilityBackground,
           backgroundStyle: BackgroundStyle.particles,
           appBar: AppBar(
             title: const Text('Kalite Yükseltici'),
@@ -28,9 +28,9 @@ class UpscalerView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Resim seçme/yükleme alanı
-                GlassContainer(
+                BaseContainer(
                   height: 300,
-                  color: AppColors.background,
+                  color: AppColors.primaryBackground,
                   child: viewModel.selectedImage != null
                       ? Image.file(
                           viewModel.selectedImage!,
@@ -68,6 +68,7 @@ class UpscalerView extends StatelessWidget {
 
                 // Resim seçme butonu
                 AppButton(
+                  color: AppColors.utility,
                   text: 'Galeriden Resim Seç',
                   leftIcon: Icons.photo_library_outlined,
                   isFullWidth: true,
@@ -80,6 +81,7 @@ class UpscalerView extends StatelessWidget {
 
                   // Kalite yükseltme butonu
                   AppButton(
+                    color: AppColors.utility,
                     text: 'Kaliteyi Yükselt',
                     leftIcon: Icons.auto_awesome,
                     type: AppButtonType.secondary,
@@ -93,9 +95,9 @@ class UpscalerView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Sonuç resmi
-                  GlassContainer(
+                  BaseContainer(
                     height: 300,
-                    color: AppColors.background,
+                    color: AppColors.primaryBackground,
                     child: Image.file(
                       viewModel.resultImage!,
                       fit: BoxFit.contain,
@@ -106,6 +108,7 @@ class UpscalerView extends StatelessWidget {
 
                   // İndirme butonu
                   AppButton(
+                    color: AppColors.utility,
                     text: 'Sonucu İndir',
                     leftIcon: Icons.download,
                     isFullWidth: true,

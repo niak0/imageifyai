@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/animation_constants.dart';
 import 'package:imageifyai/core/theme/app_tokens.dart';
+import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import '../../theme/app_styles.dart';
 import '../../constants/color_constants.dart';
 
@@ -17,6 +18,7 @@ class AppButton extends StatelessWidget {
   final bool isFullWidth;
   final IconData? leftIcon;
   final IconData? rightIcon;
+  final Color color;
 
   const AppButton({
     required this.text,
@@ -27,6 +29,7 @@ class AppButton extends StatelessWidget {
     this.isFullWidth = false,
     this.leftIcon,
     this.rightIcon,
+    required this.color,
     super.key,
   });
 
@@ -35,9 +38,11 @@ class AppButton extends StatelessWidget {
     return AnimatedScale(
       scale: onPressed == null || isLoading ? 0.9 : 1.0,
       duration: AppAnimations.fast,
-      child: SizedBox(
+      child: BaseContainer(
+        color: color,
         width: isFullWidth ? double.infinity : null,
         height: AppStyles.getButtonHeight(size),
+        isTransparent: type == AppButtonType.secondary,
         child: _buildButton(),
       ),
     );
@@ -64,9 +69,9 @@ class AppButton extends StatelessWidget {
         height: 20,
         width: 20,
         child: CircularProgressIndicator(
-          strokeWidth: 2,
+          strokeWidth: 3,
           valueColor: AlwaysStoppedAnimation<Color>(
-            type == AppButtonType.text ? AppColors.text : AppColors.primary,
+            type == AppButtonType.text ? AppColors.text : color,
           ),
         ),
       );
@@ -91,10 +96,10 @@ class AppButton extends StatelessWidget {
 
   ButtonStyle _getButtonStyle() {
     final baseStyle = ElevatedButton.styleFrom(
-      backgroundColor: type == AppButtonType.primary ? AppColors.primary.withOpacity(0.2) : Colors.transparent,
-      foregroundColor: AppColors.primary,
+      backgroundColor: type == AppButtonType.primary ? color.withOpacity(0.2) : Colors.transparent,
+      foregroundColor: color,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColors.primary),
+        side: BorderSide(color: color),
         borderRadius: BorderRadius.circular(AppTokens.radiusMd),
       ),
       elevation: 0,
@@ -125,7 +130,7 @@ class AppButton extends StatelessWidget {
     };
 
     return TextStyle(
-      color: type == AppButtonType.text ? AppColors.text : AppColors.primary,
+      color: type == AppButtonType.text ? AppColors.text : color,
       fontSize: fontSize,
       fontWeight: FontWeight.w600,
     );

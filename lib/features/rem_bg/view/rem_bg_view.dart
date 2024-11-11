@@ -17,6 +17,8 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
+          backgroundStyle: BackgroundStyle.particles,
+          backgroundColor: AppColors.utilityBackground,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
@@ -26,7 +28,7 @@ class RemoveBackgroundView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Resim seçme/yükleme alanı
-                GlassContainer(
+                BaseContainer(
                   onTap: () {},
                   height: 300,
                   color: AppColors.utility,
@@ -41,13 +43,13 @@ class RemoveBackgroundView extends StatelessWidget {
                             const Icon(
                               Icons.cloud_upload_outlined,
                               size: 48,
-                              color: AppColors.primary,
+                              color: AppColors.utility,
                             ),
                             const SizedBox(height: 16),
                             const Text(
                               'Resim Yükle',
                               style: TextStyle(
-                                color: AppColors.primary,
+                                color: AppColors.utility,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -56,7 +58,7 @@ class RemoveBackgroundView extends StatelessWidget {
                             Text(
                               've keyfine bak',
                               style: TextStyle(
-                                color: AppColors.primary.withOpacity(0.7),
+                                color: AppColors.utility.withOpacity(0.7),
                                 fontSize: 14,
                               ),
                             ),
@@ -68,6 +70,7 @@ class RemoveBackgroundView extends StatelessWidget {
 
                 // Resim seçme butonu
                 AppButton(
+                  color: AppColors.utility,
                   text: 'Galeriden Resim Seç',
                   leftIcon: Icons.photo_library_outlined,
                   isFullWidth: true,
@@ -80,6 +83,7 @@ class RemoveBackgroundView extends StatelessWidget {
 
                   // Arka plan kaldırma butonu
                   AppButton(
+                    color: AppColors.utility,
                     type: AppButtonType.secondary,
                     text: 'Arka Planı Kaldır',
                     leftIcon: Icons.auto_fix_high,
@@ -93,7 +97,7 @@ class RemoveBackgroundView extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   // Sonuç alanı
-                  GlassContainer(
+                  BaseContainer(
                     color: AppColors.utility,
                     child: Image.file(
                       viewModel.resultImage!,
@@ -105,6 +109,7 @@ class RemoveBackgroundView extends StatelessWidget {
 
                   // İndirme butonu
                   AppButton(
+                    color: AppColors.utility,
                     text: 'Sonucu İndir',
                     leftIcon: Icons.download,
                     isFullWidth: true,

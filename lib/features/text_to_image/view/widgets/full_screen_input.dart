@@ -31,7 +31,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.primaryBackground,
       body: SafeArea(
         child: Column(
           children: [

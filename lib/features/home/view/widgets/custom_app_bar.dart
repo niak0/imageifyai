@@ -13,11 +13,11 @@ class CustomAppBar extends StatelessWidget {
       expandedHeight: 180,
       floating: false,
       pinned: true,
-      backgroundColor: AppColors.background.withOpacity(0.95),
+      backgroundColor: AppColors.primaryBackground,
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GlassContainer(
+        child: BaseContainer(
           color: AppColors.primary,
           child: IconButton(
             icon: const Icon(
@@ -38,40 +38,22 @@ class CustomAppBar extends StatelessWidget {
             const Text(
               'Imageify AI',
               style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 24,
-                shadows: [
-                  Shadow(
-                    color: AppColors.tools,
-                    blurRadius: 5,
-                  ),
-                ],
               ),
-            ),
+            ).withEffect(color: AppColors.text.withOpacity(0.9)),
             const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: const Color(0xFF00F5FF).withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: const Color(0xFF00F5FF).withOpacity(0.3),
-                  width: 1,
-                ),
-              ),
-              child: const Text(
-                'Beta',
-                style: TextStyle(
-                  color: Color(0xFF00F5FF),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  shadows: [
-                    Shadow(
-                      color: Color(0xFF00F5FF),
-                      blurRadius: 4,
-                    ),
-                  ],
+            const BaseContainer(
+              width: 40,
+              height: 25,
+              color: AppColors.primary,
+              child: Center(
+                child: Text(
+                  'Beta',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
@@ -79,13 +61,6 @@ class CustomAppBar extends StatelessWidget {
         ),
         background: Stack(
           children: [
-            // Statik elementler
-            const DecoratedBox(
-              decoration: BoxDecoration(
-                color: Color(0xFF0A0A0F),
-              ),
-            ),
-
             // Dekoratif elementler
             Positioned(
               right: 20,

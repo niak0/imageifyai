@@ -2,35 +2,20 @@ import 'package:flutter/material.dart';
 
 /// Uygulama genelinde kullanılan renk tanımlamaları
 class AppColors {
-  // Ek Neon Renkler
-  static const Color primary = Color(0xFF00F5FF);
-  static const Color utility = Color(0xFF8687E7);
-  static const Color tools = Color(0xFF00E676);
+  // ana
+  static const Color primary = Color(0xFF00F5FF); //0xFF00F5FF
+  static const Color secondary = Color(0xFFBF00FF); // 8A2BE2 bunu dene
+  static const Color tertiary = Color(0xFFFF00FF); // FF007F bunu dene
   static const Color text = Color(0xFFFFFFFF);
-  static const Color textLow = Color(0xFFB0BEC5);
-  static const Color background = Color(0xFF0A1929); // Çok koyu lacivert
+  static const Color textLow = Color(0xFFB0B0B0);
 
-  static const Color primaryLight = Color(0xFF80F9FF); // Açık Neon Mavi
-  static const Color primaryDark = Color(0xFF00C8D4); // Koyu Neon Mavi
-  static const Color primaryContainer = Color(0xFF00B4BF);
-  static const Color onPrimaryContainer = Color(0xFFE6FFFF);
+  static const Color primaryBackground = Color(0xFF0A0E17);
 
-  // Neon Mor tonları
-  static const Color secondary = Color(0xFFBF00FF); // Parlak Mor
-  static const Color secondaryLight = Color(0xFFD580FF); // Açık Neon Mor
-  static const Color secondaryDark = Color(0xFF9900CC); // Koyu Neon Mor
-  static const Color secondaryContainer = Color(0xFF8800B3);
-  static const Color onSecondaryContainer = Color(0xFFF9E6FF);
+  static const Color tools = Color(0xFF00E676);
+  static const Color toolsBackground = Color(0xFF002B1D);
 
-  // Neon Pembe tonları
-  static const Color tertiary = Color(0xFFFF00FF); // Parlak Magenta
-  static const Color tertiaryLight = Color(0xFFFF80FF); // Açık Neon Pembe
-  static const Color tertiaryDark = Color(0xFFCC00CC); // Koyu Neon Pembe
-  static const Color tertiaryContainer = Color(0xFFB300B3);
-  static const Color onTertiaryContainer = Color(0xFFFFE6FF);
-  // Arka Plan ve Yüzey Renkleri (Daha koyu ve kontrast)
-  static const Color backgroundLight = Color(0xFF12121A);
-  static const Color backgroundDark = Color(0xFF050508);
+  static const Color utility = Color(0xFF8687E7);
+  static const Color utilityBackground = Color(0xFF1A1A2E);
 
   static const Color surface = Color(0xFF15151F);
   static const Color surfaceLight = Color(0xFF1C1C28);
@@ -78,9 +63,10 @@ class AppColors {
 
   /// Gradyanlar
 
+  // Gradient güncelleme
   static const List<Color> backgroundDecoration = [
-    Color(0xFF0A192F), // Neon Mavi %15 opaklık
-    Color(0xFF041326), // Koyu Mavi %10 opaklık
+    Color(0xFF0D1321), // Koyu siber mavi
+    Color(0xFF070D19), // Daha koyu ton
   ];
 
 // AI Araçları için - Neon Mavi tonları
@@ -95,81 +81,11 @@ class AppColors {
     Color(0x1A00C853), // Koyu Yeşil %10 opaklık
   ];
 
-// Premium/Özel Araçlar için - Neon Pembe ve Kırmızı
-  static const List<Color> specialGradient = [
-    Color(0x26FF00FF), // Neon Pembe %15 opaklık
-    Color(0x1AFF1744), // Neon Kırmızı %10 opaklık
-  ];
-
-// Ana Gradient - Neon Mavi ve Mor
-  static const List<Color> primaryGradient = [
-    Color(0x2600F5FF), // Neon Mavi %15 opaklık
-    Color(0x1ABF00FF), // Neon Mor %10 opaklık
-  ];
-
-// İkincil Gradient - Neon Mor ve Pembe
-  static const List<Color> secondaryGradient = [
-    Color(0x26BF00FF), // Neon Mor %15 opaklık
-    Color(0x1AFF00FF), // Neon Pembe %10 opaklık
-  ];
-
 // Cam efekti için gradient
   static const List<Color> glassGradient = [
     Color(0x0FFFFFFF), // Beyaz %6 opaklık
     Color(0x05FFFFFF), // Beyaz %2 opaklık
   ];
-
-// Neon Gradient - Mavi ve Yeşil
-  static const List<Color> neonGradient = [
-    Color(0x2600F5FF), // Neon Mavi %15 opaklık
-    Color(0x1A39FF14), // Neon Yeşil %10 opaklık
-  ];
-
-// Tam Neon Gradient - Tüm renkler
-  static const List<Color> fullNeonGradient = [
-    Color(0x2600F5FF), // Neon Mavi %15 opaklık
-    Color(0x1ABF00FF), // Neon Mor %10 opaklık
-    Color(0x1AFF00FF), // Neon Pembe %10 opaklık
-    Color(0x1A39FF14), // Neon Yeşil %10 opaklık
-  ];
-
-  // Opaklık Değerleri
-  static const double glowOpacity = 0.15;
-  static const double borderOpacity = 0.3;
-  static const double shadowOpacity = 0.2;
-
-  // Yeni Glow Efektleri
-  static List<BoxShadow> neonGreenGlow({double opacity = 0.5}) => [
-        BoxShadow(
-          color: tools.withOpacity(opacity),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ];
-
-  static List<BoxShadow> tertiaryGlow({double opacity = 0.5}) => [
-        BoxShadow(
-          color: tertiary.withOpacity(opacity),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ];
-  // Glow Efektleri
-  static List<BoxShadow> primaryGlow({double opacity = 0.5}) => [
-        BoxShadow(
-          color: primary.withOpacity(opacity),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ];
-
-  static List<BoxShadow> secondaryGlow({double opacity = 0.5}) => [
-        BoxShadow(
-          color: secondary.withOpacity(opacity),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ];
 
   // Özel Renk Tonları Oluşturma metodları aynı kalabilir
   static Color withOpacity(Color color, double opacity) {

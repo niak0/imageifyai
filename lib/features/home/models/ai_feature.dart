@@ -36,7 +36,7 @@ class AIFeature {
     title: 'Metin-Görüntü',
     description: 'Metinden AI görüntüleri oluşturun',
     icon: Icons.text_fields,
-    color: AppColors.primary,
+    color: AppColors.secondary,
     page: TextToImageView(),
     category: FeatureCategory.main,
   );

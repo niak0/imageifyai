@@ -71,9 +71,9 @@ class _TextToImageContentState extends State<_TextToImageContent> {
   /// Bu metot, alt sayfanın genişletilmiş veya daraltılmış durumunu değiştirir.
   /// Eğer sayfa genişletilmişse, daraltılmış duruma geçer.
   /// Eğer sayfa daraltılmışsa, genişletilmiş duruma geçer.
-  void handleToggleExpand() {
+  void handleToggleExpand() async {
     final targetSize = isExpanded ? _minSheetSize : _maxSheetSize;
-    dragController.animateTo(
+    await dragController.animateTo(
       targetSize,
       duration: AppAnimations.normal,
       curve: AppAnimations.sharpCurve,
@@ -109,7 +109,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: AppColors.primaryGradient),
+              gradient: const LinearGradient(colors: AppColors.glassGradient),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Text(
@@ -143,7 +143,8 @@ class _TextToImageContentState extends State<_TextToImageContent> {
       snap: true,
       snapSizes: snapSizes,
       builder: (context, scrollController) {
-        return GlassContainer(
+        return BaseContainer(
+          color: Colors.transparent,
           child: Column(
             children: [
               Expanded(
@@ -167,6 +168,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
         children: [
           Expanded(
             child: AppButton(
+              color: AppColors.primary,
               type: AppButtonType.secondary,
               text: 'Detaylı Ayarla',
               onPressed: handleToggleExpand,
@@ -176,7 +178,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
           const SizedBox(width: 12),
           Expanded(
             child: AppButton(
-              type: AppButtonType.primary,
+              color: AppColors.primary,
               text: 'Oluştur',
               onPressed: viewModel.generateImage,
             ),

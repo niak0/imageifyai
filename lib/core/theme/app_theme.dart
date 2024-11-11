@@ -37,7 +37,7 @@ class AppTheme {
     return ThemeData(
       // Ana Tema Renkleri
       primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: AppColors.primaryBackground,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.primary,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -17,13 +16,7 @@ class FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassContainer(
-      onTap: () {
-        onTap?.call();
-      },
-      color: feature.color,
-      child: useListTile ? _buildListTile() : _buildCard(),
-    );
+    return useListTile ? _buildListTile() : _buildCard();
   }
 
   Widget _buildListTile() {
@@ -32,31 +25,32 @@ class FeatureCard extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: feature.color.withOpacity(0.1),
+          color: AppColors.tertiary.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(
           feature.icon,
-          color: feature.color,
+          color: AppColors.tertiary,
         ),
       ),
       title: Text(
         feature.title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
+          color: AppColors.tertiary.withOpacity(0.8),
         ),
       ),
       subtitle: Text(
         feature.description,
         style: TextStyle(
           fontSize: 14,
-          color: AppColors.textLow,
+          color: AppColors.text,
         ),
       ),
       trailing: Icon(
         Icons.chevron_right,
-        color: feature.color,
+        color: AppColors.text,
       ),
       onTap: onTap,
     );
@@ -72,7 +66,7 @@ class FeatureCard extends StatelessWidget {
           Icon(
             feature.icon,
             size: 32,
-            color: feature.color,
+            color: AppColors.primary,
           ),
           const SizedBox(height: 5),
           // Başlık
@@ -81,6 +75,7 @@ class FeatureCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(height: 5),

@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/constants/color_constants.dart';
 
-class GlassContainer extends StatefulWidget {
+class BaseContainer extends StatefulWidget {
   final Widget child;
   final Color? color;
   final double? height;
+  final double? width;
   final double borderRadius;
   final double borderWidth;
   final double opacity;
   final VoidCallback? onTap;
+  final bool isTransparent;
 
-  const GlassContainer({
+  const BaseContainer({
     super.key,
     required this.child,
-    this.color = Colors.transparent,
+    this.color = AppColors.primary,
     this.height,
+    this.width,
     this.borderRadius = 20,
-    this.borderWidth = 0.9,
-    this.opacity = 0.2,
+    this.borderWidth = 1.0,
+    this.opacity = 0.9,
     this.onTap,
+    this.isTransparent = false,
   });
 
   @override
-  State<GlassContainer> createState() => _GlassContainerState();
+  State<BaseContainer> createState() => _BaseContainerState();
 }
 
-class _GlassContainerState extends State<GlassContainer> with SingleTickerProviderStateMixin {
+class _BaseContainerState extends State<BaseContainer> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   bool _isPressed = false;
 
@@ -33,7 +38,7 @@ class _GlassContainerState extends State<GlassContainer> with SingleTickerProvid
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 200),
     );
   }
 
@@ -44,32 +49,39 @@ class _GlassContainerState extends State<GlassContainer> with SingleTickerProvid
   }
 
   Color _darkenToBlack(Color color) {
-    return Color.alphaBlend(Colors.black.withOpacity(0.8), color.withOpacity(widget.opacity));
+    return Color.alphaBlend(Colors.black.withOpacity(widget.opacity), color.withOpacity(widget.opacity));
   }
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = widget.color == Colors.transparent ? Colors.transparent : _darkenToBlack(widget.color!);
+    final glowColor = _isPressed ? widget.color!.withOpacity(0.9) : (widget.color ?? AppColors.primary).withOpacity(0.3);
+    final borderColor = _isPressed ? widget.color!.withOpacity(0.9) : (widget.color ?? AppColors.primary).withOpacity(0.3);
+
+    final backgroundColor = widget.isTransparent ? Colors.transparent : _darkenToBlack(widget.color!).withOpacity(widget.opacity);
+
     final BoxDecoration containerDecoration = BoxDecoration(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(widget.borderRadius),
       border: Border.all(
-        color: widget.color!.withOpacity(0.4),
+        color: borderColor,
         width: widget.borderWidth,
       ),
-      boxShadow: [
-        BoxShadow(
-          color: (widget.color ?? Colors.transparent).withOpacity(0.1),
-          blurRadius: 2,
-          spreadRadius: 0,
-        ),
-      ],
+      boxShadow: !widget.isTransparent
+          ? [
+              BoxShadow(
+                color: glowColor,
+                blurRadius: _isPressed ? 12.0 : 0.2,
+                spreadRadius: _isPressed ? 2.0 : 1.0,
+              ),
+            ]
+          : [],
     );
 
     if (widget.onTap != null) return gestureOperations(containerDecoration);
 
     return Container(
       height: widget.height,
+      width: widget.width,
       decoration: containerDecoration,
       child: widget.child,
     );
@@ -97,7 +109,7 @@ class _GlassContainerState extends State<GlassContainer> with SingleTickerProvid
       }),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.80 : 1.0,
+        scale: _isPressed ? 0.90 : 1.0,
         duration: const Duration(milliseconds: 150),
         child: Container(
           height: widget.height,

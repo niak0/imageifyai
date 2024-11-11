@@ -29,6 +29,7 @@ class _TattooViewContent extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: GradientScaffold(
+        backgroundColor: AppColors.toolsBackground,
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +39,7 @@ class _TattooViewContent extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: AppColors.primaryGradient,
+                    colors: AppColors.glassGradient,
                   ),
                   borderRadius: BorderRadius.circular(20),
                 ),

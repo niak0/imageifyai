@@ -42,30 +42,29 @@ class _HomeViewContent extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.all(AppConstants.paddingMedium),
             sliver: SliverToBoxAdapter(
-              child: GlassContainer(
-                color: AppColors.primary,
+              child: BaseContainer(
+                onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
                 child: FeatureCard(
                   feature: AIFeature.textToImage,
-                  onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
                 ),
               ),
             ),
           ),
 
           // AI Üretim Araçları Başlığı
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(
               horizontal: AppConstants.paddingMedium,
               vertical: AppConstants.paddingSmall,
             ),
             sliver: SliverToBoxAdapter(
-              child: const Text(
+              child: Text(
                 'AI Üretim Araçları',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withEffect(color: AppColors.tools),
+              ),
             ),
           ),
 
@@ -80,11 +79,10 @@ class _HomeViewContent extends StatelessWidget {
                 childAspectRatio: 1.1,
               ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) => GlassContainer(
-                  color: creationFeatures[index].color,
+                (context, index) => BaseContainer(
+                  onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
                   child: FeatureCard(
                     feature: creationFeatures[index],
-                    onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
                   ),
                 ),
                 childCount: creationFeatures.length,
@@ -93,19 +91,19 @@ class _HomeViewContent extends StatelessWidget {
           ),
 
           // Yardımcı Araçlar Başlığı
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(
               horizontal: AppConstants.paddingMedium,
               vertical: AppConstants.paddingSmall,
             ),
             sliver: SliverToBoxAdapter(
-              child: const Text(
+              child: Text(
                 'Yardımcı Araçlar',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withEffect(color: AppColors.utility),
+              ),
             ),
           ),
 
@@ -118,11 +116,12 @@ class _HomeViewContent extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: GlassContainer(
-                    color: utilityFeatures[index].color,
+                  child: BaseContainer(
+                    color: AppColors.secondary,
+                    isTransparent: true,
+                    onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
                     child: FeatureCard(
                       feature: utilityFeatures[index],
-                      onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
                       useListTile: true,
                     ),
                   ),

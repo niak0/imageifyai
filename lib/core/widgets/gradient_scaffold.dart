@@ -6,8 +6,6 @@ import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
 
 enum BackgroundStyle {
   none, // Arka plan yok
-  simpleGrid, // Basit, statik grid
-  modernGrid, // Animasyonlu modern grid
   particles // Animasyonlu parçacık sistemi
 }
 
@@ -54,24 +52,15 @@ class GradientScaffold extends StatelessWidget {
     // Arka plan parametreleri
     this.backgroundStyle = BackgroundStyle.none,
     this.backgroundColor,
-    this.primaryColor = AppColors.background,
+    this.primaryColor = AppColors.primaryBackground,
     this.secondaryColor = const Color(0xFF041326),
-    this.backgroundOpacity = 1.0,
+    this.backgroundOpacity = 0.9,
     this.gradientOpacity = 0.05,
     this.gradientColors, // Yeni parametre
   });
 
   Widget _buildBackground() {
     switch (backgroundStyle) {
-      case BackgroundStyle.simpleGrid:
-        return const GridPattern();
-
-      case BackgroundStyle.modernGrid:
-        return ModernGridPattern(
-          primaryColor: primaryColor,
-          accentColor: secondaryColor,
-        );
-
       case BackgroundStyle.particles:
         return const ParticleSystem(
           particleColor: AppColors.tools,
@@ -85,10 +74,10 @@ class GradientScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBackgroundColor = backgroundColor ?? AppColors.background;
+    final effectiveBackgroundColor = backgroundColor ?? AppColors.primaryBackground;
 
     return Scaffold(
-      backgroundColor: effectiveBackgroundColor.withOpacity(backgroundOpacity),
+      backgroundColor: AppColors.primaryBackground,
       appBar: appBar,
       drawer: drawer,
       endDrawer: endDrawer,
@@ -102,19 +91,19 @@ class GradientScaffold extends StatelessWidget {
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: gradientColors ??
-                    [
-                      effectiveBackgroundColor,
-                      primaryColor.withOpacity(gradientOpacity),
-                    ],
-              ),
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //       colors: gradientColors ??
+          //           [
+          //             effectiveBackgroundColor,
+          //             primaryColor.withOpacity(gradientOpacity),
+          //           ],
+          //     ),
+          //   ),
+          // ),
           _buildBackground(),
           body,
         ],
