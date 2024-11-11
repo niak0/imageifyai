@@ -54,3 +54,6 @@ app.*.map.json
 /ios/Flutter/Release.xcconfig
 /ios/Runner.xcworkspace/contents.xcworkspacedata
 /ios/Pods/
+
+# Environment variables
+.env
