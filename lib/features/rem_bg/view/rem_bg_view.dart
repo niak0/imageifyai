@@ -30,7 +30,6 @@ class RemoveBackgroundView extends StatelessWidget {
                 // Resim seçme/yükleme alanı
                 GlassContainer(
                   height: 300,
-                  blur: 10,
                   color: AppColors.primary,
                   child: viewModel.selectedImage != null
                       ? Image.file(

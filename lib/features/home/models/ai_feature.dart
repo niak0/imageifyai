@@ -36,7 +36,7 @@ class AIFeature {
     title: 'Metin-Görüntü',
     description: 'Metinden AI görüntüleri oluşturun',
     icon: Icons.text_fields,
-    color: AppColors.primary,
+    color: AppColors.neonBlue,
     page: TextToImageView(),
     category: FeatureCategory.main,
   );
@@ -83,7 +83,7 @@ class AIFeature {
     title: 'Arka Planı Kaldır',
     description: 'Fotoğraflarınızın arka planını kaldırın',
     icon: Icons.remove_red_eye,
-    color: AppColors.tertiary,
+    color: AppColors.neonPurple,
     page: RemoveBackgroundView(),
     category: FeatureCategory.utility,
   );
@@ -92,7 +92,7 @@ class AIFeature {
     title: 'Yüksek Çözünürlük',
     description: 'Fotoğraflarınızın çözünürlüğünü artırın',
     icon: Icons.zoom_in,
-    color: AppColors.tertiary,
+    color: AppColors.neonPurple,
     page: UpscalerView(),
     category: FeatureCategory.utility,
   );

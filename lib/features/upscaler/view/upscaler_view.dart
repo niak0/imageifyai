@@ -29,9 +29,8 @@ class UpscalerView extends StatelessWidget {
               children: [
                 // Resim seçme/yükleme alanı
                 GlassContainer(
-                  blur: 10,
                   height: 300,
-                  color: AppColors.utility,
+                  color: AppColors.background,
                   child: viewModel.selectedImage != null
                       ? Image.file(
                           viewModel.selectedImage!,
@@ -96,7 +95,7 @@ class UpscalerView extends StatelessWidget {
                   // Sonuç resmi
                   GlassContainer(
                     height: 300,
-                    color: AppColors.utility,
+                    color: AppColors.background,
                     child: Image.file(
                       viewModel.resultImage!,
                       fit: BoxFit.contain,

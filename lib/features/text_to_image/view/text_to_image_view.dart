@@ -144,7 +144,6 @@ class _TextToImageContentState extends State<_TextToImageContent> {
       snapSizes: snapSizes,
       builder: (context, scrollController) {
         return GlassContainer(
-          color: AppColors.aiTools,
           child: Column(
             children: [
               Expanded(

@@ -2,25 +2,11 @@ import 'package:flutter/material.dart';
 
 /// Uygulama genelinde kullanılan renk tanımlamaları
 class AppColors {
-  // Ana Renkler ve Tonları
   static const Color onPrimary = Color(0xFFFFFFFF);
   // Ek Neon Renkler
-  static const Color neonGreen = Color(0xFF39FF14);
-
-  // Ana renk (base)
-  static const primary1 = Color(0xFF8687E7); // Neon Mor (mevcut)
-
-  // Yardımcı araçlar
-  static const utility = Color(0xFF00E676); // Neon Yeşil
-
-  // AI üretim araçları
-  static const aiTools = Color(0xFF00B0FF); // Neon Mavi
-
-  // Opsiyonel: Özel araçlar
-  static const special = Color(0xFFFF1744); // Neon Kırmızı
-
-  // Neon Mavi tonları
-  // static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
+  static const neonBlue = Color(0xFF00F5FF);
+  static const neonPurple = Color(0xFF8687E7);
+  static const neonGreen = Color(0xFF00E676);
 
   static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
   static const Color primaryLight = Color(0xFF80F9FF); // Açık Neon Mavi
@@ -52,8 +38,8 @@ class AppColors {
   static const Color surfaceVariant = Color(0xFF1F1F2C);
 
   // Metin Renkleri (Daha parlak)
-  static const Color textPrimary = Color(0xFFFCFCFC);
-  static const Color textSecondary = Color(0xFFB3B3CC);
+  static const Color textPrimary = Color(0xFFFFFFFF);
+  static const Color textSecondary = Color(0xFFB0BEC5);
   static const Color textTertiary = Color(0xFF8080A6);
   static const Color textDisabled = Color(0xFF666680);
 
@@ -147,6 +133,7 @@ class AppColors {
   static const double glowOpacity = 0.15;
   static const double borderOpacity = 0.3;
   static const double shadowOpacity = 0.2;
+
   // Yeni Glow Efektleri
   static List<BoxShadow> neonGreenGlow({double opacity = 0.5}) => [
         BoxShadow(

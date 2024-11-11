@@ -1,60 +1,50 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
-  final Color color;
-  final Color? backgroundColor;
-  final double blur;
+  final Color? color;
   final double? height;
+  final double borderRadius;
+  final double borderWidth;
+  final double opacity;
 
   const GlassContainer({
     super.key,
     required this.child,
-    required this.color,
-    this.backgroundColor,
-    this.blur = 3.0,
+    this.color = Colors.transparent,
     this.height,
+    this.borderRadius = 20,
+    this.borderWidth = 0.9,
+    this.opacity = 0.2,
   });
+
+  Color _darkenToBlack(Color color) {
+    return Color.alphaBlend(Colors.black.withOpacity(0.8), color.withOpacity(opacity));
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Opaklık ve oranlar, sınıf içinde belirlenen değerlerle kontrol edilecek.
-    const double borderOpacity = 0.2;
-    const double shadowOpacity = 0.15;
-    const double backgroundOpacity = 0.1;
-    const double shadowBlurRadius = 12;
-    const double shadowSpreadRadius = 2;
+    final backgroundColor = color == Colors.transparent ? Colors.transparent : _darkenToBlack(color!);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: blur,
-          sigmaY: blur,
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(borderRadius),
+        border: Border.all(
+          color: color!.withOpacity(0.4),
+          width: borderWidth,
         ),
-        child: Container(
-          height: height,
-          decoration: BoxDecoration(
-            color: color.withOpacity(backgroundOpacity),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: color.withOpacity(borderOpacity),
-              width: 1,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(shadowOpacity),
-                blurRadius: shadowBlurRadius,
-                spreadRadius: shadowSpreadRadius,
-                offset: const Offset(0, 0),
-              ),
-            ],
+        // Minimal glow efekti
+        boxShadow: [
+          BoxShadow(
+            color: (color ?? Colors.transparent).withOpacity(0.1),
+            blurRadius: 2,
+            spreadRadius: 0,
           ),
-          child: child,
-        ),
+        ],
       ),
+      child: child,
     );
   }
 }
