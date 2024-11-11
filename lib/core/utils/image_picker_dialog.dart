@@ -18,7 +18,7 @@ class ImagePickerDialog {
             const Text(
               'Fotoğraf Seç',
               style: TextStyle(
-                color: AppColors.textPrimary,
+                color: AppColors.text,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -80,7 +80,7 @@ class _OptionButton extends StatelessWidget {
             Text(
               label,
               style: const TextStyle(
-                color: AppColors.textPrimary,
+                color: AppColors.text,
                 fontSize: 14,
               ),
             ),

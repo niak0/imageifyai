@@ -49,14 +49,14 @@ class GenderOption extends StatelessWidget {
               child: Icon(
                 icon,
                 size: 32,
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                color: isSelected ? AppColors.primary : AppColors.textLow,
               ),
             ),
             const SizedBox(height: 8),
             AnimatedDefaultTextStyle(
               duration: AppAnimations.fast,
               style: TextStyle(
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                color: isSelected ? AppColors.primary : AppColors.textLow,
                 fontSize: isSelected ? 16 : 14,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),

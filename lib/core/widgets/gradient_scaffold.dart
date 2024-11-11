@@ -54,8 +54,8 @@ class GradientScaffold extends StatelessWidget {
     // Arka plan parametreleri
     this.backgroundStyle = BackgroundStyle.none,
     this.backgroundColor,
-    this.primaryColor = const Color(0xFF8687E7),
-    this.secondaryColor = const Color(0xFF6C72CB),
+    this.primaryColor = AppColors.background,
+    this.secondaryColor = const Color(0xFF041326),
     this.backgroundOpacity = 1.0,
     this.gradientOpacity = 0.05,
     this.gradientColors, // Yeni parametre
@@ -74,7 +74,7 @@ class GradientScaffold extends StatelessWidget {
 
       case BackgroundStyle.particles:
         return const ParticleSystem(
-          particleColor: AppColors.neonGreen,
+          particleColor: AppColors.tools,
           particleCount: 100,
         );
 
@@ -85,7 +85,7 @@ class GradientScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBackgroundColor = backgroundColor ?? Theme.of(context).scaffoldBackgroundColor;
+    final effectiveBackgroundColor = backgroundColor ?? AppColors.background;
 
     return Scaffold(
       backgroundColor: effectiveBackgroundColor.withOpacity(backgroundOpacity),

@@ -30,134 +30,6 @@ class AppTheme {
   void setDarkMode(bool value) => _isDark = value;
   void setStyle(ThemeStyle value) => _style = value;
 
-  // Dekorasyon Yardımcıları
-  BoxDecoration getDecoration({Color? color, double? intensity}) {
-    color ??= AppColors.primary;
-    intensity ??= neonIntensity;
-
-    switch (_style) {
-      case ThemeStyle.glass:
-        return _glassDecoration(color);
-      case ThemeStyle.neon:
-        return _neonDecoration(color, intensity);
-      case ThemeStyle.gradient:
-        return _gradientDecoration(color);
-      case ThemeStyle.minimal:
-        return _minimalDecoration(color);
-    }
-  }
-
-  // Dekorasyon Metodları
-  BoxDecoration _glassDecoration(Color color) {
-    return BoxDecoration(
-      color: AppColors.surface.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: color.withOpacity(AppColors.borderOpacity),
-        width: 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: color.withOpacity(AppColors.glowOpacity),
-          blurRadius: glassBlur,
-          spreadRadius: 0,
-        ),
-      ],
-    );
-  }
-
-  BoxDecoration _neonDecoration(Color color, double intensity) {
-    return BoxDecoration(
-      color: AppColors.surface.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: color.withOpacity(intensity),
-        width: 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: color.withOpacity(intensity * 0.4),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ],
-    );
-  }
-
-  BoxDecoration _gradientDecoration(Color color) {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [
-          AppColors.surface.withOpacity(0.95),
-          color.withOpacity(gradientOpacity),
-        ],
-      ),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: color.withOpacity(0.3),
-        width: 1,
-      ),
-    );
-  }
-
-  BoxDecoration _minimalDecoration(Color color) {
-    return BoxDecoration(
-      color: AppColors.surface.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: color.withOpacity(0.1),
-        width: 1,
-      ),
-    );
-  }
-
-  static BoxDecoration glassDecoration({
-    Color? color,
-    double opacity = 0.1,
-    double borderOpacity = 0.2,
-  }) {
-    final effectiveColor = color ?? AppColors.primary;
-    return BoxDecoration(
-      color: AppColors.surface.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: effectiveColor.withOpacity(borderOpacity),
-        width: 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: effectiveColor.withOpacity(opacity),
-          blurRadius: 8,
-          spreadRadius: 0,
-        ),
-      ],
-    );
-  }
-
-  static BoxDecoration neonDecoration({
-    Color? color,
-    double intensity = 0.5,
-  }) {
-    final effectiveColor = color ?? AppColors.primary;
-    return BoxDecoration(
-      color: AppColors.surface.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: effectiveColor.withOpacity(intensity),
-        width: 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: effectiveColor.withOpacity(intensity * 0.4),
-          blurRadius: 8,
-          spreadRadius: 1,
-        ),
-      ],
-    );
-  }
-
   // Ana Tema Metodları
   ThemeData get theme => _isDark ? darkTheme : lightTheme;
 
@@ -172,7 +44,7 @@ class AppTheme {
         surface: AppColors.surface,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
-        onSurface: AppColors.textPrimary,
+        onSurface: AppColors.text,
       ),
 
       // AppBar Teması
@@ -183,10 +55,10 @@ class AppTheme {
         titleTextStyle: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
         iconTheme: IconThemeData(
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
       ),
 
@@ -237,24 +109,24 @@ class AppTheme {
         headlineLarge: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
         headlineMedium: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
         bodyLarge: TextStyle(
           fontSize: 16,
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
         bodyMedium: TextStyle(
           fontSize: 14,
-          color: AppColors.textPrimary,
+          color: AppColors.text,
         ),
         bodySmall: TextStyle(
           fontSize: 12,
-          color: AppColors.textSecondary,
+          color: AppColors.textLow,
         ),
       ),
     );

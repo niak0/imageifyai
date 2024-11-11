@@ -63,7 +63,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                   Text(
                     '${_controller.text.length}/500',
                     style: const TextStyle(
-                      color: AppColors.textSecondary,
+                      color: AppColors.textLow,
                       fontSize: 16,
                     ),
                   ),
@@ -93,7 +93,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                     const Text(
                       'İstem Girin',
                       style: TextStyle(
-                        color: AppColors.textPrimary,
+                        color: AppColors.text,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -108,14 +108,14 @@ class _FullScreenInputState extends State<FullScreenInput> {
                         widget.onSubmit(value);
                       },
                       style: const TextStyle(
-                        color: AppColors.textSecondary,
+                        color: AppColors.textLow,
                         fontSize: 16,
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Görsel türü, obje, herhangi bir detay',
                         hintStyle: TextStyle(
-                          color: AppColors.textSecondary,
+                          color: AppColors.textLow,
                           fontSize: 16,
                         ),
                       ),
@@ -123,7 +123,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                     const Text(
                       'Örn: Şapkalı bir kedi portresi',
                       style: TextStyle(
-                        color: AppColors.textSecondary,
+                        color: AppColors.textLow,
                         fontSize: 16,
                       ),
                     ),
@@ -143,7 +143,7 @@ class _FullScreenInputState extends State<FullScreenInput> {
                     child: Text(
                       'Etiket Paketleri',
                       style: TextStyle(
-                        color: AppColors.textSecondary,
+                        color: AppColors.textLow,
                         fontSize: 16,
                       ),
                     ),

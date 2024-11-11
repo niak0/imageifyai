@@ -43,7 +43,7 @@ class CustomAppBar extends StatelessWidget {
                 fontSize: 24,
                 shadows: [
                   Shadow(
-                    color: AppColors.neonGreen,
+                    color: AppColors.tools,
                     blurRadius: 5,
                   ),
                 ],

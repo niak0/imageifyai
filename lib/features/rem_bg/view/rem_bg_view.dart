@@ -17,8 +17,6 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          backgroundStyle: BackgroundStyle.particles,
-          gradientColors: AppColors.glassGradient,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
@@ -29,8 +27,9 @@ class RemoveBackgroundView extends StatelessWidget {
               children: [
                 // Resim seçme/yükleme alanı
                 GlassContainer(
+                  onTap: () {},
                   height: 300,
-                  color: AppColors.primary,
+                  color: AppColors.utility,
                   child: viewModel.selectedImage != null
                       ? Image.file(
                           viewModel.selectedImage!,
@@ -81,6 +80,7 @@ class RemoveBackgroundView extends StatelessWidget {
 
                   // Arka plan kaldırma butonu
                   AppButton(
+                    type: AppButtonType.secondary,
                     text: 'Arka Planı Kaldır',
                     leftIcon: Icons.auto_fix_high,
                     isFullWidth: true,
@@ -94,7 +94,7 @@ class RemoveBackgroundView extends StatelessWidget {
 
                   // Sonuç alanı
                   GlassContainer(
-                    color: AppColors.secondary,
+                    color: AppColors.utility,
                     child: Image.file(
                       viewModel.resultImage!,
                       fit: BoxFit.contain,

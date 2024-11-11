@@ -49,7 +49,7 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
               child: Text(
                 '${widget.controller.text.length}/$_maxLength',
                 style: const TextStyle(
-                  color: AppColors.textSecondary,
+                  color: AppColors.textLow,
                   fontSize: 12,
                 ),
               ),
@@ -61,10 +61,10 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
             maxLines: 6,
             minLines: 5,
             maxLength: _maxLength,
-            style: const TextStyle(color: AppColors.textPrimary),
+            style: const TextStyle(color: AppColors.text),
             decoration: AppStyles.inputDecoration.copyWith(
               hintText: 'Dövme fikrinizi anlatın',
-              hintStyle: const TextStyle(color: AppColors.textSecondary),
+              hintStyle: const TextStyle(color: AppColors.textLow),
               counterText: '',
               contentPadding: const EdgeInsets.all(16),
               border: InputBorder.none,
@@ -89,7 +89,7 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
                   IconButton(
                     icon: const Icon(Icons.close),
                     style: AppStyles.iconButtonStyle.copyWith(
-                      foregroundColor: WidgetStateProperty.all(AppColors.textSecondary),
+                      foregroundColor: WidgetStateProperty.all(AppColors.textLow),
                     ),
                     onPressed: _clearText,
                   ),

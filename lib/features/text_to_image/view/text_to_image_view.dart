@@ -115,7 +115,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
             child: const Text(
               'PRO',
               style: TextStyle(
-                color: AppColors.onPrimary,
+                color: AppColors.text,
                 fontWeight: FontWeight.bold,
               ),
             ),

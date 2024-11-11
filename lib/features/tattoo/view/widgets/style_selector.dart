@@ -44,7 +44,7 @@ class StyleSelector extends StatelessWidget {
                   Text(
                     style.title,
                     style: TextStyle(
-                      color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                      color: isSelected ? AppColors.primary : AppColors.textLow,
                       fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),

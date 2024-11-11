@@ -36,7 +36,7 @@ class AIFeature {
     title: 'Metin-Görüntü',
     description: 'Metinden AI görüntüleri oluşturun',
     icon: Icons.text_fields,
-    color: AppColors.neonBlue,
+    color: AppColors.primary,
     page: TextToImageView(),
     category: FeatureCategory.main,
   );
@@ -46,7 +46,7 @@ class AIFeature {
     title: 'Avatarlar',
     description: 'Kişiselleştirilmiş AI avatarları oluşturun',
     icon: Icons.face,
-    color: AppColors.neonGreen,
+    color: AppColors.tools,
     page: AvatarsView(),
     category: FeatureCategory.creation,
   );
@@ -55,7 +55,7 @@ class AIFeature {
     title: 'AI Bebek',
     description: 'Gelecekteki bebeğinizi görün',
     icon: Icons.child_care,
-    color: AppColors.neonGreen,
+    color: AppColors.tools,
     page: BabyView(),
     category: FeatureCategory.creation,
   );
@@ -64,7 +64,7 @@ class AIFeature {
     title: 'Filtreler',
     description: 'Fotoğraflarınıza sanatsal stiller uygulayın',
     icon: Icons.filter,
-    color: AppColors.neonGreen,
+    color: AppColors.tools,
     page: FiltersView(),
     category: FeatureCategory.creation,
   );
@@ -73,7 +73,7 @@ class AIFeature {
     title: 'Dövme',
     description: 'AI ile dövme tasarımları oluşturun',
     icon: Icons.brush,
-    color: AppColors.neonGreen,
+    color: AppColors.tools,
     page: TattooView(),
     category: FeatureCategory.creation,
   );
@@ -83,7 +83,7 @@ class AIFeature {
     title: 'Arka Planı Kaldır',
     description: 'Fotoğraflarınızın arka planını kaldırın',
     icon: Icons.remove_red_eye,
-    color: AppColors.neonPurple,
+    color: AppColors.utility,
     page: RemoveBackgroundView(),
     category: FeatureCategory.utility,
   );
@@ -92,7 +92,7 @@ class AIFeature {
     title: 'Yüksek Çözünürlük',
     description: 'Fotoğraflarınızın çözünürlüğünü artırın',
     icon: Icons.zoom_in,
-    color: AppColors.neonPurple,
+    color: AppColors.utility,
     page: UpscalerView(),
     category: FeatureCategory.utility,
   );

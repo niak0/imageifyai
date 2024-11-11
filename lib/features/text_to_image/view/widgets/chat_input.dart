@@ -35,7 +35,7 @@ class ChatInput extends StatelessWidget {
       height: 4,
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.textSecondary.withOpacity(0.3),
+        color: AppColors.textLow.withOpacity(0.3),
         borderRadius: BorderRadius.circular(2),
       ),
     );
@@ -63,10 +63,10 @@ class ChatInput extends StatelessWidget {
             controller: controller,
             enabled: false,
             maxLines: maxLines,
-            style: const TextStyle(color: AppColors.textPrimary),
+            style: const TextStyle(color: AppColors.text),
             decoration: AppStyles.inputDecoration.copyWith(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.textSecondary),
+              hintStyle: const TextStyle(color: AppColors.textLow),
               border: InputBorder.none,
             ),
           ),
@@ -76,7 +76,7 @@ class ChatInput extends StatelessWidget {
               top: 8,
               child: Icon(
                 Icons.drag_handle,
-                color: AppColors.textSecondary.withOpacity(0.5),
+                color: AppColors.textLow.withOpacity(0.5),
                 size: 24,
               ),
             ),
@@ -171,7 +171,7 @@ class ChatInput extends StatelessWidget {
         const SizedBox(height: 5),
         const Text(
           'Negatif İstem Girin',
-          style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
+          style: TextStyle(color: AppColors.textLow, fontSize: 14),
         ),
       ],
     );
@@ -184,7 +184,7 @@ class ChatInput extends StatelessWidget {
         const Text(
           'Stil Seçin',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: AppColors.text,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -231,7 +231,7 @@ class ChatInput extends StatelessWidget {
             Text(
               style.name,
               style: TextStyle(
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                color: isSelected ? AppColors.primary : AppColors.textLow,
                 fontSize: 12,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
@@ -249,7 +249,7 @@ class ChatInput extends StatelessWidget {
         const Text(
           'Görsel Oranı:',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: AppColors.text,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -286,7 +286,7 @@ class ChatInput extends StatelessWidget {
         child: Text(
           ratio.toString(),
           style: TextStyle(
-            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+            color: isSelected ? AppColors.primary : AppColors.textLow,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),

@@ -34,7 +34,7 @@ class ParentImageSelector extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: AppColors.textPrimary,
+            color: AppColors.text,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -50,7 +50,7 @@ class ParentImageSelector extends StatelessWidget {
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: image != null ? AppColors.primary : AppColors.textSecondary,
+                color: image != null ? AppColors.primary : AppColors.textLow,
                 width: 2,
               ),
               boxShadow: [
@@ -101,7 +101,7 @@ class ParentImageSelector extends StatelessWidget {
                             Text(
                               subtitle,
                               style: const TextStyle(
-                                color: AppColors.textSecondary,
+                                color: AppColors.textLow,
                                 fontSize: 12,
                               ),
                             ),

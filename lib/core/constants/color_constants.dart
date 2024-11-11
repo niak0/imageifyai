@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 /// Uygulama genelinde kullanılan renk tanımlamaları
 class AppColors {
-  static const Color onPrimary = Color(0xFFFFFFFF);
   // Ek Neon Renkler
-  static const neonBlue = Color(0xFF00F5FF);
-  static const neonPurple = Color(0xFF8687E7);
-  static const neonGreen = Color(0xFF00E676);
+  static const Color primary = Color(0xFF00F5FF);
+  static const Color utility = Color(0xFF8687E7);
+  static const Color tools = Color(0xFF00E676);
+  static const Color text = Color(0xFFFFFFFF);
+  static const Color textLow = Color(0xFFB0BEC5);
+  static const Color background = Color(0xFF0A1929); // Çok koyu lacivert
 
-  static const Color primary = Color(0xFF00F5FF); // Parlak Cyan
   static const Color primaryLight = Color(0xFF80F9FF); // Açık Neon Mavi
   static const Color primaryDark = Color(0xFF00C8D4); // Koyu Neon Mavi
   static const Color primaryContainer = Color(0xFF00B4BF);
@@ -28,7 +29,6 @@ class AppColors {
   static const Color tertiaryContainer = Color(0xFFB300B3);
   static const Color onTertiaryContainer = Color(0xFFFFE6FF);
   // Arka Plan ve Yüzey Renkleri (Daha koyu ve kontrast)
-  static const Color background = Color(0xFF0A0A0F); // Çok koyu lacivert
   static const Color backgroundLight = Color(0xFF12121A);
   static const Color backgroundDark = Color(0xFF050508);
 
@@ -38,8 +38,6 @@ class AppColors {
   static const Color surfaceVariant = Color(0xFF1F1F2C);
 
   // Metin Renkleri (Daha parlak)
-  static const Color textPrimary = Color(0xFFFFFFFF);
-  static const Color textSecondary = Color(0xFFB0BEC5);
   static const Color textTertiary = Color(0xFF8080A6);
   static const Color textDisabled = Color(0xFF666680);
 
@@ -79,6 +77,12 @@ class AppColors {
   static const Color disabled = Color(0xFF333342);
 
   /// Gradyanlar
+
+  static const List<Color> backgroundDecoration = [
+    Color(0xFF0A192F), // Neon Mavi %15 opaklık
+    Color(0xFF041326), // Koyu Mavi %10 opaklık
+  ];
+
 // AI Araçları için - Neon Mavi tonları
   static const List<Color> aiToolsGradient = [
     Color(0x2600F5FF), // Neon Mavi %15 opaklık
@@ -137,7 +141,7 @@ class AppColors {
   // Yeni Glow Efektleri
   static List<BoxShadow> neonGreenGlow({double opacity = 0.5}) => [
         BoxShadow(
-          color: neonGreen.withOpacity(opacity),
+          color: tools.withOpacity(opacity),
           blurRadius: 8,
           spreadRadius: 1,
         ),

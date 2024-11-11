@@ -45,7 +45,7 @@ class _TattooViewContent extends StatelessWidget {
                 child: const Text(
                   'PRO',
                   style: TextStyle(
-                    color: AppColors.onPrimary,
+                    color: AppColors.text,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -68,7 +68,7 @@ class _TattooViewContent extends StatelessWidget {
                 const Text(
                   'Stiller',
                   style: TextStyle(
-                    color: AppColors.textPrimary,
+                    color: AppColors.text,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -82,7 +82,7 @@ class _TattooViewContent extends StatelessWidget {
                 const Text(
                   'Örnekler',
                   style: TextStyle(
-                    color: AppColors.textPrimary,
+                    color: AppColors.text,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -132,7 +132,7 @@ class _TattooViewContent extends StatelessWidget {
                                 child: Text(
                                   'Dene',
                                   style: TextStyle(
-                                    color: AppColors.textPrimary,
+                                    color: AppColors.text,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

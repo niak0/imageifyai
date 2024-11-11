@@ -33,7 +33,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(
-      scale: onPressed == null || isLoading ? 0.95 : 1.0,
+      scale: onPressed == null || isLoading ? 0.9 : 1.0,
       duration: AppAnimations.fast,
       child: SizedBox(
         width: isFullWidth ? double.infinity : null,
@@ -44,26 +44,18 @@ class AppButton extends StatelessWidget {
   }
 
   Widget _buildButton() {
-    switch (type) {
-      case AppButtonType.primary:
-        return ElevatedButton(
+    return switch (type) {
+      AppButtonType.primary || AppButtonType.secondary => ElevatedButton(
           onPressed: isLoading ? null : onPressed,
-          style: AppStyles.primaryButtonStyle,
+          style: _getButtonStyle(),
           child: _buildButtonContent(),
-        );
-      case AppButtonType.secondary:
-        return ElevatedButton(
+        ),
+      AppButtonType.text => TextButton(
           onPressed: isLoading ? null : onPressed,
-          style: AppStyles.secondaryButtonStyle,
+          style: textButtonStyle,
           child: _buildButtonContent(),
-        );
-      case AppButtonType.text:
-        return TextButton(
-          onPressed: isLoading ? null : onPressed,
-          style: AppStyles.textButtonStyle,
-          child: _buildButtonContent(),
-        );
-    }
+        ),
+    };
   }
 
   Widget _buildButtonContent() {
@@ -74,7 +66,7 @@ class AppButton extends StatelessWidget {
         child: CircularProgressIndicator(
           strokeWidth: 2,
           valueColor: AlwaysStoppedAnimation<Color>(
-            type == AppButtonType.primary ? AppColors.primary : AppColors.onPrimary,
+            type == AppButtonType.text ? AppColors.text : AppColors.primary,
           ),
         ),
       );
@@ -88,15 +80,54 @@ class AppButton extends StatelessWidget {
           Icon(leftIcon, size: AppStyles.getButtonIconSize(size)),
           const SizedBox(width: AppTokens.elevationSm),
         ],
-        Text(
-          text,
-          style: AppStyles.getButtonTextStyle(type, size),
-        ),
+        Text(text, style: _getTextStyle()),
         if (rightIcon != null) ...[
           const SizedBox(width: AppTokens.elevationSm),
           Icon(rightIcon, size: AppStyles.getButtonIconSize(size)),
         ],
       ],
+    );
+  }
+
+  ButtonStyle _getButtonStyle() {
+    final baseStyle = ElevatedButton.styleFrom(
+      backgroundColor: type == AppButtonType.primary ? AppColors.primary.withOpacity(0.2) : Colors.transparent,
+      foregroundColor: AppColors.primary,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: AppColors.primary),
+        borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+      ),
+      elevation: 0,
+    );
+
+    return type == AppButtonType.text ? textButtonStyle : baseStyle;
+  }
+
+  static ButtonStyle get textButtonStyle => TextButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppTokens.elevationMd,
+          vertical: AppTokens.elevationSm,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+          side: const BorderSide(color: Colors.white),
+        ),
+        elevation: 0,
+      );
+
+  TextStyle _getTextStyle() {
+    final fontSize = switch (size) {
+      AppButtonSize.small => 12.0,
+      AppButtonSize.medium => 14.0,
+      AppButtonSize.large => 16.0,
+    };
+
+    return TextStyle(
+      color: type == AppButtonType.text ? AppColors.text : AppColors.primary,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w600,
     );
   }
 }

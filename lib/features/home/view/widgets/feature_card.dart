@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
 import 'package:imageifyai/core/theme/widgets/glass_container.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
@@ -19,11 +18,11 @@ class FeatureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassContainer(
+      onTap: () {
+        onTap?.call();
+      },
       color: feature.color,
-      child: GestureDetector(
-        onTap: onTap,
-        child: useListTile ? _buildListTile() : _buildCard(),
-      ),
+      child: useListTile ? _buildListTile() : _buildCard(),
     );
   }
 
@@ -52,7 +51,7 @@ class FeatureCard extends StatelessWidget {
         feature.description,
         style: TextStyle(
           fontSize: 14,
-          color: AppColors.textPrimary.withOpacity(0.7),
+          color: AppColors.textLow,
         ),
       ),
       trailing: Icon(
@@ -90,7 +89,7 @@ class FeatureCard extends StatelessWidget {
             feature.description,
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.textPrimary.withOpacity(0.7),
+              color: AppColors.textLow,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

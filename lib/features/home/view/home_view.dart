@@ -34,8 +34,6 @@ class _HomeViewContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return GradientScaffold(
       drawer: const AppDrawer(),
-      backgroundStyle: BackgroundStyle.particles,
-      gradientColors: AppColors.fullNeonGradient,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -67,7 +65,7 @@ class _HomeViewContent extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withEffect(color: AppColors.secondary),
+              ).withEffect(color: AppColors.tools),
             ),
           ),
 
@@ -107,7 +105,7 @@ class _HomeViewContent extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ).withEffect(color: AppColors.tertiary),
+              ).withEffect(color: AppColors.utility),
             ),
           ),
 

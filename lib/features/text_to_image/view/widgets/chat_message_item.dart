@@ -35,7 +35,7 @@ class ChatMessageItem extends StatelessWidget {
                       ? Text(
                           message.message ?? '',
                           style: TextStyle(
-                            color: isUser ? AppColors.onPrimary : AppColors.textPrimary,
+                            color: isUser ? AppColors.text : AppColors.text,
                           ),
                         )
                       : const SizedBox.shrink(),
@@ -70,7 +70,7 @@ class ChatMessageItem extends StatelessWidget {
       backgroundColor: message.type == MessageType.user ? AppColors.primary : AppColors.surface,
       child: Icon(
         message.type == MessageType.user ? Icons.person : Icons.smart_toy,
-        color: message.type == MessageType.user ? AppColors.onPrimary : AppColors.primary,
+        color: message.type == MessageType.user ? AppColors.text : AppColors.primary,
       ),
     );
   }
