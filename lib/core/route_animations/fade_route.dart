@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/product/tokens/animations.dart';
 
-/// Fade animasyonu ile sayfa geçişi yapar
 class FadeRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
 
@@ -15,6 +15,6 @@ class FadeRoute<T> extends PageRouteBuilder<T> {
               child: child,
             );
           },
-          transitionDuration: const Duration(milliseconds: 500),
+          transitionDuration: AppAnimations.slow,
         );
 }

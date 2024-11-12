@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/color_constants.dart';
+import '../../../product/tokens/colors.dart';
 import '../viewmodel/tattoo_view_model.dart';
 import 'widgets/tattoo_prompt_input.dart';
 import 'widgets/style_selector.dart';
@@ -29,26 +29,17 @@ class _TattooViewContent extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: GradientScaffold(
-        backgroundColor: AppColors.toolsBackground,
+        backgroundColor: AppColors.secondaryBackground,
         appBar: AppBar(
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Dövme Modu'),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: AppColors.glassGradient,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  'PRO',
-                  style: TextStyle(
-                    color: AppColors.text,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text('Dövme Modu'),
+              Text(
+                'PRO',
+                style: TextStyle(
+                  color: AppColors.text,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

@@ -21,7 +21,6 @@ class _FiltersViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      backgroundStyle: BackgroundStyle.particles,
       appBar: AppBar(title: const Text('Filters')),
       body: const Center(child: Text('Filters Feature')),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/extensions/theme_extensions.dart';
 
-import '../../../../core/theme/widgets/glass_container.dart';
+import '../../../../core/widgets/glass_container.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -32,32 +32,34 @@ class CustomAppBar extends StatelessWidget {
       ),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Imageify AI',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-              ),
-            ).withEffect(color: AppColors.text.withOpacity(0.9)),
-            const SizedBox(width: 8),
-            const BaseContainer(
-              width: 40,
-              height: 25,
-              color: AppColors.primary,
-              child: Center(
-                child: Text(
-                  'Beta',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+        title: LayoutBuilder(
+          builder: (context, constraints) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Imageify AI',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
+                ),
+              ).withEffect(color: AppColors.text.withOpacity(0.9)),
+              const SizedBox(width: 8),
+              const BaseContainer(
+                width: 40,
+                height: 25,
+                color: AppColors.primary,
+                child: Center(
+                  child: Text(
+                    'Beta',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         background: Stack(
           children: [

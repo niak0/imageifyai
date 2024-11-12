@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/core/theme/theme_manager.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/theme/app_theme.dart';
-import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
+import 'package:imageifyai/core/extensions/theme_extensions.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../core/theme/widgets/glass_container.dart';
+import '../../../../core/widgets/glass_container.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -12,11 +14,12 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final topPadding = mediaQuery.padding.top;
+    final themeManager = context.read<ThemeManager>();
 
     return Theme(
       data: Theme.of(context).copyWith(
         drawerTheme: const DrawerThemeData(
-          backgroundColor: AppColors.surfaceDark,
+          backgroundColor: AppColors.surface,
           scrimColor: Colors.black54,
           elevation: 0,
         ),
@@ -24,7 +27,7 @@ class AppDrawer extends StatelessWidget {
       child: Drawer(
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
+            color: AppColors.surface,
             border: Border(
               right: BorderSide(
                 color: AppColors.primary.withOpacity(0.2),
@@ -139,8 +142,6 @@ class AppDrawer extends StatelessWidget {
                           title: 'Hakkında',
                           color: AppColors.info,
                           onTap: () {
-                            // Karanlık/Aydınlık modu değiştirme
-                            AppTheme.instance.setDarkMode(true);
                             Navigator.pop(context);
                             // Hakkında sayfasına git
                           },
@@ -152,9 +153,9 @@ class AppDrawer extends StatelessWidget {
                 // Karanlık Mod Seçimi
                 SwitchListTile(
                   title: const Text('Karanlık Mod'),
-                  value: AppTheme.instance.isDark,
+                  value: themeManager.isDark,
                   onChanged: (value) {
-                    AppTheme.instance.setDarkMode(value);
+                    themeManager.toggleTheme();
                   },
                 ),
 

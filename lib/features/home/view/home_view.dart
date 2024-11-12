@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/theme/extensions/theme_extensions.dart';
-import 'package:imageifyai/core/theme/widgets/glass_container.dart';
+import 'package:imageifyai/core/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
 import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
+import 'package:imageifyai/product/tokens/app_tokens.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../core/constants/color_constants.dart';
+import '../../../product/tokens/colors.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -40,11 +39,11 @@ class _HomeViewContent extends StatelessWidget {
           const CustomAppBar(),
           // Ana Özellik - Text to Image
           SliverPadding(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
+            padding: AppTokens.paddingAllMd,
             sliver: SliverToBoxAdapter(
               child: BaseContainer(
                 onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
-                child: FeatureCard(
+                child: const FeatureCard(
                   feature: AIFeature.textToImage,
                 ),
               ),
@@ -53,10 +52,7 @@ class _HomeViewContent extends StatelessWidget {
 
           // AI Üretim Araçları Başlığı
           const SliverPadding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
-            ),
+            padding: AppTokens.paddingAllMd,
             sliver: SliverToBoxAdapter(
               child: Text(
                 'AI Üretim Araçları',
@@ -70,7 +66,7 @@ class _HomeViewContent extends StatelessWidget {
 
           // AI Üretim Araçları Grid
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingMedium),
+            padding: AppTokens.paddingAllMd,
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
@@ -92,10 +88,7 @@ class _HomeViewContent extends StatelessWidget {
 
           // Yardımcı Araçlar Başlığı
           const SliverPadding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-              vertical: AppConstants.paddingSmall,
-            ),
+            padding: AppTokens.paddingAllMd,
             sliver: SliverToBoxAdapter(
               child: Text(
                 'Yardımcı Araçlar',
@@ -109,9 +102,7 @@ class _HomeViewContent extends StatelessWidget {
 
           // Yardımcı Araçlar Listesi
           SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingMedium,
-            ),
+            padding: AppTokens.paddingAllMd,
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
@@ -132,9 +123,7 @@ class _HomeViewContent extends StatelessWidget {
           ),
 
           const SliverPadding(
-            padding: EdgeInsets.symmetric(
-              vertical: AppConstants.paddingLarge,
-            ),
+            padding: AppTokens.paddingAllMd,
           ),
         ],
       ),

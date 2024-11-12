@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/product/styles/input_styles.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/theme/app_styles.dart';
 import 'package:imageifyai/features/text_to_image/model/image_aspect_ratio.dart';
 import 'package:imageifyai/features/text_to_image/model/image_style.dart';
 import 'package:imageifyai/features/text_to_image/view/widgets/full_screen_input.dart';
@@ -35,7 +35,7 @@ class ChatInput extends StatelessWidget {
       height: 4,
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.textLow.withOpacity(0.3),
+        color: AppColors.text.withOpacity(0.5),
         borderRadius: BorderRadius.circular(2),
       ),
     );
@@ -53,7 +53,7 @@ class ChatInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isPrimary ? AppColors.primary : AppColors.outline,
-          width: 3.0,
+          width: 1.0,
         ),
       ),
       padding: const EdgeInsets.all(8.0),
@@ -63,12 +63,7 @@ class ChatInput extends StatelessWidget {
             controller: controller,
             enabled: false,
             maxLines: maxLines,
-            style: const TextStyle(color: AppColors.text),
-            decoration: AppStyles.inputDecoration.copyWith(
-              hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.textLow),
-              border: InputBorder.none,
-            ),
+            decoration: InputStyles.primary(hintText: hint),
           ),
           if (isPrimary)
             Positioned(
@@ -90,18 +85,18 @@ class ChatInput extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildActionButton(
-          icon: const Icon(Icons.casino, color: AppColors.primary),
+          icon: Icon(Icons.casino, color: AppColors.primary.withOpacity(0.8)),
           label: 'Beni Şaşırt',
           onTap: viewModel.handleSurpriseMe,
         ),
         _buildActionButton(
-          icon: const Icon(Icons.draw, color: AppColors.primary),
+          icon: Icon(Icons.draw, color: AppColors.primary.withOpacity(0.8)),
           label: 'Çiz',
           onTap: viewModel.handleSurpriseMe,
         ),
         _buildActionButton(
           icon: viewModel.selectedImage == null
-              ? const Icon(Icons.add_photo_alternate_outlined, color: AppColors.primary)
+              ? Icon(Icons.add_photo_alternate_outlined, color: AppColors.primary.withOpacity(0.8))
               : Image.file(
                   viewModel.selectedImage!,
                   width: 24,
@@ -120,17 +115,7 @@ class ChatInput extends StatelessWidget {
     required String label,
     required VoidCallback? onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          icon,
-          const SizedBox(width: 8),
-          Text(label, style: const TextStyle(color: AppColors.primary, fontSize: 16)),
-        ],
-      ),
-    );
+    return TextButton.icon(onPressed: onTap, icon: icon, label: Text(label, style: TextStyle(color: AppColors.primary.withOpacity(0.8))));
   }
 
   Widget _buildPromptInput(BuildContext context) {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:imageifyai/core/components/buttons/app_button.dart';
-import 'package:imageifyai/core/constants/app_constants.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/widgets/glass_container.dart';
+import 'package:imageifyai/core/widgets/buttons/app_button.dart';
+import 'package:imageifyai/product/styles/button_styles.dart';
+import 'package:imageifyai/product/tokens/app_tokens.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +18,12 @@ class UpscalerView extends StatelessWidget {
       create: (_) => UpscalerViewModel(),
       child: Consumer<UpscalerViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          backgroundColor: AppColors.utilityBackground,
-          backgroundStyle: BackgroundStyle.particles,
+          backgroundColor: AppColors.secondaryBackground,
           appBar: AppBar(
             title: const Text('Kalite Yükseltici'),
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
+            padding: AppTokens.paddingAllMd,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

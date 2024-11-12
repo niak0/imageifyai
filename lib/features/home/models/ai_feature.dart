@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/features/avatars/view/avatars_view.dart';
 import 'package:imageifyai/features/baby/view/baby_view.dart';
 import 'package:imageifyai/features/filters/view/filters_view.dart';

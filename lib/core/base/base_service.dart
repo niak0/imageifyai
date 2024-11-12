@@ -1,9 +1,14 @@
 abstract class BaseService {
-  Future<void> handleError(Function callback) async {
+  Future<T> handleResponse<T>(Future<T> Function() request) async {
     try {
-      await callback();
+      return await request();
     } catch (e) {
-      throw Exception('Service Error: $e');
+      throw ServiceException(message: e.toString());
     }
   }
+}
+
+class ServiceException implements Exception {
+  final String message;
+  ServiceException({required this.message});
 }

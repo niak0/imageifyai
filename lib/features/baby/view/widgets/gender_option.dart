@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/animation_constants.dart';
-import '../../../../core/constants/color_constants.dart';
+import '../../../../product/tokens/animations.dart';
+import '../../../../product/tokens/colors.dart';
 
 class GenderOption extends StatelessWidget {
   final IconData icon;
@@ -28,13 +28,13 @@ class GenderOption extends StatelessWidget {
           color: isSelected ? AppColors.primary.withOpacity(0.1) : AppColors.surface,
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            color: isSelected ? AppColors.tools : AppColors.tools.withOpacity(0.1),
+            color: isSelected ? AppColors.primary : AppColors.primary.withOpacity(0.1),
             width: 2,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColors.tools.withOpacity(0.2),
+                    color: AppColors.primary.withOpacity(0.2),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   )
@@ -49,14 +49,14 @@ class GenderOption extends StatelessWidget {
               child: Icon(
                 icon,
                 size: 32,
-                color: isSelected ? AppColors.tools : AppColors.textLow,
+                color: isSelected ? AppColors.primary : AppColors.textLow,
               ),
             ),
             const SizedBox(height: 8),
             AnimatedDefaultTextStyle(
               duration: AppAnimations.fast,
               style: TextStyle(
-                color: isSelected ? AppColors.tools : AppColors.textLow,
+                color: isSelected ? AppColors.primary : AppColors.textLow,
                 fontSize: isSelected ? 16 : 14,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:imageifyai/core/components/buttons/app_button.dart';
-import 'package:imageifyai/core/constants/app_constants.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/widgets/glass_container.dart';
+import 'package:imageifyai/core/widgets/buttons/app_button.dart';
+import 'package:imageifyai/product/styles/button_styles.dart';
+import 'package:imageifyai/product/tokens/app_tokens.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/extensions/theme_extensions.dart';
+import 'package:imageifyai/core/widgets/glass_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +19,12 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          backgroundStyle: BackgroundStyle.particles,
-          backgroundColor: AppColors.utilityBackground,
+          backgroundColor: AppColors.primaryBackground,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.paddingMedium),
+            padding: AppTokens.paddingAllMd,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -31,7 +32,7 @@ class RemoveBackgroundView extends StatelessWidget {
                 BaseContainer(
                   onTap: () {},
                   height: 300,
-                  color: AppColors.utility,
+                  color: AppColors.primary,
                   child: viewModel.selectedImage != null
                       ? Image.file(
                           viewModel.selectedImage!,
@@ -43,25 +44,25 @@ class RemoveBackgroundView extends StatelessWidget {
                             const Icon(
                               Icons.cloud_upload_outlined,
                               size: 48,
-                              color: AppColors.utility,
-                            ),
+                              color: AppColors.primary,
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                             const SizedBox(height: 16),
                             const Text(
                               'Resim Yükle',
                               style: TextStyle(
-                                color: AppColors.utility,
+                                color: AppColors.primary,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                             const SizedBox(height: 8),
                             Text(
                               've keyfine bak',
                               style: TextStyle(
-                                color: AppColors.utility.withOpacity(0.7),
+                                color: AppColors.primary.withOpacity(0.7),
                                 fontSize: 14,
                               ),
-                            ),
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                           ],
                         ),
                 ),
@@ -70,7 +71,6 @@ class RemoveBackgroundView extends StatelessWidget {
 
                 // Resim seçme butonu
                 AppButton(
-                  color: AppColors.utility,
                   text: 'Galeriden Resim Seç',
                   leftIcon: Icons.photo_library_outlined,
                   isFullWidth: true,
@@ -83,7 +83,6 @@ class RemoveBackgroundView extends StatelessWidget {
 
                   // Arka plan kaldırma butonu
                   AppButton(
-                    color: AppColors.utility,
                     type: AppButtonType.secondary,
                     text: 'Arka Planı Kaldır',
                     leftIcon: Icons.auto_fix_high,

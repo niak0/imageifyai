@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/routes/fade_route.dart';
+import 'package:imageifyai/core/route_animations/fade_route.dart';
 
 /// Uygulama içi navigasyonu yönetir.
 /// Context gerektirmeden navigasyon işlemlerini sağlar.
@@ -59,3 +59,8 @@ class NavigationService {
 // Kullanım örneği:
 // final navigationService = NavigationService();
 // await navigationService.navigateTo('/text-to-image');
+
+/// Bu sınıfın amacı, uygulama içi navigasyonu yönetmektir. 
+/// Bu sayede, sayfa geçişleri, sayfa kapatma ve yeniden yönlendirme işlemleri 
+/// kolayca yönetilebilir. Bu sayede, kullanıcı deneyimi daha akıcı ve daha 
+/// doğal hale getirilebilir.

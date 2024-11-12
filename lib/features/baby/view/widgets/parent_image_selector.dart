@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/utils/image_picker_dialog.dart';
-import '../../../../core/constants/color_constants.dart';
+import '../../../../product/tokens/colors.dart';
 
 class ParentImageSelector extends StatelessWidget {
   final String title;
@@ -101,7 +101,7 @@ class ParentImageSelector extends StatelessWidget {
                             Text(
                               subtitle,
                               style: const TextStyle(
-                                color: AppColors.textLow,
+                                color: AppColors.text,
                                 fontSize: 12,
                               ),
                             ),

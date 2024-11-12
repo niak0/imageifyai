@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/widgets/buttons/app_button.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
+import 'package:imageifyai/product/styles/button_styles.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/color_constants.dart';
+import '../../../product/tokens/colors.dart';
 import '../viewmodel/baby_view_model.dart';
 import 'widgets/parent_image_selector.dart';
 import 'widgets/gender_option.dart';
-import 'widgets/create_baby_button.dart';
 
 class BabyView extends StatelessWidget {
   const BabyView({super.key});
@@ -23,7 +24,7 @@ class _BabyViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      backgroundColor: AppColors.toolsBackground,
+      backgroundColor: AppColors.secondaryBackground,
       appBar: AppBar(
         title: const Text('Bebeğinizi Oluşturun'),
         centerTitle: true,
@@ -56,7 +57,7 @@ class _BabyViewContent extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.favorite,
-                            color: AppColors.tools.withOpacity(0.5),
+                            color: AppColors.primary.withOpacity(0.5),
                             size: 30,
                           ),
                         ],
@@ -115,11 +116,13 @@ class _BabyViewContent extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                CreateBabyButton(
-                  isEnabled: viewModel.canGenerate,
-                  onPressed: () {
-                    // Oluşturma işlemi
-                  },
+                AppButton(
+                  color: AppColors.primary,
+                  type: AppButtonType.secondary,
+                  text: 'Bebeği Oluştur',
+                  onPressed: viewModel.canGenerate ? () {} : null,
+                  size: AppButtonSize.large,
+                  isFullWidth: true,
                 ),
               ],
             ),

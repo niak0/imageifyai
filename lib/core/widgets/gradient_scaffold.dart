@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/particle_system.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/modern_grid_pattern.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold/grid_pattern.dart';
-
-enum BackgroundStyle {
-  none, // Arka plan yok
-  particles // Animasyonlu parçacık sistemi
-}
+import 'package:imageifyai/product/tokens/colors.dart';
 
 class GradientScaffold extends StatelessWidget {
   final Widget body;
@@ -26,7 +18,6 @@ class GradientScaffold extends StatelessWidget {
   final bool endDrawerEnableOpenDragGesture;
 
   // Arka plan özellikleri
-  final BackgroundStyle backgroundStyle;
   final Color? backgroundColor;
   final Color primaryColor;
   final Color secondaryColor;
@@ -50,7 +41,6 @@ class GradientScaffold extends StatelessWidget {
     this.drawerEnableOpenDragGesture = true,
     this.endDrawerEnableOpenDragGesture = true,
     // Arka plan parametreleri
-    this.backgroundStyle = BackgroundStyle.none,
     this.backgroundColor,
     this.primaryColor = AppColors.primaryBackground,
     this.secondaryColor = const Color(0xFF041326),
@@ -59,25 +49,12 @@ class GradientScaffold extends StatelessWidget {
     this.gradientColors, // Yeni parametre
   });
 
-  Widget _buildBackground() {
-    switch (backgroundStyle) {
-      case BackgroundStyle.particles:
-        return const ParticleSystem(
-          particleColor: AppColors.tools,
-          particleCount: 100,
-        );
-
-      case BackgroundStyle.none:
-        return const SizedBox.shrink();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final effectiveBackgroundColor = backgroundColor ?? AppColors.primaryBackground;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground,
+      backgroundColor: effectiveBackgroundColor,
       appBar: appBar,
       drawer: drawer,
       endDrawer: endDrawer,
@@ -90,21 +67,22 @@ class GradientScaffold extends StatelessWidget {
       floatingActionButtonLocation: floatingActionButtonLocation,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          // Container(
-          //   decoration: BoxDecoration(
-          //     gradient: LinearGradient(
-          //       begin: Alignment.topCenter,
-          //       end: Alignment.bottomCenter,
-          //       colors: gradientColors ??
-          //           [
-          //             effectiveBackgroundColor,
-          //             primaryColor.withOpacity(gradientOpacity),
-          //           ],
-          //     ),
-          //   ),
-          // ),
-          _buildBackground(),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: gradientColors ??
+                    [
+                      effectiveBackgroundColor,
+                      primaryColor.withOpacity(gradientOpacity),
+                      secondaryColor.withOpacity(gradientOpacity),
+                    ],
+              ),
+            ),
+          ),
           body,
         ],
       ),

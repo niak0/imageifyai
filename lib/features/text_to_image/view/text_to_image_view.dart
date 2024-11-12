@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/components/buttons/app_button.dart';
-import 'package:imageifyai/core/constants/animation_constants.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
-import 'package:imageifyai/core/theme/widgets/glass_container.dart';
+import 'package:imageifyai/core/widgets/buttons/app_button.dart';
+import 'package:imageifyai/product/styles/button_styles.dart';
+import 'package:imageifyai/product/tokens/animations.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -87,6 +87,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
     final bottomPadding = screenHeight * sheetSize * 0.9;
 
     return GradientScaffold(
+      backgroundColor: AppColors.secondaryBackground,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
@@ -109,7 +110,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: AppColors.glassGradient),
+              gradient: const LinearGradient(colors: AppColors.backgroundDecoration),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Text(
@@ -143,8 +144,19 @@ class _TextToImageContentState extends State<_TextToImageContent> {
       snap: true,
       snapSizes: snapSizes,
       builder: (context, scrollController) {
-        return BaseContainer(
-          color: Colors.transparent,
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            boxShadow: [
+              BoxShadow(color: AppColors.withOpacity(AppColors.primary), blurRadius: 2.0, spreadRadius: 2),
+            ],
+            // gradient: const LinearGradient(
+            //   begin: Alignment.bottomLeft,
+            //   end: Alignment.topRight,
+            //   colors: AppColors.backgroundDecoration,
+            // ),
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Column(
             children: [
               Expanded(
@@ -162,28 +174,28 @@ class _TextToImageContentState extends State<_TextToImageContent> {
   }
 
   Widget _buildBottomButtons(TextToImageViewModel viewModel) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppButton(
-              color: AppColors.primary,
-              type: AppButtonType.secondary,
-              text: 'Detaylı Ayarla',
-              onPressed: handleToggleExpand,
-              rightIcon: isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: AppButton(
+                type: AppButtonType.secondary,
+                text: 'Detaylı Ayarla',
+                onPressed: handleToggleExpand,
+                rightIcon: isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: AppButton(
-              color: AppColors.primary,
-              text: 'Oluştur',
-              onPressed: viewModel.generateImage,
+            const SizedBox(width: 12),
+            Expanded(
+              child: AppButton(
+                text: 'Oluştur',
+                onPressed: viewModel.generateImage,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

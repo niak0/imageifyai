@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/features/text_to_image/model/chat_message.dart';
-import '../../../../core/constants/color_constants.dart';
+import 'package:imageifyai/product/tokens/app_tokens.dart';
+import '../../../../product/tokens/colors.dart';
 
 class ChatMessageItem extends StatelessWidget {
   final ChatMessage message;
@@ -25,8 +26,8 @@ class ChatMessageItem extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isUser ? AppColors.primary : AppColors.surface,
-                borderRadius: BorderRadius.circular(16),
+                color: isUser ? AppColors.primary.withOpacity(0.2) : AppColors.surface,
+                borderRadius: BorderRadius.circular(AppTokens.radiusMd),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,9 +35,6 @@ class ChatMessageItem extends StatelessWidget {
                   message.message != null
                       ? Text(
                           message.message ?? '',
-                          style: TextStyle(
-                            color: isUser ? AppColors.text : AppColors.text,
-                          ),
                         )
                       : const SizedBox.shrink(),
                   if (message.imageUrl != null) ...[
@@ -67,7 +65,7 @@ class ChatMessageItem extends StatelessWidget {
 
   Widget _buildAvatar() {
     return CircleAvatar(
-      backgroundColor: message.type == MessageType.user ? AppColors.primary : AppColors.surface,
+      backgroundColor: message.type == MessageType.user ? AppColors.primary.withOpacity(0.2) : AppColors.surface,
       child: Icon(
         message.type == MessageType.user ? Icons.person : Icons.smart_toy,
         color: message.type == MessageType.user ? AppColors.text : AppColors.primary,

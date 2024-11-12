@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 
 class BaseContainer extends StatefulWidget {
   final Widget child;
@@ -20,7 +20,7 @@ class BaseContainer extends StatefulWidget {
     this.width,
     this.borderRadius = 20,
     this.borderWidth = 1.0,
-    this.opacity = 0.9,
+    this.opacity = 0.8,
     this.onTap,
     this.isTransparent = false,
   });
@@ -38,7 +38,7 @@ class _BaseContainerState extends State<BaseContainer> with SingleTickerProvider
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 150),
     );
   }
 
@@ -55,10 +55,11 @@ class _BaseContainerState extends State<BaseContainer> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final glowColor = _isPressed ? widget.color!.withOpacity(0.9) : (widget.color ?? AppColors.primary).withOpacity(0.3);
-    final borderColor = _isPressed ? widget.color!.withOpacity(0.9) : (widget.color ?? AppColors.primary).withOpacity(0.3);
+    final borderColor = _isPressed ? widget.color! : (widget.color ?? AppColors.primary).withOpacity(0.3);
 
-    final backgroundColor = widget.isTransparent ? Colors.transparent : _darkenToBlack(widget.color!).withOpacity(widget.opacity);
-
+    final backgroundColor = widget.isTransparent
+        ? Colors.transparent // Daha önceki opaklık değeri yerine tamamen şeffaf
+        : _darkenToBlack(widget.color!).withOpacity(widget.opacity);
     final BoxDecoration containerDecoration = BoxDecoration(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -70,8 +71,8 @@ class _BaseContainerState extends State<BaseContainer> with SingleTickerProvider
           ? [
               BoxShadow(
                 color: glowColor,
-                blurRadius: _isPressed ? 12.0 : 0.2,
-                spreadRadius: _isPressed ? 2.0 : 1.0,
+                blurRadius: _isPressed ? 16.0 : 1.0,
+                spreadRadius: _isPressed ? 3.0 : 1.5,
               ),
             ]
           : [],

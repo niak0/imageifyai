@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/constants/color_constants.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -43,12 +43,12 @@ class FeatureCard extends StatelessWidget {
       ),
       subtitle: Text(
         feature.description,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: AppColors.text,
         ),
       ),
-      trailing: Icon(
+      trailing: const Icon(
         Icons.chevron_right,
         color: AppColors.text,
       ),
@@ -82,7 +82,7 @@ class FeatureCard extends StatelessWidget {
           // Açıklama
           Text(
             feature.description,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: AppColors.textLow,
             ),

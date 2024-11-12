@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/theme/app_styles.dart';
-import '../../../../core/constants/color_constants.dart';
+import 'package:imageifyai/core/widgets/buttons/app_button.dart';
+import 'package:imageifyai/product/styles/input_styles.dart';
+import '../../../../product/tokens/colors.dart';
 
 class TattooPromptInput extends StatefulWidget {
   final TextEditingController controller;
@@ -62,17 +63,7 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
             minLines: 5,
             maxLength: _maxLength,
             style: const TextStyle(color: AppColors.text),
-            decoration: AppStyles.inputDecoration.copyWith(
-              hintText: 'Dövme fikrinizi anlatın',
-              hintStyle: const TextStyle(color: AppColors.textLow),
-              counterText: '',
-              contentPadding: const EdgeInsets.all(16),
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              filled: true,
-              fillColor: Colors.transparent,
-            ),
+            decoration: InputStyles.primary(hintText: 'Dövme fikrinizi anlatın'),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -82,20 +73,20 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
                 if (!_hasText)
                   IconButton(
                     icon: const Icon(Icons.smart_toy_outlined),
-                    style: AppStyles.iconButtonStyle,
                     onPressed: widget.onSurpriseMe,
                   ),
+                AppButton(
+                  text: 'Rastgele',
+                  leftIcon: Icons.send,
+                  onPressed: widget.onSurpriseMe,
+                ),
                 if (_hasText)
                   IconButton(
                     icon: const Icon(Icons.close),
-                    style: AppStyles.iconButtonStyle.copyWith(
-                      foregroundColor: WidgetStateProperty.all(AppColors.textLow),
-                    ),
                     onPressed: _clearText,
                   ),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  style: AppStyles.iconButtonStyle,
                   onPressed: () => widget.onSubmitted?.call(widget.controller.text),
                 ),
               ],
