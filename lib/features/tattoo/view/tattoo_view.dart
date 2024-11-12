@@ -29,7 +29,7 @@ class _TattooViewContent extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: GradientScaffold(
-        backgroundColor: AppColors.secondaryBackground,
+        backgroundColor: AppColors.card,
         appBar: AppBar(
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

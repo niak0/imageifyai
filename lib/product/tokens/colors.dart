@@ -5,8 +5,10 @@ abstract class AppColors {
   // Ana Renkler
   static const primary = Color(0xFF00F5FF); //0xFF00F5FF
   static const secondary = Color(0xFFBF00FF); // 8A2BE2 bunu dene
-  static const primaryBackground = Color(0xFF0A0E17);
-  static const secondaryBackground = Color(0xFF1F1F24);
+  static const background = Color(0xFF131A24); // 0xFF1C1F2A
+  static const card = Color(0xFF1C1F2A);
+  static const onCard = Color(0xFF1C242F);
+  static const border = Color(0xFF29303B);
 
   // Metin Renkleri
   static const text = Color(0xFFFFFFFF);
@@ -32,7 +34,6 @@ abstract class AppColors {
   // Çizgi ve Kenarlık Renkleri (Daha belirgin)
   static const outline = Color(0xFF2F2F3F);
   static const outlineVariant = Color(0xFF3F3F52);
-  static const border = Color(0xFF2A2A38);
 
   // Gradient güncelleme
   static const List<Color> backgroundDecoration = [

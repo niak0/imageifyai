@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 
+/// Widget'lara basılma animasyonu ekleyen extension
 extension PressAnimation on Widget {
+  /// Widget'a basılma animasyonu ekler
+  ///
+  /// [onTap] - Basılma eventi
+  /// [decoration] - Container dekorasyonu (opsiyonel)
+  /// [height] - Container yüksekliği (opsiyonel)
+  /// [width] - Container genişliği (opsiyonel)
+  ///
+  /// Basıldığında:
+  /// - Widget %90 oranında küçülür
+  /// - Glow efekti varsa artar
+  ///
+  /// Örnek kullanım:
+  /// ```dart
+  /// Container(
+  ///   decoration: AppDecorations.baseContainer.withGlowEffect(),
+  /// ).withPressAnimation(
+  ///   onTap: () => print('Tapped!'),
+  /// )
+  /// ```
   Widget withPressAnimation({
     VoidCallback? onTap,
     BoxDecoration? decoration,

@@ -19,22 +19,40 @@ abstract class ButtonStyles {
     switch (type) {
       case AppButtonType.primary:
         return ElevatedButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: AppColors.primary,
+          backgroundColor: color.withOpacity(0.2),
+          foregroundColor: color,
           padding: _getPadding(size),
-          shape: shape,
+          shape: shape.copyWith(
+            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
+          ),
           elevation: 0,
+        ).copyWith(
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return color.withOpacity(0.1);
+            }
+            return null;
+          }),
         );
+
       case AppButtonType.secondary:
         return ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           foregroundColor: color,
           padding: _getPadding(size),
           shape: shape.copyWith(
-            side: BorderSide(color: color),
+            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
           ),
           elevation: 0,
+        ).copyWith(
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return color.withOpacity(0.3);
+            }
+            return null;
+          }),
         );
+
       case AppButtonType.text:
         return TextButton.styleFrom(
           foregroundColor: color,

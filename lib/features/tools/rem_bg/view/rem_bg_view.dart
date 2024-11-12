@@ -7,7 +7,6 @@ import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
-import 'package:imageifyai/core/widgets/base_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/tools/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          backgroundColor: AppColors.primaryBackground,
+          backgroundColor: AppColors.background,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
@@ -78,7 +77,9 @@ class RemoveBackgroundView extends StatelessWidget {
                   leftIcon: Icons.photo_library_outlined,
                   isFullWidth: true,
                   isLoading: viewModel.isLoading,
-                  onPressed: () => viewModel.pickImage(ImageSource.gallery),
+                  onPressed: () {
+                    // () => viewModel.pickImage(ImageSource.gallery)
+                  },
                 ),
 
                 if (viewModel.selectedImage != null) ...[

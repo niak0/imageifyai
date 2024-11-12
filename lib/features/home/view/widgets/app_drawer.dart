@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/theme/theme_manager.dart';
 import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
-import 'package:imageifyai/core/theme/app_theme.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../core/widgets/base_container.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

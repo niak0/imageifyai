@@ -24,7 +24,7 @@ class _BabyViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      backgroundColor: AppColors.secondaryBackground,
+      backgroundColor: AppColors.card,
       appBar: AppBar(
         title: const Text('Bebeğinizi Oluşturun'),
         centerTitle: true,

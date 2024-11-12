@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/extensions/press_animation.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/widgets/base_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
@@ -10,8 +10,8 @@ import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
 import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
+import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:provider/provider.dart';
-import '../../../product/tokens/colors.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -44,7 +44,7 @@ class _HomeViewContent extends StatelessWidget {
             padding: AppTokens.paddingAllMd,
             sliver: SliverToBoxAdapter(
               child: Container(
-                decoration: AppDecorations.baseContainer,
+                decoration: AppDecorations.baseContainer.withGlowEffect(),
                 child: const FeatureCard(
                   feature: AIFeature.textToImage,
                 ),
@@ -80,7 +80,7 @@ class _HomeViewContent extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Container(
-                  decoration: AppDecorations.baseContainer,
+                  decoration: AppDecorations.baseContainer.withGlowEffect(),
                   child: FeatureCard(
                     feature: creationFeatures[index],
                   ),
@@ -114,7 +114,9 @@ class _HomeViewContent extends StatelessWidget {
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
-                    decoration: AppDecorations.baseContainer,
+                    decoration: AppDecorations.baseContainer.withGlowEffect(
+                      glowColor: AppColors.secondary,
+                    ),
                     child: FeatureCard(
                       feature: utilityFeatures[index],
                       useListTile: true,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/widgets/buttons/app_button.dart';
 import 'package:imageifyai/product/styles/button_styles.dart';
+import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/animations.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
@@ -87,7 +89,6 @@ class _TextToImageContentState extends State<_TextToImageContent> {
     final bottomPadding = screenHeight * sheetSize * 0.9;
 
     return GradientScaffold(
-      backgroundColor: AppColors.secondaryBackground,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
@@ -145,18 +146,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
       snapSizes: snapSizes,
       builder: (context, scrollController) {
         return Container(
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            boxShadow: [
-              BoxShadow(color: AppColors.withOpacity(AppColors.primary), blurRadius: 2.0, spreadRadius: 2),
-            ],
-            // gradient: const LinearGradient(
-            //   begin: Alignment.bottomLeft,
-            //   end: Alignment.topRight,
-            //   colors: AppColors.backgroundDecoration,
-            // ),
-            borderRadius: BorderRadius.circular(16),
-          ),
+          decoration: AppDecorations.baseContainer.withGlowEffect(glowColor: AppColors.onCard, intenseGlow: false),
           child: Column(
             children: [
               Expanded(

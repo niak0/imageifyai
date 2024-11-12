@@ -3,7 +3,17 @@ import 'package:imageifyai/product/tokens/colors.dart';
 
 /// Icon Extension
 extension ThemedIconExtension on Icon {
-  Widget withEffect({Color? color}) {
+  /// Icon'a glow efekti ekler
+  ///
+  /// [color] - Glow ve icon rengi. Belirtilmezse [AppColors.primary] kullanılır
+  /// [glowOpacity] - Glow efekti opaklığı. Varsayılan: 1.0
+  /// [blurRadius] - Glow yumuşaklığı. Varsayılan: 1.0
+  ///
+  Widget withEffect({
+    Color? color,
+    double glowOpacity = 1.0,
+    double blurRadius = 1.0,
+  }) {
     final effectColor = color ?? AppColors.primary;
     return Icon(
       icon,
@@ -11,16 +21,30 @@ extension ThemedIconExtension on Icon {
       color: effectColor,
       shadows: [
         Shadow(
-          color: effectColor,
-          blurRadius: 8,
+          color: effectColor.withOpacity(glowOpacity),
+          blurRadius: blurRadius,
         ),
       ],
     );
   }
 }
 
-/// Text Extension
+/// Text widget'ı için glow efekti extension'ı
 extension ThemedTextExtension on Text {
+  /// Text'e glow efekti ekler
+  ///
+  /// [color] - Glow ve text rengi. Belirtilmezse [AppColors.primary] kullanılır
+  /// [textOpacity] - Text opaklığı. Varsayılan: 1.0
+  /// [glowOpacity] - Glow efekti opaklığı. Varsayılan: 1.0
+  /// [blurRadius] - Glow yumuşaklığı. Varsayılan: 1.0
+  ///
+  /// Örnek kullanım:
+  /// ```dart
+  /// Text('Hello').withEffect(
+  ///   color: Colors.blue,
+  ///   glowOpacity: 0.7,
+  /// )
+  /// ```
   Widget withEffect({
     Color? color,
     double textOpacity = 1.0,
@@ -43,28 +67,40 @@ extension ThemedTextExtension on Text {
   }
 }
 
+/// BoxDecoration için glow efekti extension'ı
 extension GlowEffect on BoxDecoration {
+  /// Decoration'a glow efekti ekler
+  ///
+  /// [glowColor] - Glow efektinin rengi. Belirtilmezse decoration'ın rengi kullanılır
+  /// [blurRadius] - Glow efektinin yumuşaklığı. Varsayılan: 1.0
+  /// [spreadRadius] - Glow efektinin yayılma miktarı. Varsayılan: 1.5
+  /// [onlyBorder] - Sadece kenarlarda glow efekti olup olmayacağı. Varsayılan: false
+  ///
+  /// Örnek kullanımlar:
+  /// ```dart
+  /// // Tam glow efekti
+  /// decoration: AppDecorations.baseContainer.withGlowEffect()
+  ///
+  /// // Sadece kenarlarda glow
+  /// decoration: AppDecorations.transparentContainer.withGlowEffect(
+  ///   onlyBorder: true,
+  /// )
+  /// ```
   BoxDecoration withGlowEffect({
     Color? glowColor,
-    double blurRadius = 1.0,
+    double blurRadius = 2.0,
     double spreadRadius = 1.5,
-    bool onlyBorder = false,
+    double opacity = 0.3,
+    bool intenseGlow = false,
   }) {
-    final effectColor = glowColor ?? color ?? AppColors.primary;
+    final effectColor = glowColor ?? AppColors.primary;
 
     return copyWith(
       boxShadow: [
-        if (!onlyBorder)
-          BoxShadow(
-            color: effectColor.withOpacity(0.3),
-            blurRadius: blurRadius,
-            spreadRadius: spreadRadius,
-          ),
-        // Kenar glow efekti
         BoxShadow(
-          color: effectColor.withOpacity(0.3),
-          blurRadius: blurRadius / 2,
-          spreadRadius: -1,
+          color: effectColor.withOpacity(intenseGlow ? opacity * 3 : opacity),
+          blurRadius: intenseGlow ? blurRadius * 3 : blurRadius,
+          spreadRadius: intenseGlow ? spreadRadius * 3 : spreadRadius,
         ),
       ],
     );

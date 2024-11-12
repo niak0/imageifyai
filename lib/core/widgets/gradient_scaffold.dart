@@ -42,7 +42,7 @@ class GradientScaffold extends StatelessWidget {
     this.endDrawerEnableOpenDragGesture = true,
     // Arka plan parametreleri
     this.backgroundColor,
-    this.primaryColor = AppColors.primaryBackground,
+    this.primaryColor = AppColors.background,
     this.secondaryColor = const Color(0xFF041326),
     this.backgroundOpacity = 0.9,
     this.gradientOpacity = 0.05,
@@ -51,7 +51,7 @@ class GradientScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBackgroundColor = backgroundColor ?? AppColors.primaryBackground;
+    final effectiveBackgroundColor = backgroundColor ?? AppColors.background;
 
     return Scaffold(
       backgroundColor: effectiveBackgroundColor,

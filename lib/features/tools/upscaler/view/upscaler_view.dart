@@ -5,7 +5,6 @@ import 'package:imageifyai/product/styles/button_styles.dart';
 import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
-import 'package:imageifyai/core/widgets/base_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,7 @@ class UpscalerView extends StatelessWidget {
       create: (_) => UpscalerViewModel(),
       child: Consumer<UpscalerViewModel>(
         builder: (context, viewModel, _) => GradientScaffold(
-          backgroundColor: AppColors.secondaryBackground,
+          backgroundColor: AppColors.card,
           appBar: AppBar(
             title: const Text('Kalite Yükseltici'),
           ),

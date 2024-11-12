@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
       expandedHeight: 180,
       floating: false,
       pinned: true,
-      backgroundColor: AppColors.primaryBackground,
+      backgroundColor: AppColors.background,
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
