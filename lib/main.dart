@@ -11,7 +11,10 @@ import 'package:provider/provider.dart';
 void main() async {
   await AppInit.init();
 
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: AppProviders.providers,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,18 +22,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: AppProviders.providers,
-      child: Consumer<ThemeManager>(
-        builder: (context, themeManager, child) {
-          return MaterialApp(
-            title: AppConfig.appName,
-            theme: themeManager.isDark ? AppTheme.dark : AppTheme.light,
-            navigatorKey: NavigationService.navigatorKey,
-            home: const HomeView(),
-          );
-        },
-      ),
-    );
+    return Consumer<ThemeManager>(builder: (context, themeManager, _) {
+      return MaterialApp(
+        title: AppConfig.appName,
+        theme: themeManager.isDark ? AppTheme.dark : AppTheme.light,
+        navigatorKey: NavigationService.navigatorKey,
+        home: const HomeView(),
+      );
+    });
   }
 }
