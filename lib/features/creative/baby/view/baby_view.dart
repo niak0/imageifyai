@@ -3,7 +3,7 @@ import 'package:imageifyai/core/widgets/buttons/app_button.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/product/styles/button_styles.dart';
 import 'package:provider/provider.dart';
-import '../../../product/tokens/colors.dart';
+import '../../../../product/tokens/colors.dart';
 import '../viewmodel/baby_view_model.dart';
 import 'widgets/parent_image_selector.dart';
 import 'widgets/gender_option.dart';

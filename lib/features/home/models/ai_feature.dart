@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
-import 'package:imageifyai/features/avatars/view/avatars_view.dart';
-import 'package:imageifyai/features/baby/view/baby_view.dart';
-import 'package:imageifyai/features/filters/view/filters_view.dart';
-import 'package:imageifyai/features/tattoo/view/tattoo_view.dart';
-import 'package:imageifyai/features/text_to_image/view/text_to_image_view.dart';
+import 'package:imageifyai/features/creative/avatars/view/avatars_view.dart';
+import 'package:imageifyai/features/creative/baby/view/baby_view.dart';
+import 'package:imageifyai/features/creative/filters/view/filters_view.dart';
+import 'package:imageifyai/features/creative/tattoo/view/tattoo_view.dart';
+import 'package:imageifyai/features/creative/text_to_image/view/text_to_image_view.dart';
 import 'package:imageifyai/features/tools/upscaler/view/upscaler_view.dart';
 
 import '../../tools/rem_bg/view/rem_bg_view.dart';

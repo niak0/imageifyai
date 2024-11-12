@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/product/styles/input_styles.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/features/text_to_image/model/image_aspect_ratio.dart';
-import 'package:imageifyai/features/text_to_image/model/image_style.dart';
-import 'package:imageifyai/features/text_to_image/view/widgets/full_screen_input.dart';
-import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
+import 'package:imageifyai/features/creative/text_to_image/model/image_aspect_ratio.dart';
+import 'package:imageifyai/features/creative/text_to_image/model/image_style.dart';
+import 'package:imageifyai/features/creative/text_to_image/view/widgets/full_screen_input.dart';
+import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
 
 class ChatInput extends StatelessWidget {
   final TextToImageViewModel viewModel;

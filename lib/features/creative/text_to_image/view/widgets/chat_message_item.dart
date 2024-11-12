@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/features/text_to_image/model/chat_message.dart';
+import 'package:imageifyai/features/creative/text_to_image/model/chat_message.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
-import '../../../../product/tokens/colors.dart';
+import '../../../../../product/tokens/colors.dart';
 
 class ChatMessageItem extends StatelessWidget {
   final ChatMessage message;

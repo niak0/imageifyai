@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/features/tattoo/model/tattoo_example.dart';
+import 'package:imageifyai/features/creative/tattoo/model/tattoo_example.dart';
 import '../model/tattoo_style.dart';
 
 class TattooViewModel extends ChangeNotifier {

@@ -6,7 +6,7 @@ import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/animations.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/features/text_to_image/viewmodel/text_to_image_view_model.dart';
+import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
 import 'widgets/chat_input.dart';
 import 'widgets/chat_message_item.dart';

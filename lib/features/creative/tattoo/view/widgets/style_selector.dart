@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../product/tokens/colors.dart';
+import '../../../../../product/tokens/colors.dart';
 import '../../model/tattoo_style.dart';
 
 class StyleSelector extends StatelessWidget {

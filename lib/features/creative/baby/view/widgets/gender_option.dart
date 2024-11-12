@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../product/tokens/animations.dart';
-import '../../../../product/tokens/colors.dart';
+import '../../../../../product/tokens/animations.dart';
+import '../../../../../product/tokens/colors.dart';
 
 class GenderOption extends StatelessWidget {
   final IconData icon;
