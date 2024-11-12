@@ -5,9 +5,9 @@ import 'package:imageifyai/features/baby/view/baby_view.dart';
 import 'package:imageifyai/features/filters/view/filters_view.dart';
 import 'package:imageifyai/features/tattoo/view/tattoo_view.dart';
 import 'package:imageifyai/features/text_to_image/view/text_to_image_view.dart';
-import 'package:imageifyai/features/upscaler/view/upscaler_view.dart';
+import 'package:imageifyai/features/tools/upscaler/view/upscaler_view.dart';
 
-import '../../rem_bg/view/rem_bg_view.dart';
+import '../../tools/rem_bg/view/rem_bg_view.dart';
 
 enum FeatureCategory {
   creation, // AI Üretim Araçları

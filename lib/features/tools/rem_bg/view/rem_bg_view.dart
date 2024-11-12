@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imageifyai/core/extensions/press_animation.dart';
 import 'package:imageifyai/core/widgets/buttons/app_button.dart';
 import 'package:imageifyai/product/styles/button_styles.dart';
+import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
-import 'package:imageifyai/core/extensions/theme_extensions.dart';
-import 'package:imageifyai/core/widgets/glass_container.dart';
+import 'package:imageifyai/core/extensions/glow_extensions.dart';
+import 'package:imageifyai/core/widgets/base_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/features/rem_bg/view_model/rem_bg_view_model.dart';
+import 'package:imageifyai/features/tools/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
 
 class RemoveBackgroundView extends StatelessWidget {
@@ -29,10 +31,9 @@ class RemoveBackgroundView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Resim seçme/yükleme alanı
-                BaseContainer(
-                  onTap: () {},
+                Container(
+                  decoration: AppDecorations.baseContainer,
                   height: 300,
-                  color: AppColors.primary,
                   child: viewModel.selectedImage != null
                       ? Image.file(
                           viewModel.selectedImage!,
@@ -65,6 +66,8 @@ class RemoveBackgroundView extends StatelessWidget {
                             ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                           ],
                         ),
+                ).withPressAnimation(
+                  onTap: () {},
                 ),
 
                 const SizedBox(height: 24),
@@ -96,8 +99,8 @@ class RemoveBackgroundView extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   // Sonuç alanı
-                  BaseContainer(
-                    color: AppColors.utility,
+                  Container(
+                    decoration: AppDecorations.baseContainer,
                     child: Image.file(
                       viewModel.resultImage!,
                       fit: BoxFit.contain,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/extensions/press_animation.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/widgets/glass_container.dart';
+import 'package:imageifyai/core/widgets/base_container.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
 import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
+import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/app_tokens.dart';
 import 'package:provider/provider.dart';
 import '../../../product/tokens/colors.dart';
@@ -41,11 +43,13 @@ class _HomeViewContent extends StatelessWidget {
           SliverPadding(
             padding: AppTokens.paddingAllMd,
             sliver: SliverToBoxAdapter(
-              child: BaseContainer(
-                onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
+              child: Container(
+                decoration: AppDecorations.baseContainer,
                 child: const FeatureCard(
                   feature: AIFeature.textToImage,
                 ),
+              ).withPressAnimation(
+                onTap: () => NavigationService().navigateToPage(AIFeature.textToImage.page),
               ),
             ),
           ),
@@ -75,11 +79,13 @@ class _HomeViewContent extends StatelessWidget {
                 childAspectRatio: 1.1,
               ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) => BaseContainer(
-                  onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
+                (context, index) => Container(
+                  decoration: AppDecorations.baseContainer,
                   child: FeatureCard(
                     feature: creationFeatures[index],
                   ),
+                ).withPressAnimation(
+                  onTap: () => NavigationService().navigateToPage(creationFeatures[index].page),
                 ),
                 childCount: creationFeatures.length,
               ),
@@ -107,14 +113,14 @@ class _HomeViewContent extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: BaseContainer(
-                    color: AppColors.secondary,
-                    isTransparent: true,
-                    onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
+                  child: Container(
+                    decoration: AppDecorations.baseContainer,
                     child: FeatureCard(
                       feature: utilityFeatures[index],
                       useListTile: true,
                     ),
+                  ).withPressAnimation(
+                    onTap: () => NavigationService().navigateToPage(utilityFeatures[index].page),
                   ),
                 ),
                 childCount: utilityFeatures.length,
