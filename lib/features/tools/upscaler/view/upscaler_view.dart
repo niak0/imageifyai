@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/core/styles/button_styles.dart';
+
 import 'package:imageifyai/core/styles/decorations.dart';
 import 'package:imageifyai/core/tokens/app_tokens.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +15,7 @@ class UpscalerView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => UpscalerViewModel(),
       child: Consumer<UpscalerViewModel>(
-        builder: (context, viewModel, _) => GradientScaffold(
+        builder: (context, viewModel, _) => Scaffold(
           backgroundColor: AppColors.card,
           appBar: AppBar(
             title: const Text('Kalite Yükseltici'),
@@ -67,12 +65,9 @@ class UpscalerView extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Resim seçme butonu
-                AppButton(
-                  color: AppColors.utility,
-                  text: 'Galeriden Resim Seç',
-                  leftIcon: Icons.photo_library_outlined,
-                  isFullWidth: true,
-                  isLoading: viewModel.isLoading,
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.photo_library_outlined),
+                  label: const Text('Galeriden Resim Seç'),
                   onPressed: () => viewModel.pickImage(ImageSource.gallery),
                 ),
 
@@ -80,13 +75,9 @@ class UpscalerView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Kalite yükseltme butonu
-                  AppButton(
-                    color: AppColors.utility,
-                    text: 'Kaliteyi Yükselt',
-                    leftIcon: Icons.auto_awesome,
-                    type: AppButtonType.secondary,
-                    isFullWidth: true,
-                    isLoading: viewModel.isLoading,
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.auto_awesome),
+                    label: const Text('Kaliteyi Yükselt'),
                     onPressed: viewModel.upscaleImage,
                   ),
                 ],
@@ -107,12 +98,9 @@ class UpscalerView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // İndirme butonu
-                  AppButton(
-                    color: AppColors.utility,
-                    text: 'Sonucu İndir',
-                    leftIcon: Icons.download,
-                    isFullWidth: true,
-                    isLoading: viewModel.isLoading,
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.download),
+                    label: const Text('Sonucu İndir'),
                     onPressed: viewModel.downloadResult,
                   ),
                 ],

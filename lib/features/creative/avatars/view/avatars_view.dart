@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/avatars_view_model.dart';
 
@@ -20,7 +19,7 @@ class _AvatarsViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       appBar: AppBar(title: const Text('Avatarlar')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

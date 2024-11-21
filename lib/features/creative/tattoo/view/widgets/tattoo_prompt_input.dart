@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/buttons/app_button.dart';
 import 'package:imageifyai/core/styles/input_styles.dart';
 import '../../../../../core/tokens/colors.dart';
 
@@ -16,10 +15,10 @@ class TattooPromptInput extends StatefulWidget {
   });
 
   @override
-  _TattooPromptInputState createState() => _TattooPromptInputState();
+  TattooPromptInputState createState() => TattooPromptInputState();
 }
 
-class _TattooPromptInputState extends State<TattooPromptInput> {
+class TattooPromptInputState extends State<TattooPromptInput> {
   bool _hasText = false;
   final FocusNode _focusNode = FocusNode();
   static const int _maxLength = 400;
@@ -75,9 +74,9 @@ class _TattooPromptInputState extends State<TattooPromptInput> {
                     icon: const Icon(Icons.smart_toy_outlined),
                     onPressed: widget.onSurpriseMe,
                   ),
-                AppButton(
-                  text: 'Rastgele',
-                  leftIcon: Icons.send,
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.smart_toy_outlined),
+                  label: const Text('Rastgele'),
                   onPressed: widget.onSurpriseMe,
                 ),
                 if (_hasText)

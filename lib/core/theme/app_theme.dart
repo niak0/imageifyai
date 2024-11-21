@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
 import '../tokens/colors.dart';
+import '../styles/button_styles.dart';
 
 abstract class AppTheme {
   static ThemeData get dark {
-    final base = ThemeData.dark(); // Önce base theme'i alalım
+    final base = ThemeData.dark();
+
     return base.copyWith(
       primaryColor: AppColors.primary,
-      // scaffoldBackgroundColor: AppColors.primaryBackground,
+
+      // Buton temaları
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyles.primary(),
+      ),
+
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyles.text(),
+      ),
+
+      // OutlinedButton'ı secondary stil olarak kullan
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyles.secondary(),
+      ),
+
+      // Diğer tema ayarları...
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
@@ -16,7 +33,6 @@ abstract class AppTheme {
         onSurface: AppColors.text,
       ),
 
-      // Base theme'in text theme'ini extend edelim
       textTheme: base.textTheme.copyWith(
         headlineLarge: const TextStyle(
           fontSize: 24,
@@ -42,15 +58,6 @@ abstract class AppTheme {
         ),
       ),
 
-      // Base theme'in primary text theme'ini extend edelim
-      primaryTextTheme: base.primaryTextTheme.copyWith(
-        titleLarge: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          color: AppColors.text,
-        ),
-      ),
-      // Base theme'in appBar theme'ini extend edelim
       appBarTheme: base.appBarTheme.copyWith(
         elevation: 0,
         centerTitle: true,
@@ -70,7 +77,17 @@ abstract class AppTheme {
   static ThemeData get light {
     final base = ThemeData.light();
     return base.copyWith(
-        // Light tema ayarları benzer şekilde...
-        );
+      // Light tema için de aynı buton stillerini kullan
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyles.primary(),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyles.text(),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyles.secondary(),
+      ),
+      // Diğer light tema ayarları...
+    );
   }
 }

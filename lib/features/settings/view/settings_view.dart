@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/settings_view_model.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 
 class SettingsView extends StatelessWidget {
@@ -9,7 +8,7 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       appBar: _buildAppBar(),
       body: Consumer<SettingsViewModel>(
         builder: (context, viewModel, child) {

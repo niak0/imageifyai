@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:provider/provider.dart';
 import '../view_model/about_view_model.dart';
@@ -12,7 +11,7 @@ class AboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => AboutViewModel(),
-      child: GradientScaffold(
+      child: Scaffold(
         appBar: AppBar(
           title: const Text('Hakkında'),
         ),

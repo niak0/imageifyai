@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/tokens/colors.dart';
 import '../viewmodel/tattoo_view_model.dart';
@@ -28,7 +27,7 @@ class _TattooViewContent extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
-      child: GradientScaffold(
+      child: Scaffold(
         backgroundColor: AppColors.card,
         appBar: AppBar(
           title: const Row(

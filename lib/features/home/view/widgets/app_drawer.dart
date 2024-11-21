@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:imageifyai/features/settings/pages/history/view/history_view.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/features/settings/view/settings_view.dart';
 import 'package:imageifyai/features/settings/pages/about/view/about_view.dart';
-import 'package:imageifyai/core/widgets/particle_network.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -72,26 +69,15 @@ class AppDrawer extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Stack(
-        children: [
-          const ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-            ),
-            child: ParticleNetwork(),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildLogo(),
-                const SizedBox(height: 16),
-                _buildTitle(),
-              ],
-            ),
-          ),
-        ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildLogo(),
+            const SizedBox(height: 16),
+            _buildTitle(),
+          ],
+        ),
       ),
     );
   }

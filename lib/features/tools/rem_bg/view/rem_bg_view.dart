@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/extensions/press_animation.dart';
-import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/core/styles/button_styles.dart';
 import 'package:imageifyai/core/styles/decorations.dart';
 import 'package:imageifyai/core/tokens/app_tokens.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/tools/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +15,7 @@ class RemoveBackgroundView extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
-        builder: (context, viewModel, _) => GradientScaffold(
+        builder: (context, viewModel, _) => Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
@@ -72,11 +68,9 @@ class RemoveBackgroundView extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Resim seçme butonu
-                AppButton(
-                  text: 'Galeriden Resim Seç',
-                  leftIcon: Icons.photo_library_outlined,
-                  isFullWidth: true,
-                  isLoading: viewModel.isLoading,
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.photo_library_outlined),
+                  label: const Text('Galeriden Resim Seç'),
                   onPressed: () {
                     // () => viewModel.pickImage(ImageSource.gallery)
                   },
@@ -86,12 +80,9 @@ class RemoveBackgroundView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Arka plan kaldırma butonu
-                  AppButton(
-                    type: AppButtonType.secondary,
-                    text: 'Arka Planı Kaldır',
-                    leftIcon: Icons.auto_fix_high,
-                    isFullWidth: true,
-                    isLoading: viewModel.isLoading,
+                  OutlinedButton.icon(
+                    icon: const Icon(Icons.auto_fix_high),
+                    label: const Text('Arka Planı Kaldır'),
                     onPressed: viewModel.removeBackground,
                   ),
                 ],
@@ -111,12 +102,9 @@ class RemoveBackgroundView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // İndirme butonu
-                  AppButton(
-                    color: AppColors.utility,
-                    text: 'Sonucu İndir',
-                    leftIcon: Icons.download,
-                    isFullWidth: true,
-                    isLoading: viewModel.isLoading,
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.download),
+                    label: const Text('Sonucu İndir'),
                     onPressed: viewModel.downloadResult,
                   ),
                 ],

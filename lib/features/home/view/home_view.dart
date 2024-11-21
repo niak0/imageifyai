@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/extensions/press_animation.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
 import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
@@ -33,7 +32,7 @@ class _HomeViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       drawer: const AppDrawer(),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),

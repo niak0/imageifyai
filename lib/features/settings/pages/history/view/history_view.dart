@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:provider/provider.dart';
 import '../model/history_model.dart';
@@ -24,7 +23,7 @@ class _HistoryViewState extends State<HistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       appBar: _buildAppBar(),
       body: Consumer<HistoryViewModel>(
         builder: (context, viewModel, child) {

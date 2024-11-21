@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
-import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/core/styles/button_styles.dart';
 import 'package:imageifyai/core/styles/decorations.dart';
 import 'package:imageifyai/core/tokens/animations.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
 import 'widgets/chat_input.dart';
@@ -88,7 +85,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
     final screenHeight = MediaQuery.of(context).size.height;
     final bottomPadding = screenHeight * sheetSize * 0.9;
 
-    return GradientScaffold(
+    return Scaffold(
       appBar: _buildAppBar(),
       body: Stack(
         children: [
@@ -170,17 +167,17 @@ class _TextToImageContentState extends State<_TextToImageContent> {
         child: Row(
           children: [
             Expanded(
-              child: AppButton(
-                type: AppButtonType.secondary,
-                text: 'Detaylı Ayarla',
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.arrow_upward),
+                label: const Text('Detaylı Ayarla'),
                 onPressed: handleToggleExpand,
-                rightIcon: isExpanded ? Icons.arrow_downward : Icons.arrow_upward,
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: AppButton(
-                text: 'Oluştur',
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.send),
+                label: const Text('Oluştur'),
                 onPressed: viewModel.generateImage,
               ),
             ),

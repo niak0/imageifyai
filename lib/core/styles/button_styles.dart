@@ -1,109 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/tokens/app_tokens.dart';
 import '../tokens/colors.dart';
+import '../tokens/app_tokens.dart';
 
-enum AppButtonType { primary, secondary, text }
-
-enum AppButtonSize { small, medium, large }
-
+/// Buton stilleri için yardımcı sınıf
 abstract class ButtonStyles {
-  static ButtonStyle getButtonStyle({
-    required AppButtonType type,
-    required AppButtonSize size,
-    required Color color,
+  // Temel buton özellikleri
+  static const _defaultRadius = AppTokens.radiusMd;
+  static const _defaultElevation = 0.0;
+
+  /// Primary buton stili
+  static ButtonStyle primary({
+    Color? color,
+    Size? size,
   }) {
-    final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppTokens.radiusMd),
-    );
+    final buttonColor = color ?? AppColors.primary;
 
-    switch (type) {
-      case AppButtonType.primary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: color.withOpacity(0.2),
-          foregroundColor: color,
-          padding: _getPadding(size),
-          shape: shape.copyWith(
-            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
-          ),
-          elevation: 0,
-        ).copyWith(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return color.withOpacity(0.1);
-            }
-            return null;
-          }),
-        );
-
-      case AppButtonType.secondary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: color,
-          padding: _getPadding(size),
-          shape: shape.copyWith(
-            side: BorderSide(color: color.withOpacity(0.5), width: 1.5),
-          ),
-          elevation: 0,
-        ).copyWith(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return color.withOpacity(0.3);
-            }
-            return null;
-          }),
-        );
-
-      case AppButtonType.text:
-        return TextButton.styleFrom(
-          foregroundColor: color,
-          padding: _getPadding(size),
-          shape: shape,
-        );
-    }
-  }
-
-  static TextStyle getTextStyle({
-    required AppButtonSize size,
-    required Color color,
-    required bool isTextButton,
-  }) {
-    return TextStyle(
-      color: isTextButton ? color : AppColors.primary,
-      fontSize: _getFontSize(size),
-      fontWeight: FontWeight.w600,
+    return ElevatedButton.styleFrom(
+      backgroundColor: buttonColor.withOpacity(0.2),
+      foregroundColor: buttonColor,
+      elevation: _defaultElevation,
+      padding: _getPadding(size),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(_defaultRadius),
+        side: BorderSide(
+          color: buttonColor.withOpacity(0.5),
+          width: 1.5,
+        ),
+      ),
+    ).copyWith(
+      overlayColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return buttonColor.withOpacity(0.1);
+        }
+        return null;
+      }),
     );
   }
 
-  static double getIconSize(AppButtonSize size) {
-    switch (size) {
-      case AppButtonSize.small:
-        return AppTokens.iconXs;
-      case AppButtonSize.medium:
-        return AppTokens.iconSm;
-      case AppButtonSize.large:
-        return AppTokens.iconMd;
-    }
+  /// Secondary buton stili
+  static ButtonStyle secondary({
+    Color? color,
+    Size? size,
+  }) {
+    final buttonColor = color ?? AppColors.secondary;
+
+    return ElevatedButton.styleFrom(
+      backgroundColor: Colors.transparent,
+      foregroundColor: buttonColor,
+      elevation: _defaultElevation,
+      padding: _getPadding(size),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(_defaultRadius),
+        side: BorderSide(
+          color: buttonColor.withOpacity(0.5),
+          width: 1.5,
+        ),
+      ),
+    );
   }
 
-  static EdgeInsets _getPadding(AppButtonSize size) {
-    switch (size) {
-      case AppButtonSize.small:
-        return AppTokens.paddingAllSm;
-      case AppButtonSize.medium:
-        return AppTokens.paddingAllMd;
-      case AppButtonSize.large:
-        return AppTokens.paddingAllLg;
-    }
+  /// Text buton stili
+  static ButtonStyle text({
+    Color? color,
+    Size? size,
+  }) {
+    return TextButton.styleFrom(
+      foregroundColor: color ?? AppColors.text,
+      padding: _getPadding(size),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(_defaultRadius),
+      ),
+    );
   }
 
-  static double _getFontSize(AppButtonSize size) {
-    switch (size) {
-      case AppButtonSize.small:
-        return AppTokens.fontXs;
-      case AppButtonSize.medium:
-        return AppTokens.fontSm;
-      case AppButtonSize.large:
-        return AppTokens.fontMd;
+  /// Buton boyutuna göre padding değerini döndürür
+  static EdgeInsets _getPadding(Size? size) {
+    if (size == null) return AppTokens.paddingAllMd;
+
+    if (size == const Size.square(32)) {
+      return AppTokens.paddingAllSm;
+    } else if (size == const Size.square(48)) {
+      return AppTokens.paddingAllLg;
     }
+
+    return AppTokens.paddingAllMd;
   }
 }
+
+/// Kullanım örneği:
+/// ```dart
+/// ElevatedButton(
+///   style: ButtonStyles.primary(),
+///   onPressed: () {},
+///   child: Text('Primary Button'),
+/// )
+/// 
+/// TextButton(
+///   style: ButtonStyles.text(),
+///   onPressed: () {},
+///   child: Text('Text Button'),
+/// )
+/// ```

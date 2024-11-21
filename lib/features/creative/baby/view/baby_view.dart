@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/core/styles/button_styles.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/tokens/colors.dart';
 import '../viewmodel/baby_view_model.dart';
@@ -23,7 +20,7 @@ class BabyView extends StatelessWidget {
 class _BabyViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       backgroundColor: AppColors.card,
       appBar: AppBar(
         title: const Text('Bebeğinizi Oluşturun'),
@@ -116,13 +113,10 @@ class _BabyViewContent extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                AppButton(
-                  color: AppColors.primary,
-                  type: AppButtonType.secondary,
-                  text: 'Bebeği Oluştur',
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.add_a_photo),
+                  label: const Text('Bebeği Oluştur'),
                   onPressed: viewModel.canGenerate ? () {} : null,
-                  size: AppButtonSize.large,
-                  isFullWidth: true,
                 ),
               ],
             ),

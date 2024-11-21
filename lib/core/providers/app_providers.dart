@@ -9,7 +9,7 @@ class AppProviders {
     ),
     ChangeNotifierProvider<SettingsViewModel>(
       create: (context) => SettingsViewModel(
-        storage: Provider.of<StorageService>(context, listen: false),
+        storage: context.read<StorageService>(),
       ),
     ),
   ];
