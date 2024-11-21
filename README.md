@@ -63,15 +63,8 @@ lib/
 - Çoklu dil desteği
 - Karanlık/Aydınlık tema
 
-## 🤝 Katkıda Bulunma
 
-1. Bu depoyu fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/amazing`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Harika özellik eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/amazing`)
-5. Bir Pull Request oluşturun
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE] dosyasına bakın.
 
 ## 📞 İletişim
 
