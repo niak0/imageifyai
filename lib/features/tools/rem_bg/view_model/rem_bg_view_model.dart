@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/base/base_view_model.dart';
+import '../../../../core/services/image_service.dart';
 
 class RemoveBackgroundViewModel extends BaseViewModel {
+  final ImageService _imageService = ImageService();
+
   File? _selectedImage;
   File? _resultImage;
   String? _error;
@@ -13,21 +16,14 @@ class RemoveBackgroundViewModel extends BaseViewModel {
   bool get hasResult => _resultImage != null;
 
   Future<void> pickImage(ImageSource source) async {
-    try {
-      setLoading(true);
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: source);
-
-      if (pickedFile != null) {
-        _selectedImage = File(pickedFile.path);
+    await handleAsync(() async {
+      final imagePath = await _imageService.pickImage(source);
+      if (imagePath != null) {
+        _selectedImage = File(imagePath);
         _resultImage = null;
         _error = null;
       }
-    } catch (e) {
-      setError('Resim seçilirken bir hata oluştu');
-    } finally {
-      setLoading(false);
-    }
+    });
   }
 
   Future<void> removeBackground() async {

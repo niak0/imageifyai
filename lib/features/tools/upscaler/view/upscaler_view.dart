@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
+import 'package:imageifyai/core/extensions/press_animation.dart';
 import 'package:imageifyai/core/styles/decorations.dart';
 import 'package:imageifyai/core/constants/app_constants.dart';
 import 'package:imageifyai/core/constants/colors.dart';
+import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/utils/image_picker_dialog.dart';
 
 class UpscalerView extends StatelessWidget {
   const UpscalerView({super.key});
@@ -13,12 +14,11 @@ class UpscalerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => UpscalerViewModel(),
+      create: (context) => UpscalerViewModel(),
       child: Consumer<UpscalerViewModel>(
         builder: (context, viewModel, _) => Scaffold(
-          backgroundColor: AppColors.card,
           appBar: AppBar(
-            title: const Text('Kalite Yükseltici'),
+            title: const Text('Görüntü Kalitesini Artır'),
           ),
           body: SingleChildScrollView(
             padding: AppConstants.paddingAllMd,
@@ -41,25 +41,28 @@ class UpscalerView extends StatelessWidget {
                               Icons.cloud_upload_outlined,
                               size: 48,
                               color: AppColors.primary,
-                            ),
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                             const SizedBox(height: 16),
                             const Text(
                               'Resim Yükle',
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ),
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                             const SizedBox(height: 8),
                             Text(
-                              've keyfine bak',
+                              'Kalitesini artıralım',
                               style: TextStyle(
                                 color: AppColors.primary.withOpacity(0.7),
                                 fontSize: 14,
                               ),
-                            ),
+                            ).withEffect(color: AppColors.primary.withOpacity(0.6)),
                           ],
                         ),
+                ).withPressAnimation(
+                  onTap: () => _handleImagePick(context),
                 ),
 
                 const SizedBox(height: 24),
@@ -68,27 +71,26 @@ class UpscalerView extends StatelessWidget {
                 ElevatedButton.icon(
                   icon: const Icon(Icons.photo_library_outlined),
                   label: const Text('Galeriden Resim Seç'),
-                  onPressed: () => viewModel.pickImage(ImageSource.gallery),
+                  onPressed: () => _handleImagePick(context),
                 ),
 
                 if (viewModel.selectedImage != null) ...[
                   const SizedBox(height: 24),
 
-                  // Kalite yükseltme butonu
-                  ElevatedButton.icon(
-                    icon: const Icon(Icons.auto_awesome),
-                    label: const Text('Kaliteyi Yükselt'),
+                  // Kalite artırma butonu
+                  OutlinedButton.icon(
+                    icon: const Icon(Icons.auto_fix_high),
+                    label: const Text('Kaliteyi Artır'),
                     onPressed: viewModel.upscaleImage,
                   ),
                 ],
 
                 if (viewModel.resultImage != null) ...[
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 32),
 
-                  // Sonuç resmi
+                  // Sonuç alanı
                   Container(
                     decoration: AppDecorations.baseContainer,
-                    height: 300,
                     child: Image.file(
                       viewModel.resultImage!,
                       fit: BoxFit.contain,
@@ -123,5 +125,12 @@ class UpscalerView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleImagePick(BuildContext context) async {
+    final source = await ImagePickerDialog.show(context);
+    if (source != null) {
+      context.read<UpscalerViewModel>().pickImage(source);
+    }
   }
 }

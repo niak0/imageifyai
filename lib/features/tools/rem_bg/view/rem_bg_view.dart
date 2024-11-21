@@ -6,6 +6,8 @@ import 'package:imageifyai/core/constants/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/features/tools/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../../../core/utils/image_picker_dialog.dart';
 
 class RemoveBackgroundView extends StatelessWidget {
   const RemoveBackgroundView({super.key});
@@ -16,7 +18,6 @@ class RemoveBackgroundView extends StatelessWidget {
       create: (context) => RemoveBackgroundViewModel(),
       child: Consumer<RemoveBackgroundViewModel>(
         builder: (context, viewModel, _) => Scaffold(
-          backgroundColor: AppColors.background,
           appBar: AppBar(
             title: const Text('Arka Plan Kaldır'),
           ),
@@ -62,7 +63,7 @@ class RemoveBackgroundView extends StatelessWidget {
                           ],
                         ),
                 ).withPressAnimation(
-                  onTap: () {},
+                  onTap: () => _handleImagePick(context),
                 ),
 
                 const SizedBox(height: 24),
@@ -71,9 +72,7 @@ class RemoveBackgroundView extends StatelessWidget {
                 ElevatedButton.icon(
                   icon: const Icon(Icons.photo_library_outlined),
                   label: const Text('Galeriden Resim Seç'),
-                  onPressed: () {
-                    // () => viewModel.pickImage(ImageSource.gallery)
-                  },
+                  onPressed: () => _handleImagePick(context),
                 ),
 
                 if (viewModel.selectedImage != null) ...[
@@ -127,5 +126,12 @@ class RemoveBackgroundView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleImagePick(BuildContext context) async {
+    final source = await ImagePickerDialog.show(context);
+    if (source != null) {
+      context.read<RemoveBackgroundViewModel>().pickImage(source);
+    }
   }
 }

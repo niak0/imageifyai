@@ -42,7 +42,7 @@ abstract class ButtonStyles {
     Color? color,
     Size? size,
   }) {
-    final buttonColor = color ?? AppColors.secondary;
+    final buttonColor = color ?? AppColors.primary;
 
     return ElevatedButton.styleFrom(
       backgroundColor: Colors.transparent,

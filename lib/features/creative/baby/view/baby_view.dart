@@ -21,7 +21,6 @@ class _BabyViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.card,
       appBar: AppBar(
         title: const Text('Bebeğinizi Oluşturun'),
         centerTitle: true,

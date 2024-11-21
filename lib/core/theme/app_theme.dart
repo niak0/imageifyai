@@ -8,6 +8,7 @@ abstract class AppTheme {
 
     return base.copyWith(
       primaryColor: AppColors.primary,
+      scaffoldBackgroundColor: AppColors.background,
 
       // Buton temaları
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -18,12 +19,10 @@ abstract class AppTheme {
         style: ButtonStyles.text(),
       ),
 
-      // OutlinedButton'ı secondary stil olarak kullan
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyles.secondary(),
       ),
 
-      // Diğer tema ayarları...
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
@@ -77,6 +76,7 @@ abstract class AppTheme {
   static ThemeData get light {
     final base = ThemeData.light();
     return base.copyWith(
+      scaffoldBackgroundColor: AppColors.background,
       // Light tema için de aynı buton stillerini kullan
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyles.primary(),
