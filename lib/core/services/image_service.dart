@@ -7,9 +7,8 @@ class ImageService implements BaseService {
 
   @override
   Future<void> initialize() async {
-    // Image picker için gerekli izinleri kontrol et
     await handleOperation(() async {
-      // İzin kontrolü vs.
+      // Image picker için izin kontrolü vs.
     });
   }
 

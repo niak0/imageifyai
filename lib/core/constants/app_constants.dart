@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 
 /// Uygulama genelinde kullanılan sabit değerler
 abstract class AppConstants {
-  // App Info
-  static const String appName = 'Imageify AI';
-  static const String appVersion = '1.0.0';
-  static const String buildNumber = '1';
-
   // Storage Keys
   static const String themeKey = 'theme_mode';
   static const String languageKey = 'language';
@@ -23,7 +18,9 @@ abstract class AppConstants {
   static const double drawerWidth = 320;
   static const double headerHeight = 180;
   static const double cardBorderRadius = 16;
-  static const EdgeInsets paddingAllMd = EdgeInsets.all(16);
+
+  // Paddings
   static const EdgeInsets paddingAllSm = EdgeInsets.all(8);
+  static const EdgeInsets paddingAllMd = EdgeInsets.all(16);
   static const EdgeInsets paddingAllLg = EdgeInsets.all(24);
 }

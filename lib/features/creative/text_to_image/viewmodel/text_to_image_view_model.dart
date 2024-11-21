@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:imageifyai/core/services/image_service.dart';
-import 'package:imageifyai/core/utils/image_picker_dialog.dart';
+import 'package:imageifyai/core/widgets/image_picker_dialog.dart';
 import 'package:imageifyai/features/creative/text_to_image/constants/prompt_constants.dart';
 import 'package:imageifyai/features/settings/pages/history/model/history_model.dart';
 import 'package:imageifyai/features/settings/pages/history/view_model/history_view_model.dart';

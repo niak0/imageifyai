@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 /// Uygulama yapılandırma ayarları
 class AppConfig {
   // Uygulama bilgileri
@@ -20,24 +18,6 @@ class AppConfig {
   // Cache ayarları
   static const Duration defaultCacheAge = Duration(hours: 1);
   static const int maxCacheSize = 50 * 1024 * 1024; // 50MB
-
-  // AI Ayarları
-  static const int defaultStepCount = 30;
-  static const double defaultGuidanceScale = 7.5;
-  static const int minStepCount = 20;
-  static const int maxStepCount = 50;
-  static const double minGuidanceScale = 1.0;
-  static const double maxGuidanceScale = 20.0;
-
-  // Storage Keys
-  static const String themeKey = 'theme_mode';
-  static const String languageKey = 'language';
-
-  // UI Constants
-  static const double drawerWidth = 320;
-  static const double headerHeight = 180;
-  static const double cardBorderRadius = 16;
-  static const EdgeInsets paddingAllMd = EdgeInsets.all(16);
 
   // Feature flags
   static const bool enableAnalytics = true;

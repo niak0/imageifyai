@@ -6,7 +6,7 @@ import 'package:imageifyai/core/constants/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/utils/image_picker_dialog.dart';
+import '../../../../core/widgets/image_picker_dialog.dart';
 
 class UpscalerView extends StatelessWidget {
   const UpscalerView({super.key});

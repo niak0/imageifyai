@@ -9,20 +9,15 @@ abstract class AppTheme {
     return base.copyWith(
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.background,
-
-      // Buton temaları
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyles.primary(),
       ),
-
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyles.text(),
       ),
-
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyles.secondary(),
       ),
-
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
@@ -31,7 +26,6 @@ abstract class AppTheme {
         onSecondary: AppColors.text,
         onSurface: AppColors.text,
       ),
-
       textTheme: base.textTheme.copyWith(
         headlineLarge: const TextStyle(
           fontSize: 24,
@@ -56,7 +50,6 @@ abstract class AppTheme {
           color: AppColors.textLow,
         ),
       ),
-
       appBarTheme: base.appBarTheme.copyWith(
         elevation: 0,
         centerTitle: true,

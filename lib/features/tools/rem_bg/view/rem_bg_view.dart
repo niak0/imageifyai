@@ -7,7 +7,7 @@ import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/features/tools/rem_bg/view_model/rem_bg_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../core/utils/image_picker_dialog.dart';
+import '../../../../core/widgets/image_picker_dialog.dart';
 
 class RemoveBackgroundView extends StatelessWidget {
   const RemoveBackgroundView({super.key});

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:imageifyai/core/utils/image_picker_dialog.dart';
+import 'package:imageifyai/core/widgets/image_picker_dialog.dart';
 import '../../../../../core/constants/colors.dart';
 
 class ParentImageSelector extends StatelessWidget {

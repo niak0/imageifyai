@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class FadeRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
 
-  /// FadeRoute oluşturur
-  /// [page] sayfa widget'ı
   FadeRoute({required this.page})
       : super(
           pageBuilder: (context, animation, secondaryAnimation) => page,

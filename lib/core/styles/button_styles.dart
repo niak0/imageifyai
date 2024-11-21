@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
 import '../constants/colors.dart';
 
-/// Buton stilleri için yardımcı sınıf
 abstract class ButtonStyles {
-  // Temel buton özellikleri
   static const _defaultRadius = AppConstants.cardBorderRadius;
   static const _defaultElevation = 0.0;
 
@@ -37,7 +35,6 @@ abstract class ButtonStyles {
     );
   }
 
-  /// Secondary buton stili
   static ButtonStyle secondary({
     Color? color,
     Size? size,
@@ -59,7 +56,6 @@ abstract class ButtonStyles {
     );
   }
 
-  /// Text buton stili
   static ButtonStyle text({
     Color? color,
     Size? size,
@@ -86,18 +82,3 @@ abstract class ButtonStyles {
     return AppConstants.paddingAllMd;
   }
 }
-
-/// Kullanım örneği:
-/// ```dart
-/// ElevatedButton(
-///   style: ButtonStyles.primary(),
-///   onPressed: () {},
-///   child: Text('Primary Button'),
-/// )
-/// 
-/// TextButton(
-///   style: ButtonStyles.text(),
-///   onPressed: () {},
-///   child: Text('Text Button'),
-/// )
-/// ```
