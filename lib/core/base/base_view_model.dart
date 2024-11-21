@@ -26,12 +26,14 @@ abstract class BaseViewModel extends ChangeNotifier {
   @protected
   Future<void> handleAsync(Future<void> Function() operation) async {
     try {
-      setLoading(true);
+      _isLoading = true;
+      notifyListeners();
       await operation();
     } catch (e) {
-      setError(e.toString());
+      _errorMessage = e.toString();
     } finally {
-      setLoading(false);
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

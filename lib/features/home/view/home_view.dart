@@ -8,9 +8,9 @@ import 'package:imageifyai/features/home/view/widgets/app_drawer.dart';
 import 'package:imageifyai/features/home/view/widgets/custom_app_bar.dart';
 import 'package:imageifyai/features/home/view/widgets/feature_card.dart';
 import 'package:imageifyai/features/home/viewmodel/home_view_model.dart';
-import 'package:imageifyai/product/styles/decorations.dart';
-import 'package:imageifyai/product/tokens/app_tokens.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/decorations.dart';
+import 'package:imageifyai/core/tokens/app_tokens.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {

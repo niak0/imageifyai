@@ -1,149 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/services/storage_service.dart';
+import '../../../core/services/storage/storage_service.dart';
 import '../model/settings_model.dart';
 
 class SettingsViewModel extends ChangeNotifier {
-  Settings _settings = Settings(
-    isDarkMode: StorageService.getTheme(),
-    language: StorageService.getLanguage(),
-    notificationsEnabled: StorageService.getNotifications(),
-    saveHistory: StorageService.getSaveHistory(),
-    imageQuality: StorageService.getImageQuality(),
-    stepCount: StorageService.getStepCount(),
-    guidanceScale: StorageService.getGuidanceScale(),
-    useSeed: StorageService.getUseSeed(),
-    seedValue: StorageService.getSeedValue(),
-  );
+  final StorageService _storage;
 
+  SettingsViewModel({required StorageService storage}) : _storage = storage {
+    _loadSettings();
+  }
+
+  late Settings _settings;
   Settings get settings => _settings;
   bool get isDark => _settings.isDarkMode;
   ThemeMode get themeMode => _settings.isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
-  Future<void> toggleTheme() async {
-    await StorageService.setTheme(!_settings.isDarkMode);
+  void _loadSettings() {
     _settings = Settings(
-      isDarkMode: !_settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
+      isDarkMode: _storage.getTheme(),
+      language: _storage.getLanguage(),
+      notificationsEnabled: _storage.getNotifications(),
+      saveHistory: _storage.getSaveHistory(),
+      imageQuality: _storage.getImageQuality(),
+      stepCount: _storage.getStepCount(),
+      guidanceScale: _storage.getGuidanceScale(),
+      useSeed: _storage.getUseSeed(),
+      seedValue: _storage.getSeedValue(),
     );
     notifyListeners();
+  }
+
+  Future<void> toggleTheme() async {
+    await _storage.setTheme(!_settings.isDarkMode);
+    _loadSettings();
   }
 
   Future<void> toggleNotifications(bool value) async {
-    await StorageService.setNotifications(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: value,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setNotifications(value);
+    _loadSettings();
   }
 
   Future<void> toggleSaveHistory(bool value) async {
-    await StorageService.setSaveHistory(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: value,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setSaveHistory(value);
+    _loadSettings();
   }
 
   Future<void> setImageQuality(String quality) async {
-    await StorageService.setImageQuality(quality);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: quality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setImageQuality(quality);
+    _loadSettings();
   }
 
   Future<void> setStepCount(int value) async {
-    await StorageService.setStepCount(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: value,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setStepCount(value);
+    _loadSettings();
   }
 
   Future<void> setGuidanceScale(double value) async {
-    await StorageService.setGuidanceScale(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: value,
-      useSeed: _settings.useSeed,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setGuidanceScale(value);
+    _loadSettings();
   }
 
   Future<void> toggleUseSeed(bool value) async {
-    await StorageService.setUseSeed(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: value,
-      seedValue: _settings.seedValue,
-    );
-    notifyListeners();
+    await _storage.setUseSeed(value);
+    _loadSettings();
   }
 
   Future<void> setSeedValue(int value) async {
-    await StorageService.setSeedValue(value);
-    _settings = Settings(
-      isDarkMode: _settings.isDarkMode,
-      language: _settings.language,
-      notificationsEnabled: _settings.notificationsEnabled,
-      saveHistory: _settings.saveHistory,
-      imageQuality: _settings.imageQuality,
-      stepCount: _settings.stepCount,
-      guidanceScale: _settings.guidanceScale,
-      useSeed: _settings.useSeed,
-      seedValue: value,
-    );
-    notifyListeners();
+    await _storage.setSeedValue(value);
+    _loadSettings();
   }
 }

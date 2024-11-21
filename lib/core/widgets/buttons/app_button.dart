@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/tokens/animations.dart';
-import 'package:imageifyai/product/tokens/app_tokens.dart';
-import '../../../product/styles/button_styles.dart';
-import '../../../product/tokens/colors.dart';
+import 'package:imageifyai/core/tokens/animations.dart';
+import 'package:imageifyai/core/tokens/app_tokens.dart';
+import '../../styles/button_styles.dart';
+import '../../tokens/colors.dart';
 
 class AppButton extends StatelessWidget {
   final String text;

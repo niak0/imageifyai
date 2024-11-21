@@ -1,13 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:imageifyai/features/settings/pages/history/view_model/history_view_model.dart';
-import 'package:imageifyai/features/settings/view_model/settings_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
+import '../services/storage/storage_service.dart';
+import '../../features/settings/view_model/settings_view_model.dart';
 
-/// Gerçekten global olması gereken provider'lar
 class AppProviders {
-  static List<SingleChildWidget> providers = [
-    ChangeNotifierProvider(create: (_) => SettingsViewModel()),
-    ChangeNotifierProvider(create: (_) => HistoryViewModel()),
+  static List<ChangeNotifierProvider> providers = [
+    ChangeNotifierProvider<StorageService>(
+      create: (_) => StorageService.instance,
+    ),
+    ChangeNotifierProvider<SettingsViewModel>(
+      create: (context) => SettingsViewModel(
+        storage: Provider.of<StorageService>(context, listen: false),
+      ),
+    ),
   ];
 }

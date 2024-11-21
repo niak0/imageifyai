@@ -1,7 +1,9 @@
 abstract class BaseService {
-  Future<T> handleResponse<T>(Future<T> Function() request) async {
+  Future<void> initialize();
+
+  Future<T> handleOperation<T>(Future<T> Function() operation) async {
     try {
-      return await request();
+      return await operation();
     } catch (e) {
       throw ServiceException(message: e.toString());
     }
@@ -11,4 +13,7 @@ abstract class BaseService {
 class ServiceException implements Exception {
   final String message;
   ServiceException({required this.message});
+
+  @override
+  String toString() => message;
 }

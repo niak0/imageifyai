@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/product/styles/input_styles.dart';
-import '../../../../../product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/input_styles.dart';
+import '../../../../../core/tokens/colors.dart';
 
 class TattooPromptInput extends StatefulWidget {
   final TextEditingController controller;

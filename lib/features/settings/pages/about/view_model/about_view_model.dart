@@ -5,10 +5,10 @@ class AboutViewModel extends ChangeNotifier {
   final AboutInfo aboutInfo = const AboutInfo(
     version: '1.0.0',
     buildNumber: '1',
-    developer: 'AI Studio Team',
-    website: 'https://aistudio.dev',
-    email: 'contact@aistudio.dev',
-    contributors: ['John Doe', 'Jane Doe'],
+    developer: 'Imageify AI Team',
+    website: 'https://imageify.ai',
+    email: 'contact@imageify.ai',
+    contributors: ['   '],
   );
 
   Future<void> sendFeedback(String feedback) async {

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/utils/image_picker_dialog.dart';
-import '../../../../../product/tokens/colors.dart';
+import '../../../../../core/tokens/colors.dart';
 
 class ParentImageSelector extends StatelessWidget {
   final String title;

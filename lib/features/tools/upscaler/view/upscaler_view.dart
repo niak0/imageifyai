@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/product/styles/button_styles.dart';
-import 'package:imageifyai/product/styles/decorations.dart';
-import 'package:imageifyai/product/tokens/app_tokens.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/button_styles.dart';
+import 'package:imageifyai/core/styles/decorations.dart';
+import 'package:imageifyai/core/tokens/app_tokens.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';

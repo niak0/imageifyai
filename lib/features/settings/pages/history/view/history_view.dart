@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/features/settings/pages/history/model/history_model.dart';
-import 'package:provider/provider.dart';
-import '../view_model/history_view_model.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:provider/provider.dart';
+import '../model/history_model.dart';
+import '../view_model/history_view_model.dart';
+import 'package:imageifyai/core/constants/app_constants.dart';
 
 class HistoryView extends StatefulWidget {
   const HistoryView({super.key});
@@ -24,17 +25,7 @@ class _HistoryViewState extends State<HistoryView> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      appBar: AppBar(
-        title: const Text('Geçmiş'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete_outline_rounded),
-            onPressed: () {
-              // TODO: Toplu silme işlemi
-            },
-          ),
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: Consumer<HistoryViewModel>(
         builder: (context, viewModel, child) {
           if (viewModel.isLoading) {
@@ -42,35 +33,57 @@ class _HistoryViewState extends State<HistoryView> {
           }
 
           if (viewModel.historyItems.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.history_rounded,
-                    size: 64,
-                    color: AppColors.primary.withOpacity(0.5),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Henüz geçmiş yok',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ],
-              ),
-            );
+            return _buildEmptyState();
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: viewModel.historyItems.length,
-            itemBuilder: (context, index) {
-              final item = viewModel.historyItems[index];
-              return _HistoryCard(item: item);
-            },
-          );
+          return _buildHistoryList(viewModel);
         },
       ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      title: const Text('Geçmiş'),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.delete_outline_rounded),
+          onPressed: () {
+            // TODO: Toplu silme işlemi
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.history_rounded,
+            size: 64,
+            color: AppColors.primary.withOpacity(0.5),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Henüz geçmiş yok',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHistoryList(HistoryViewModel viewModel) {
+    return ListView.builder(
+      padding: AppConstants.paddingAllMd,
+      itemCount: viewModel.historyItems.length,
+      itemBuilder: (context, index) {
+        final item = viewModel.historyItems[index];
+        return _HistoryCard(item: item);
+      },
     );
   }
 }
@@ -85,24 +98,32 @@ class _HistoryCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            item.imageUrl,
-            width: 56,
-            height: 56,
-            fit: BoxFit.cover,
-          ),
-        ),
+        leading: _buildLeadingImage(),
         title: Text(item.title),
         subtitle: Text(item.type),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete_outline),
-          onPressed: () {
-            context.read<HistoryViewModel>().deleteHistoryItem(item.id);
-          },
-        ),
+        trailing: _buildDeleteButton(context),
       ),
+    );
+  }
+
+  Widget _buildLeadingImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+        item.imageUrl,
+        width: 56,
+        height: 56,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildDeleteButton(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.delete_outline),
+      onPressed: () {
+        context.read<HistoryViewModel>().deleteHistoryItem(item.id);
+      },
     );
   }
 }

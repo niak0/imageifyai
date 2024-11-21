@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/tokens/app_tokens.dart';
+import 'package:imageifyai/core/tokens/app_tokens.dart';
 import '../tokens/colors.dart';
 
 enum AppButtonType { primary, secondary, text }

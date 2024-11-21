@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../product/tokens/colors.dart';
+import '../../../../../core/tokens/colors.dart';
 
 class FullScreenInput extends StatefulWidget {
   final String? initialText;

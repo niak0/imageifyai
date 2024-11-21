@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/features/home/models/ai_feature.dart';
 
 class FeatureCard extends StatelessWidget {

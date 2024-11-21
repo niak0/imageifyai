@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../product/tokens/animations.dart';
-import '../../../../../product/tokens/colors.dart';
+import '../../../../../core/tokens/animations.dart';
+import '../../../../../core/tokens/colors.dart';
 
 class GenderOption extends StatelessWidget {
   final IconData icon;
@@ -44,13 +44,10 @@ class GenderOption extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AppAnimations.scaleAnimation(
-              isSelected: isSelected,
-              child: Icon(
-                icon,
-                size: 32,
-                color: isSelected ? AppColors.primary : AppColors.textLow,
-              ),
+            Icon(
+              icon,
+              size: 32,
+              color: isSelected ? AppColors.primary : AppColors.textLow,
             ),
             const SizedBox(height: 8),
             AnimatedDefaultTextStyle(

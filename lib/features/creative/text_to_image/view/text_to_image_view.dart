@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/widgets/buttons/app_button.dart';
-import 'package:imageifyai/product/styles/button_styles.dart';
-import 'package:imageifyai/product/styles/decorations.dart';
-import 'package:imageifyai/product/tokens/animations.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/button_styles.dart';
+import 'package:imageifyai/core/styles/decorations.dart';
+import 'package:imageifyai/core/tokens/animations.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +78,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
     await dragController.animateTo(
       targetSize,
       duration: AppAnimations.normal,
-      curve: AppAnimations.sharpCurve,
+      curve: Curves.easeInOut,
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
-import '../../../../product/tokens/colors.dart';
+import '../../../../core/tokens/colors.dart';
 import '../viewmodel/tattoo_view_model.dart';
 import 'widgets/tattoo_prompt_input.dart';
 import 'widgets/style_selector.dart';

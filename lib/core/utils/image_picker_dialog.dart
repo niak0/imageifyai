@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../product/tokens/colors.dart';
+import '../tokens/colors.dart';
 
 class ImagePickerDialog {
   static Future<ImageSource?> show(BuildContext context) async {

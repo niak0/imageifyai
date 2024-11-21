@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/styles/input_styles.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/input_styles.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/core/services/navigation_service.dart';
 import 'package:imageifyai/features/creative/text_to_image/model/image_aspect_ratio.dart';
 import 'package:imageifyai/features/creative/text_to_image/model/image_style.dart';

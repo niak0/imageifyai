@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/widgets/gradient_scaffold.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:provider/provider.dart';
 import '../view_model/about_view_model.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
@@ -52,7 +52,7 @@ class AboutView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'AI Studio',
+                        'Imageify AI',
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,

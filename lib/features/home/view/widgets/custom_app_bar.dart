@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/styles/decorations.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/styles/decorations.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 
 class CustomAppBar extends StatelessWidget {

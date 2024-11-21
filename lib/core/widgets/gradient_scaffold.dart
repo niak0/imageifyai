@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/product/tokens/colors.dart';
+import 'package:imageifyai/core/tokens/colors.dart';
 
 class GradientScaffold extends StatelessWidget {
   final Widget body;
