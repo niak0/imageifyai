@@ -1,6 +1,40 @@
 # Imageify AI - Proje Detayları
-
+## Imageify AI - Proje Analizi
+### Imageify AI
+Imageify AI, yapay zeka tabanlı görüntü işleme ve üretme araçlarını bir araya getiren kapsamlı bir Flutter uygulamasıdır. Proje, modern yazılım mimarisi prensipleri gözetilerek üç ana katmanda (Core, Features, Product) yapılandırılmıştır.
+#### Teknik Altyapı
+Uygulama, Replicate platformu üzerinden çeşitli AI modellerine erişim sağlayacak ve Firebase Cloud Functions kullanarak webhook yönetimini gerçekleştirecektir. Görüntü işleme operasyonları tamamen sunucu tarafında yapılacak, böylece mobil cihaz performansı korunacaktır.
+### Mimari Yapı
+Core katmanı, uygulamanın temelini oluşturan bileşenleri içeriyor. Özellikle dikkat çeken noktalar:
+* Merkezi hata yönetimi için BaseService yapısı
+* Özelleştirilmiş UI bileşenleri (GradientScaffold, AppButton)
+* Glow ve press animasyonları için extension'lar
+* Material 3 tabanlı tema sistemi
+### Features Katmanı
+Features katmanı modüler bir yapıda tasarlanmış ve şu ana özellikleri içeriyor:
+* Text to Image dönüşümü
+* Arka plan kaldırma (RemBG)
+* Görüntü iyileştirme (Upscaler)
+### UI/UX Yaklaşımı
+Uygulama modern bir görsel dile sahip:
+* Gradient arka planlar
+* Glow efektleri
+* Press animasyonları
+* Material 3 tasarım sistemi
+Özellikle CustomAppBar ve GradientScaffold gibi özel bileşenler, uygulamaya özgün bir kimlik kazandırıyor.
+### Gelecek Planları
+* Premium özellikler ve abonelik sistemi entegrasyonu
+* Replicate üzerinden yeni AI modellerinin eklenmesi
+* İşlem takibi için olası WebSocket implementasyonu
+* Performans optimizasyonları
+### Teknik Notlar
+* Offline kullanım şu aşamada planlanmıyor
+* Authentication sistemi opsiyonel olarak Firebase Auth ile eklenebilir
+* Görsel depolama şimdilik düşünülmüyor
+* Progress tracking için WebSocket veya polling mekanizması değerlendirilecek
+Bu yapısıyla Imageify AI, modern teknolojileri kullanan, ölçeklenebilir ve kullanıcı dostu bir AI görüntü işleme platformu olma yolunda ilerliyor. Özellikle UI/UX tarafındaki özgün yaklaşımı ve modüler mimarisi ile dikkat çekiyor.
 ## 1. Core Katmanı Detayları
+
 
 ### 1.1 Base Katmanı (/core/base/)
 - **BaseService**: Tüm servisler için temel sınıf

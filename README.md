@@ -71,12 +71,10 @@ lib/
 4. Branch'inizi push edin (`git push origin feature/amazing`)
 5. Bir Pull Request oluşturun
 
-## 📄 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE] dosyasına bakın.
 
 ## 📞 İletişim
 
-- Website: [imageifyai.com](https://imageifyai.com)
-- Email: info@imageifyai.com
-- Twitter: [@imageifyai](https://twitter.com/imageifyai)
+- Website: 
+- Email: 
+- Twitter: 

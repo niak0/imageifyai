@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/theme/theme_manager.dart';
-import 'package:imageifyai/product/styles/decorations.dart';
 import 'package:imageifyai/product/tokens/colors.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:provider/provider.dart';
+import 'package:imageifyai/features/settings/pages/history/view/history_view.dart';
+import 'package:imageifyai/features/settings/view/settings_view.dart';
+import 'package:imageifyai/features/settings/pages/about/view/about_view.dart';
+import 'package:imageifyai/features/settings/view_model/settings_view_model.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final topPadding = mediaQuery.padding.top;
-    final themeManager = context.read<ThemeManager>();
+    final settingsViewModel = context.read<SettingsViewModel>();
 
     return Theme(
       data: Theme.of(context).copyWith(
-        drawerTheme: const DrawerThemeData(
+        drawerTheme: DrawerThemeData(
           backgroundColor: AppColors.surface,
-          scrimColor: Colors.black54,
+          scrimColor: Colors.black.withOpacity(0.6),
           elevation: 0,
+          width: 300,
         ),
       ),
       child: Drawer(
@@ -32,159 +33,151 @@ class AppDrawer extends StatelessWidget {
                 width: 1,
               ),
             ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.surface,
+                AppColors.surface.withOpacity(0.95),
+              ],
+            ),
           ),
           child: SafeArea(
             child: Column(
               children: [
-                // Header bölümü - SafeArea'dan sonra
-                SizedBox(
-                  height: 140, // DrawerHeader yerine sabit yükseklik
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          AppColors.primary.withOpacity(0.15),
-                          AppColors.secondary.withOpacity(0.15),
-                        ],
-                      ),
-                      border: Border(
-                        bottom: BorderSide(
-                          color: AppColors.primary.withOpacity(0.2),
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Logo veya İkon
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.primary.withOpacity(0.1),
-                            border: Border.all(
-                              color: AppColors.primary.withOpacity(0.3),
-                              width: 1,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primary.withOpacity(0.2),
-                                blurRadius: 8,
-                                spreadRadius: 1,
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.auto_awesome,
-                            size: 40,
-                            color: AppColors.primary,
-                          ).withEffect(),
-                        ),
-                        const SizedBox(height: 16),
-                        // Uygulama Adı
-                        const Text(
-                          'AI Studio',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ).withEffect(),
+                Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        AppColors.primary.withOpacity(0.2),
+                        AppColors.secondary.withOpacity(0.2),
                       ],
                     ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.primary.withOpacity(0.15),
+                          border: Border.all(
+                            color: AppColors.primary.withOpacity(0.3),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.primary.withOpacity(0.3),
+                              blurRadius: 12,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.auto_awesome,
+                          size: 44,
+                          color: AppColors.primary,
+                        ).withEffect(),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'AI Studio',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                      ).withEffect(),
+                    ],
                   ),
                 ),
-
-                // Menü öğeleri - Scrollable alan
+                const SizedBox(height: 16),
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
                     child: Column(
                       children: [
                         _buildMenuItem(
-                          icon: Icons.home,
+                          icon: Icons.home_rounded,
                           title: 'Ana Sayfa',
                           color: AppColors.primary,
                           onTap: () => Navigator.pop(context),
                         ),
                         _buildMenuItem(
-                          icon: Icons.history,
+                          icon: Icons.history_rounded,
                           title: 'Geçmiş',
                           color: AppColors.secondary,
                           onTap: () {
                             Navigator.pop(context);
-                            // Geçmiş sayfasına git
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const HistoryView()),
+                            );
                           },
                         ),
                         _buildMenuItem(
-                          icon: Icons.settings,
+                          icon: Icons.settings_rounded,
                           title: 'Ayarlar',
                           color: AppColors.tertiary,
                           onTap: () {
                             Navigator.pop(context);
-                            // Ayarlar sayfasına git
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const SettingsView()),
+                            );
                           },
                         ),
-                        const Divider(
-                          color: AppColors.outline,
-                          thickness: 1,
-                          height: 32,
-                          indent: 16,
-                          endIndent: 16,
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Divider(
+                            color: AppColors.outline,
+                            thickness: 1,
+                          ),
                         ),
                         _buildMenuItem(
-                          icon: Icons.info,
+                          icon: Icons.info_rounded,
                           title: 'Hakkında',
                           color: AppColors.info,
                           onTap: () {
                             Navigator.pop(context);
-                            // Hakkında sayfasına git
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const AboutView()),
+                            );
                           },
                         ),
                       ],
                     ),
                   ),
                 ),
-                // Karanlık Mod Seçimi
-                SwitchListTile(
-                  title: const Text('Karanlık Mod'),
-                  value: themeManager.isDark,
-                  onChanged: (value) {
-                    themeManager.toggleTheme();
-                  },
-                ),
-
-                // Alt kısım - Her zaman altta
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Divider(
-                        color: AppColors.outline,
-                        thickness: 1,
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.rocket_launch,
-                            size: 16,
-                            color: AppColors.primary,
-                          ).withEffect(),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Version 1.0.0',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                      const Icon(
+                        Icons.rocket_launch_rounded,
+                        size: 16,
+                        color: AppColors.primary,
+                      ).withEffect(),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Version 1.0.0',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 12,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ],
                   ),
@@ -203,24 +196,35 @@ class AppDrawer extends StatelessWidget {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: Container(
-        decoration: AppDecorations.baseContainer,
-        color: color,
-        child: ListTile(
-          leading: Icon(icon, color: color).withEffect(),
-          title: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.9),
-              fontWeight: FontWeight.w500,
-            ),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: color.withOpacity(0.1),
+        border: Border.all(
+          color: color.withOpacity(0.2),
+        ),
+      ),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color.withOpacity(0.1),
           ),
-          onTap: onTap,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          child: Icon(icon, color: color, size: 22).withEffect(),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.9),
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
           ),
+        ),
+        onTap: onTap,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

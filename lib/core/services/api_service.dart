@@ -25,6 +25,7 @@ class ApiService {
     Map<String, String>? headers,
   }) async {
     // Implementation
+    //websocket ile haberleşme
   }
 }
 

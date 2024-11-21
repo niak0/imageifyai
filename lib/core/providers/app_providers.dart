@@ -1,13 +1,13 @@
-import 'package:imageifyai/core/theme/theme_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:imageifyai/features/settings/pages/history/view_model/history_view_model.dart';
+import 'package:imageifyai/features/settings/view_model/settings_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 /// Gerçekten global olması gereken provider'lar
 class AppProviders {
-  static List<ChangeNotifierProvider> get providers => [
-        ChangeNotifierProvider<ThemeManager>(
-          create: (_) => ThemeManager(),
-        ),
-        // ChangeNotifierProvider(create: (_) => LocalizationManager()),
-        // Diğer global provider'lar...
-      ];
+  static List<SingleChildWidget> providers = [
+    ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+    ChangeNotifierProvider(create: (_) => HistoryViewModel()),
+  ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../config/app_config.dart';
+import 'package:imageifyai/core/services/storage_service.dart';
 
 ///Bu sınıfın amacı, Flutter uygulamasının başlangıcında gerekli
 ///hizmetleri başlatmak ve hata işleme mekanizmalarını yapılandırmaktır.
@@ -7,13 +8,14 @@ import '../config/app_config.dart';
 ///doğru şekilde davranmasını sağlar.
 class AppInit {
   static Future<void> init() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
     // Initialize services
     await _initializeServices();
 
     // Configure error handling
     _configureErrorHandling();
+
+    // Initialize StorageService
+    await StorageService.init();
   }
 
   static Future<void> _initializeServices() async {
