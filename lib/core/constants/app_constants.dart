@@ -24,4 +24,6 @@ abstract class AppConstants {
   static const double headerHeight = 180;
   static const double cardBorderRadius = 16;
   static const EdgeInsets paddingAllMd = EdgeInsets.all(16);
+  static const EdgeInsets paddingAllSm = EdgeInsets.all(8);
+  static const EdgeInsets paddingAllLg = EdgeInsets.all(24);
 }

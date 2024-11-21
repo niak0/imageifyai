@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../tokens/colors.dart';
-import '../tokens/app_tokens.dart';
+import '../constants/app_constants.dart';
+import '../constants/colors.dart';
 
 /// Buton stilleri için yardımcı sınıf
 abstract class ButtonStyles {
   // Temel buton özellikleri
-  static const _defaultRadius = AppTokens.radiusMd;
+  static const _defaultRadius = AppConstants.cardBorderRadius;
   static const _defaultElevation = 0.0;
 
   /// Primary buton stili
@@ -75,15 +75,15 @@ abstract class ButtonStyles {
 
   /// Buton boyutuna göre padding değerini döndürür
   static EdgeInsets _getPadding(Size? size) {
-    if (size == null) return AppTokens.paddingAllMd;
+    if (size == null) return AppConstants.paddingAllMd;
 
     if (size == const Size.square(32)) {
-      return AppTokens.paddingAllSm;
+      return AppConstants.paddingAllSm;
     } else if (size == const Size.square(48)) {
-      return AppTokens.paddingAllLg;
+      return AppConstants.paddingAllLg;
     }
 
-    return AppTokens.paddingAllMd;
+    return AppConstants.paddingAllMd;
   }
 }
 

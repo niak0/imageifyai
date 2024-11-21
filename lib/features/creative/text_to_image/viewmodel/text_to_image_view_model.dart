@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:imageifyai/core/services/image_service.dart';
 import 'package:imageifyai/core/utils/image_picker_dialog.dart';
 import 'package:imageifyai/features/creative/text_to_image/constants/prompt_constants.dart';
+import 'package:imageifyai/features/settings/pages/history/model/history_model.dart';
+import 'package:imageifyai/features/settings/pages/history/view_model/history_view_model.dart';
 import '../../../../core/base/base_view_model.dart';
 import '../model/chat_message.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class TextToImageViewModel extends BaseViewModel {
   final TextEditingController textController = TextEditingController();
   final TextEditingController negativePromptController = TextEditingController();
   final ImageService _imageService = ImageService();
+  final HistoryViewModel _historyViewModel;
 
   File? selectedImage;
 
@@ -28,7 +31,7 @@ class TextToImageViewModel extends BaseViewModel {
   ImageAspectRatio _selectedAspectRatio = ImageAspectRatio.ratios.first;
   ImageAspectRatio get selectedAspectRatio => _selectedAspectRatio;
 
-  TextToImageViewModel() {
+  TextToImageViewModel({required HistoryViewModel historyViewModel}) : _historyViewModel = historyViewModel {
     _messages.add(ChatMessage.bot(message: 'Merhaba, ben Imageify! Size nasıl yardımcı olabilirim?'));
     _messages.add(ChatMessage.bot(message: 'Hangi türde bir görsel oluşturmak istersiniz?'));
   }
@@ -69,6 +72,16 @@ class TextToImageViewModel extends BaseViewModel {
 
   Future<void> generateImage() async {
     if (textController.text.isEmpty) return;
+
+    _historyViewModel.addHistoryItem(HistoryItem(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      title: textController.text,
+      type: HistoryType.textToImage,
+      prompt: textController.text,
+      imageUrl: '',
+      createdAt: DateTime.now(),
+      settings: {},
+    ));
 
     await handleAsync(() async {
       await _addUserMessage();

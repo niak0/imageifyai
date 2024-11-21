@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class BaseService {
   Future<void> initialize();
 
@@ -5,6 +7,7 @@ abstract class BaseService {
     try {
       return await operation();
     } catch (e) {
+      debugPrint('Service Error: $e');
       throw ServiceException(message: e.toString());
     }
   }

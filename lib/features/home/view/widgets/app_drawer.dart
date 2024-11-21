@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/features/settings/pages/history/view/history_view.dart';
-import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:imageifyai/core/constants/colors.dart';
 import 'package:imageifyai/features/settings/view/settings_view.dart';
 import 'package:imageifyai/features/settings/pages/about/view/about_view.dart';
 

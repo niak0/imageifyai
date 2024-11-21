@@ -3,7 +3,6 @@ class Settings {
   final bool isDarkMode;
   final String language;
   final bool notificationsEnabled;
-  final bool saveHistory;
   final String imageQuality;
   // AI Görüntü ayarları
   final int stepCount;
@@ -15,7 +14,6 @@ class Settings {
     required this.isDarkMode,
     required this.language,
     required this.notificationsEnabled,
-    required this.saveHistory,
     required this.imageQuality,
     this.stepCount = 30,
     this.guidanceScale = 7.5,
@@ -28,7 +26,6 @@ class Settings {
         isDarkMode: false,
         language: 'tr',
         notificationsEnabled: false,
-        saveHistory: true,
         imageQuality: 'high',
         stepCount: 30,
         guidanceScale: 7.5,
@@ -42,7 +39,6 @@ class Settings {
       isDarkMode: json['isDarkMode'] as bool? ?? false,
       language: json['language'] as String? ?? 'tr',
       notificationsEnabled: json['notificationsEnabled'] as bool? ?? false,
-      saveHistory: json['saveHistory'] as bool? ?? true,
       imageQuality: json['imageQuality'] as String? ?? 'high',
       stepCount: json['stepCount'] as int? ?? 30,
       guidanceScale: (json['guidanceScale'] as num?)?.toDouble() ?? 7.5,
@@ -55,7 +51,6 @@ class Settings {
         'isDarkMode': isDarkMode,
         'language': language,
         'notificationsEnabled': notificationsEnabled,
-        'saveHistory': saveHistory,
         'imageQuality': imageQuality,
         'stepCount': stepCount,
         'guidanceScale': guidanceScale,
@@ -78,7 +73,6 @@ class Settings {
       isDarkMode: isDarkMode ?? this.isDarkMode,
       language: language ?? this.language,
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
-      saveHistory: saveHistory ?? this.saveHistory,
       imageQuality: imageQuality ?? this.imageQuality,
       stepCount: stepCount ?? this.stepCount,
       guidanceScale: guidanceScale ?? this.guidanceScale,

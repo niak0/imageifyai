@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/tokens/colors.dart';
+import '../../../../core/constants/colors.dart';
 import '../viewmodel/tattoo_view_model.dart';
 import 'widgets/tattoo_prompt_input.dart';
 import 'widgets/style_selector.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imageifyai/core/services/storage_service.dart';
 import 'package:provider/provider.dart';
 import '../view_model/settings_view_model.dart';
-import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:imageifyai/core/constants/colors.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -71,7 +71,6 @@ class SettingsView extends StatelessWidget {
       title: 'Genel',
       children: [
         _buildNotificationSwitch(viewModel),
-        _buildHistorySwitch(viewModel),
       ],
     );
   }
@@ -82,15 +81,6 @@ class SettingsView extends StatelessWidget {
       subtitle: const Text('Uygulama bildirimleri'),
       value: viewModel.settings.notificationsEnabled,
       onChanged: viewModel.toggleNotifications,
-    );
-  }
-
-  Widget _buildHistorySwitch(SettingsViewModel viewModel) {
-    return SwitchListTile(
-      title: const Text('Geçmişi Kaydet'),
-      subtitle: const Text('İşlem geçmişini sakla'),
-      value: viewModel.settings.saveHistory,
-      onChanged: viewModel.toggleSaveHistory,
     );
   }
 

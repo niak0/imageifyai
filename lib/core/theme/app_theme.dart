@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../tokens/colors.dart';
+import '../constants/colors.dart';
 import '../styles/button_styles.dart';
 
 abstract class AppTheme {

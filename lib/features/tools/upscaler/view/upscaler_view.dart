@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:imageifyai/core/styles/decorations.dart';
-import 'package:imageifyai/core/tokens/app_tokens.dart';
-import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:imageifyai/core/constants/app_constants.dart';
+import 'package:imageifyai/core/constants/colors.dart';
 import 'package:imageifyai/features/tools/upscaler/view_model/upscaler_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class UpscalerView extends StatelessWidget {
             title: const Text('Kalite Yükseltici'),
           ),
           body: SingleChildScrollView(
-            padding: AppTokens.paddingAllMd,
+            padding: AppConstants.paddingAllMd,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

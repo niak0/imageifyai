@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:imageifyai/core/constants/colors.dart';
 
 /// Container ve diğer widget'lar için temel dekorasyon stilleri
 abstract class AppDecorations {

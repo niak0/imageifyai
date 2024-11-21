@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/styles/decorations.dart';
-import 'package:imageifyai/core/tokens/colors.dart';
+import 'package:imageifyai/core/constants/colors.dart';
 import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
+import 'package:imageifyai/features/settings/pages/history/view_model/history_view_model.dart';
 import 'package:provider/provider.dart';
 import 'widgets/chat_input.dart';
 import 'widgets/chat_message_item.dart';
@@ -14,7 +15,10 @@ class TextToImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TextToImageViewModel(),
+      create: (context) {
+        final historyViewModel = HistoryViewModel();
+        return TextToImageViewModel(historyViewModel: historyViewModel);
+      },
       child: const _TextToImageContent(),
     );
   }

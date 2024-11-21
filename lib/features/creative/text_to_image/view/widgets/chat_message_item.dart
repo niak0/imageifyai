@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/features/creative/text_to_image/model/chat_message.dart';
-import 'package:imageifyai/core/tokens/app_tokens.dart';
-import '../../../../../core/tokens/colors.dart';
+import '../../../../../core/constants/app_constants.dart';
+import '../../../../../core/constants/colors.dart';
 
 class ChatMessageItem extends StatelessWidget {
   final ChatMessage message;
@@ -27,7 +27,7 @@ class ChatMessageItem extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: isUser ? AppColors.primary.withOpacity(0.2) : AppColors.surface,
-                borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+                borderRadius: BorderRadius.circular(AppConstants.cardBorderRadius),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../base/base_service.dart';
 
-class ImageService {
+class ImageService implements BaseService {
   final ImagePicker _picker = ImagePicker();
 
+  @override
+  Future<void> initialize() async {
+    // Image picker için gerekli izinleri kontrol et
+    await handleOperation(() async {
+      // İzin kontrolü vs.
+    });
+  }
+
   Future<String?> pickImage(ImageSource source) async {
-    try {
+    return await handleOperation(() async {
       final XFile? pickedFile = await _picker.pickImage(
         source: source,
         maxWidth: 1000,
@@ -12,12 +22,17 @@ class ImageService {
         imageQuality: 85,
       );
 
-      if (pickedFile != null) {
-        return pickedFile.path;
-      }
-      return null;
+      return pickedFile?.path;
+    });
+  }
+
+  @override
+  Future<T> handleOperation<T>(Future<T> Function() operation) async {
+    try {
+      return await operation();
     } catch (e) {
-      rethrow;
+      debugPrint('Service Error: $e');
+      throw ServiceException(message: e.toString());
     }
   }
 }
