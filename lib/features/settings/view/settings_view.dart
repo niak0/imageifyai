@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageifyai/core/services/storage_service.dart';
 import 'package:provider/provider.dart';
 import '../view_model/settings_view_model.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
@@ -8,23 +9,26 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: Consumer<SettingsViewModel>(
-        builder: (context, viewModel, child) {
-          return ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              _buildThemeSection(viewModel),
-              const SizedBox(height: 16),
-              _buildGeneralSection(viewModel),
-              const SizedBox(height: 16),
-              _buildImageQualitySection(viewModel),
-              const SizedBox(height: 16),
-              _buildAISettingsSection(viewModel),
-            ],
-          );
-        },
+    return ChangeNotifierProvider<SettingsViewModel>(
+      create: (context) => SettingsViewModel(storage: context.read<StorageService>()),
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Consumer<SettingsViewModel>(
+          builder: (context, viewModel, child) {
+            return ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                _buildThemeSection(viewModel),
+                const SizedBox(height: 16),
+                _buildGeneralSection(viewModel),
+                const SizedBox(height: 16),
+                _buildImageQualitySection(viewModel),
+                const SizedBox(height: 16),
+                _buildAISettingsSection(viewModel),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -137,7 +141,9 @@ class SettingsView extends StatelessWidget {
           max: 50,
           divisions: 30,
           label: viewModel.settings.stepCount.toString(),
-          onChanged: (value) => viewModel.setStepCount(value.toInt()),
+          onChanged: (value) => viewModel.updateAISettings(
+            stepCount: value.toInt(),
+          ),
         ),
       ),
     );
@@ -155,7 +161,9 @@ class SettingsView extends StatelessWidget {
           max: 20,
           divisions: 38,
           label: viewModel.settings.guidanceScale.toString(),
-          onChanged: (value) => viewModel.setGuidanceScale(value),
+          onChanged: (value) => viewModel.updateAISettings(
+            guidanceScale: value,
+          ),
         ),
       ),
     );
@@ -168,7 +176,9 @@ class SettingsView extends StatelessWidget {
           title: const Text('Seed Kontrolü'),
           subtitle: const Text('Aynı sonuçları tekrar üretebilme'),
           value: viewModel.settings.useSeed,
-          onChanged: viewModel.toggleUseSeed,
+          onChanged: (value) => viewModel.updateAISettings(
+            useSeed: value,
+          ),
         ),
         if (viewModel.settings.useSeed)
           Padding(
@@ -182,7 +192,9 @@ class SettingsView extends StatelessWidget {
               onChanged: (value) {
                 final seed = int.tryParse(value);
                 if (seed != null) {
-                  viewModel.setSeedValue(seed);
+                  viewModel.updateAISettings(
+                    seedValue: seed,
+                  );
                 }
               },
               controller: TextEditingController(

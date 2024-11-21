@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/tokens/animations.dart';
 import '../../../../../core/tokens/colors.dart';
 
 class GenderOption extends StatelessWidget {
@@ -21,7 +20,7 @@ class GenderOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: AppAnimations.normal,
+        duration: const Duration(milliseconds: 300),
         width: 100,
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
@@ -51,7 +50,7 @@ class GenderOption extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             AnimatedDefaultTextStyle(
-              duration: AppAnimations.fast,
+              duration: const Duration(milliseconds: 300),
               style: TextStyle(
                 color: isSelected ? AppColors.primary : AppColors.textLow,
                 fontSize: isSelected ? 16 : 14,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imageifyai/core/tokens/animations.dart';
 
 class FadeRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
@@ -15,6 +14,6 @@ class FadeRoute<T> extends PageRouteBuilder<T> {
               child: child,
             );
           },
-          transitionDuration: AppAnimations.normal,
+          transitionDuration: const Duration(milliseconds: 300),
         );
 }

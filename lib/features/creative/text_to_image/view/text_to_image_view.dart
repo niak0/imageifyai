@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imageifyai/core/extensions/glow_extensions.dart';
 import 'package:imageifyai/core/styles/decorations.dart';
-import 'package:imageifyai/core/tokens/animations.dart';
 import 'package:imageifyai/core/tokens/colors.dart';
 import 'package:imageifyai/features/creative/text_to_image/viewmodel/text_to_image_view_model.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +73,7 @@ class _TextToImageContentState extends State<_TextToImageContent> {
     final targetSize = isExpanded ? _minSheetSize : _maxSheetSize;
     await dragController.animateTo(
       targetSize,
-      duration: AppAnimations.normal,
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
   }

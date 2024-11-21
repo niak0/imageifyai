@@ -28,8 +28,8 @@ abstract class ButtonStyles {
         ),
       ),
     ).copyWith(
-      overlayColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.pressed)) {
+      overlayColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.pressed)) {
           return buttonColor.withOpacity(0.1);
         }
         return null;

@@ -1,71 +1,60 @@
 import 'package:flutter/material.dart';
-import '../../../core/services/storage/storage_service.dart';
+import '../../../core/base/base_view_model.dart';
+import '../../../core/services/storage_service.dart';
 import '../model/settings_model.dart';
 
-class SettingsViewModel extends ChangeNotifier {
+class SettingsViewModel extends BaseViewModel {
   final StorageService _storage;
 
-  SettingsViewModel({required StorageService storage}) : _storage = storage {
-    _loadSettings();
-  }
+  SettingsViewModel({required StorageService storage}) : _storage = storage;
 
-  late Settings _settings;
-  Settings get settings => _settings;
-  bool get isDark => _settings.isDarkMode;
-  ThemeMode get themeMode => _settings.isDarkMode ? ThemeMode.dark : ThemeMode.light;
+  // Getters
+  Settings get settings => _storage.settings;
+  bool get isDark => settings.isDarkMode;
+  ThemeMode get themeMode => settings.isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
-  void _loadSettings() {
-    _settings = Settings(
-      isDarkMode: _storage.getTheme(),
-      language: _storage.getLanguage(),
-      notificationsEnabled: _storage.getNotifications(),
-      saveHistory: _storage.getSaveHistory(),
-      imageQuality: _storage.getImageQuality(),
-      stepCount: _storage.getStepCount(),
-      guidanceScale: _storage.getGuidanceScale(),
-      useSeed: _storage.getUseSeed(),
-      seedValue: _storage.getSeedValue(),
-    );
-    notifyListeners();
-  }
-
+  // Theme ayarları
   Future<void> toggleTheme() async {
-    await _storage.setTheme(!_settings.isDarkMode);
-    _loadSettings();
+    await handleAsync(() async {
+      await _storage.updateSetting('isDarkMode', !settings.isDarkMode);
+    });
   }
 
+  // Bildirim ayarları
   Future<void> toggleNotifications(bool value) async {
-    await _storage.setNotifications(value);
-    _loadSettings();
+    await handleAsync(() async {
+      await _storage.updateSetting('notificationsEnabled', value);
+    });
   }
 
+  // Geçmiş kaydetme ayarları
   Future<void> toggleSaveHistory(bool value) async {
-    await _storage.setSaveHistory(value);
-    _loadSettings();
+    await handleAsync(() async {
+      await _storage.updateSetting('saveHistory', value);
+    });
   }
 
+  // Görüntü kalitesi ayarları
   Future<void> setImageQuality(String quality) async {
-    await _storage.setImageQuality(quality);
-    _loadSettings();
+    await handleAsync(() async {
+      await _storage.updateSetting('imageQuality', quality);
+    });
   }
 
-  Future<void> setStepCount(int value) async {
-    await _storage.setStepCount(value);
-    _loadSettings();
-  }
-
-  Future<void> setGuidanceScale(double value) async {
-    await _storage.setGuidanceScale(value);
-    _loadSettings();
-  }
-
-  Future<void> toggleUseSeed(bool value) async {
-    await _storage.setUseSeed(value);
-    _loadSettings();
-  }
-
-  Future<void> setSeedValue(int value) async {
-    await _storage.setSeedValue(value);
-    _loadSettings();
+  // AI ayarları
+  Future<void> updateAISettings({
+    int? stepCount,
+    double? guidanceScale,
+    bool? useSeed,
+    int? seedValue,
+  }) async {
+    await handleAsync(() async {
+      await _storage.updateAISettings(
+        stepCount: stepCount,
+        guidanceScale: guidanceScale,
+        useSeed: useSeed,
+        seedValue: seedValue,
+      );
+    });
   }
 }
